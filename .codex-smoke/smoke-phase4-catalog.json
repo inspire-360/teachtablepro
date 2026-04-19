@@ -1,0 +1,70 @@
+{
+  "success": true,
+  "appUrl": "http://127.0.0.1:4178/",
+  "screenshotPath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-phase4-catalog.png",
+  "statePath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-phase4-catalog.json",
+  "domPath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-phase4-catalog.dom.html",
+  "startedAt": "2026-04-19T09:30:10.291Z",
+  "beforeLogin": {
+    "href": "http://127.0.0.1:4178/",
+    "authVisible": true,
+    "bootVisible": false,
+    "hasEmailInput": true,
+    "hasPasswordInput": true,
+    "emailButtonDisabled": false,
+    "authError": null
+  },
+  "dashboard": {
+    "href": "http://127.0.0.1:4178/",
+    "shellVisible": true,
+    "metricsCount": 4,
+    "pageTitle": "ภาพรวมการดำเนินงาน",
+    "userEmail": "smoke_test@chpschool.ac.th"
+  },
+  "catalogRoute": {
+    "hash": "#/catalog/teachers"
+  },
+  "catalogTeachers": {
+    "href": "http://127.0.0.1:4178/#/catalog/teachers",
+    "hash": "#/catalog/teachers",
+    "catalogVisible": true,
+    "navCount": 6,
+    "readinessCount": 3,
+    "moduleTitle": "ครูและบทบาทการสอน",
+    "summary": "ทั้งหมด 3 รายการ • พร้อมใช้งาน 2 • ต้องตรวจสอบ 1 • แสดง 3 รายการ",
+    "headers": [
+      "รหัส",
+      "ชื่อครู",
+      "คาบสูงสุด",
+      "บทบาท",
+      "วิชาที่ผูก",
+      "สถานะความพร้อม",
+      "จัดการ"
+    ],
+    "activeNav": "ครู"
+  },
+  "catalogSwitch": {
+    "ok": true,
+    "hash": "#/catalog/instructionalGroups"
+  },
+  "catalogInstructionalGroups": {
+    "href": "http://127.0.0.1:4178/#/catalog/instructionalGroups",
+    "hash": "#/catalog/instructionalGroups",
+    "catalogVisible": true,
+    "navCount": 6,
+    "readinessCount": 2,
+    "moduleTitle": "กลุ่มการสอนที่พร้อมลงตาราง",
+    "summary": "ทั้งหมด 2 รายการ • พร้อมใช้งาน 2 • ต้องตรวจสอบ 0 • แสดง 2 รายการ",
+    "headers": [
+      "รหัสกลุ่ม",
+      "ชื่อ/รายวิชา",
+      "ชั้นเรียน",
+      "รูปแบบ/ครู",
+      "คาบที่ต้องจัด",
+      "สถานะ",
+      "จัดการ"
+    ],
+    "activeNav": "กลุ่มการสอน"
+  },
+  "endedAt": "2026-04-19T09:30:16.385Z"
+}

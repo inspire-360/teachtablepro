@@ -1,9 +1,9 @@
 import { getAuthSetupStatus } from "../services/auth-service.js";
 
-export function createInitialAppState(initialScreen = "dashboard") {
+export function createInitialAppState(initialScreen = "dashboard", initialCatalogType = "teachers") {
   return {
     screen: initialScreen,
-    catalogType: "teachers",
+    catalogType: initialCatalogType,
     catalogFilter: "",
     catalogSearch: "",
     dashboardLevelFilter: "",

@@ -1,1 +1,315 @@
-/* Phase 1 placeholder: catalog page styles will migrate here in Phase 2-6. */
+.catalog-shell {
+  display: grid;
+  grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.catalog-nav-panel {
+  position: sticky;
+  top: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.catalog-nav-head {
+  display: grid;
+  gap: 8px;
+}
+
+.catalog-nav-list {
+  display: grid;
+  gap: 10px;
+}
+
+.catalog-nav-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(24, 116, 152, 0.12);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(244, 249, 250, 0.84));
+  text-align: left;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.catalog-nav-item:hover,
+.catalog-nav-item:focus-visible {
+  border-color: rgba(24, 116, 152, 0.3);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+.catalog-nav-item.is-active {
+  border-color: rgba(24, 116, 152, 0.4);
+  box-shadow: 0 16px 30px rgba(24, 116, 152, 0.12);
+  background:
+    radial-gradient(circle at top right, rgba(202, 247, 237, 0.85), transparent 36%),
+    linear-gradient(180deg, rgba(238, 250, 247, 0.96), rgba(247, 251, 252, 0.94));
+}
+
+.catalog-nav-step {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: inline-grid;
+  place-items: center;
+  background: rgba(24, 116, 152, 0.08);
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.catalog-nav-copy {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.catalog-nav-copy strong {
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.catalog-nav-copy small {
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+
+.catalog-nav-meta {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.catalog-nav-ready,
+.catalog-nav-count {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(24, 116, 152, 0.08);
+}
+
+.catalog-nav-ready.has-issues {
+  background: rgba(232, 115, 91, 0.14);
+  color: #c04d35;
+}
+
+.catalog-nav-ready.is-clean {
+  background: rgba(38, 166, 91, 0.12);
+  color: #157347;
+}
+
+.catalog-flow-card {
+  padding: 14px 16px;
+  border-radius: 22px;
+  border: 1px dashed rgba(24, 116, 152, 0.18);
+  background: rgba(243, 248, 250, 0.84);
+  display: grid;
+  gap: 8px;
+}
+
+.catalog-module-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
+  gap: 18px;
+  align-items: start;
+}
+
+.catalog-module-copy {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.catalog-module-copy .tt-section-title {
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+}
+
+.catalog-module-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.catalog-stat-card {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(24, 116, 152, 0.1);
+  background: rgba(247, 251, 252, 0.9);
+}
+
+.catalog-stat-card span,
+.catalog-stat-card small {
+  color: var(--color-muted);
+}
+
+.catalog-stat-card strong {
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+.catalog-stat-card.is-ready {
+  background:
+    radial-gradient(circle at top right, rgba(204, 251, 241, 0.72), transparent 34%),
+    rgba(239, 250, 245, 0.96);
+}
+
+.catalog-stat-card.is-attention {
+  background:
+    radial-gradient(circle at top right, rgba(255, 241, 182, 0.76), transparent 38%),
+    rgba(255, 248, 235, 0.96);
+}
+
+.catalog-toolbar-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.catalog-toolbar {
+  gap: 14px;
+  align-items: flex-end;
+}
+
+.catalog-toolbar-filters {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.catalog-toolbar-filters select,
+.catalog-toolbar-filters input {
+  flex: 1 1 220px;
+  min-width: 180px;
+}
+
+.catalog-summary-text {
+  min-height: 24px;
+}
+
+.catalog-table-panel {
+  min-width: 0;
+  grid-column: 1 / -1;
+}
+
+.catalog-table-wrap {
+  overflow: auto;
+}
+
+.catalog-data-table {
+  min-width: 1040px;
+}
+
+.catalog-cell-stack {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.catalog-cell-stack strong {
+  font-size: 0.96rem;
+  color: var(--color-text);
+}
+
+.catalog-cell-stack small {
+  color: var(--color-muted);
+  line-height: 1.45;
+}
+
+.readiness-badge {
+  display: inline-grid;
+  gap: 3px;
+  min-width: 190px;
+  padding: 8px 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(24, 116, 152, 0.1);
+  background: rgba(247, 251, 252, 0.9);
+  color: var(--color-text);
+}
+
+.readiness-badge strong {
+  font-size: 0.82rem;
+  line-height: 1.1;
+}
+
+.readiness-badge small {
+  font-size: 0.76rem;
+  line-height: 1.35;
+  color: inherit;
+  opacity: 0.84;
+}
+
+.readiness-badge.is-ready {
+  background: rgba(234, 248, 241, 0.96);
+  border-color: rgba(38, 166, 91, 0.16);
+  color: #157347;
+}
+
+.readiness-badge.is-warning {
+  background: rgba(255, 247, 225, 0.98);
+  border-color: rgba(201, 135, 29, 0.18);
+  color: #9a5b00;
+}
+
+.readiness-badge.is-critical {
+  background: rgba(255, 238, 235, 0.98);
+  border-color: rgba(210, 78, 55, 0.18);
+  color: #b33c26;
+}
+
+@media (max-width: 1180px) {
+  .catalog-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-nav-panel {
+    position: static;
+  }
+
+  .catalog-nav-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalog-module-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 780px) {
+  .catalog-nav-list,
+  .catalog-module-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-toolbar {
+    align-items: stretch;
+  }
+
+  .catalog-toolbar-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .catalog-toolbar-filters select,
+  .catalog-toolbar-filters input,
+  .catalog-toolbar > button {
+    width: 100%;
+  }
+
+  .catalog-data-table {
+    min-width: 860px;
+  }
+}
