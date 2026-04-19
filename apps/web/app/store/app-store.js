@@ -24,6 +24,7 @@ export function createInitialAppState(initialScreen = "dashboard") {
       resource: "teachers",
       recordId: "",
     },
+    sidebarOpen: false,
     auth: {
       status: "loading",
       user: null,

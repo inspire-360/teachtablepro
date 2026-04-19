@@ -283,28 +283,16 @@
   "collaboration": {
     "presences": [
       {
-        "id": "tt-current:zU5ZBkFbo4NfetvLSmdJMAD3LTT2",
+        "id": "tt-current:41fw7hZREaTJRWJcYWrnsosRd0M2",
         "timetableId": "tt-current",
-        "userId": "zU5ZBkFbo4NfetvLSmdJMAD3LTT2",
-        "displayName": "Admin",
+        "userId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "displayName": "smoke_test",
         "status": "ACTIVE",
         "currentView": "section",
         "selectedSectionId": "section-2e0d203f",
         "selectedTeacherId": "",
-        "lastSeenAt": "2026-04-18T19:57:31.655Z",
-        "expiresAt": "2026-04-18T19:59:01.655Z"
-      },
-      {
-        "id": "tt-current:s9mtyc9z5xYaPlkHX2QsqE3Zg4w1",
-        "timetableId": "tt-current",
-        "userId": "s9mtyc9z5xYaPlkHX2QsqE3Zg4w1",
-        "displayName": "Aphiwat Yot-in",
-        "status": "ACTIVE",
-        "currentView": "section",
-        "selectedSectionId": "section-2e0d203f",
-        "selectedTeacherId": "",
-        "lastSeenAt": "2026-04-18T19:58:59.223Z",
-        "expiresAt": "2026-04-18T20:00:29.223Z"
+        "lastSeenAt": "2026-04-19T09:09:19.565Z",
+        "expiresAt": "2026-04-19T09:10:49.565Z"
       }
     ],
     "locks": [],

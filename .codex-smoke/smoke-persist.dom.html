@@ -1,0 +1,531 @@
+﻿<!DOCTYPE html>
+<html lang="th"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachTable</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&amp;family=Sarabun:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/tokens.css">
+    <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/utilities.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./tailwind.css">
+  </head>
+  <body>
+    <script src="/app-config.js"></script>
+
+    <section class="boot-screen" id="boot-screen">
+      <div class="boot-card tt-soft-panel tt-focus-panel">
+        <p class="eyebrow tt-kicker">TeachTable</p>
+        <h1 class="tt-display">กำลังเตรียมพื้นที่จัดตารางสอน</h1>
+        <p class="tt-body-soft" id="boot-status">เธเธณเธฅเธฑเธเธ•เธฃเธงเธเธชเธญเธเธชเธดเธ—เธเธดเนเธเธฒเธฃเน€เธเนเธฒเนเธเนเนเธฅเธฐเนเธซเธฅเธ”เธเนเธญเธกเธนเธฅเธฅเนเธฒเธชเธธเธ”เธเธญเธเธชเธ–เธฒเธเธจเธถเธเธฉเธฒ</p>
+      </div>
+    </section>
+
+    <section class="auth-screen hidden" id="auth-screen">
+      <div class="auth-showcase tt-focus-panel">
+        <p class="eyebrow tt-kicker">ระบบบริหารตารางสอน</p>
+        <h1 class="tt-display">เข้าสู่ระบบก่อน แล้วเริ่มจัดตารางสอนทั้งโรงเรียนได้อย่างมั่นใจ</h1>
+        <p class="auth-copy tt-body-soft">
+          TeachTable รวมข้อมูลครู ห้องเรียน รายวิชา ตารางสอน และการทำงานร่วมกันไว้ในหน้าจอเดียว เพื่อให้จัดตารางจริงได้ง่ายขึ้น
+        </p>
+        <div class="auth-feature-list">
+          <article class="tt-feature-card">
+            <strong class="tt-heading">ปลอดภัย</strong>
+            <p>เฉพาะผู้ใช้ที่ยืนยันตัวตนแล้วเท่านั้นที่เข้าถึงข้อมูลและการส่งออกเอกสารได้</p>
+          </article>
+          <article class="tt-feature-card">
+            <strong class="tt-heading">เห็นภาพรวมเร็ว</strong>
+            <p>ดูสถานะตาราง ภาระงานครู และห้องที่ยังจัดไม่ครบจากหน้าจอเดียว</p>
+          </article>
+          <article class="tt-feature-card">
+            <strong class="tt-heading">พร้อมใช้งานจริง</strong>
+            <p>รองรับการจัดคาบ ตรวจชนข้อมูล ส่งออก และพิมพ์เอกสารแบบ production-ready</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="auth-panel">
+        <div class="auth-card tt-soft-panel">
+          <div class="auth-chip" id="auth-status-chip">ต้องยืนยันตัวตน</div>
+          <p class="eyebrow tt-kicker">เข้าสู่ระบบอย่างปลอดภัย</p>
+          <h2 class="tt-display tt-title-spacing">เข้าสู่ระบบ TeachTable</h2>
+          <p class="muted-text tt-body-soft">
+            ใช้บัญชีของสถานศึกษาหรือบัญชีที่เปิดไว้ใน Firebase เพื่อเข้าถึงระบบ
+          </p>
+
+          <button class="primary-button wide" data-icon="spark" id="google-signin-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m12 3 1.8 4.5L18 9.3l-4.2 1.8L12 15.6l-1.8-4.5L6 9.3l4.2-1.8Z"></path>
+      <path d="M19 16l.8 2 .8.3-.8.3-.8 2-.8-2-.8-.3.8-.3Z"></path>
+    </svg>
+  </span><span>เข้าสู่ระบบด้วย Google</span></button>
+
+          <div class="auth-divider"><span>หรือเข้าสู่ระบบด้วยอีเมล</span></div>
+
+          <form class="auth-form" id="email-login-form">
+            <label class="field">
+              <span>อีเมล</span>
+              <input id="auth-email-input" type="email" autocomplete="username" required="">
+            </label>
+            <label class="field">
+              <span>รหัสผ่าน</span>
+              <input id="auth-password-input" type="password" autocomplete="current-password" required="">
+            </label>
+            <button class="ghost-button wide" data-icon="check" id="email-login-button" type="submit" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 6 9 17l-5-5"></path>
+    </svg>
+  </span><span>เข้าสู่ระบบด้วยอีเมล</span></button>
+          </form>
+
+          <p class="auth-error hidden" id="auth-error-message" role="alert"></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="shell hidden" id="app-shell">
+      <button class="sidebar-backdrop hidden" id="sidebar-backdrop" type="button" aria-label="ปิดเมนูด้านข้าง"></button>
+      <aside class="sidebar">
+        <div class="brand brand-panel">
+          <div class="brand-mark">TT</div>
+          <div>
+            <p class="eyebrow tt-kicker">ระบบบริหารตารางสอน</p>
+            <h1 class="tt-display">TeachTable</h1>
+            <p class="muted-text">จัดข้อมูลหลัก วางคาบ ตรวจชน และส่งออกเอกสารได้จากพื้นที่ทำงานเดียว</p>
+          </div>
+        </div>
+
+        <button class="text-button sidebar-close" data-icon="close" id="sidebar-close-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 6 6 18"></path>
+      <path d="m6 6 12 12"></path>
+    </svg>
+  </span><span>ปิดเมนู</span></button>
+
+        <section class="sidebar-section" id="sidebar-nav-section">
+          <p class="sidebar-label">เมนูหลัก</p>
+          <div id="sidebar-nav-slot"><nav class="nav top-nav" id="nav"></nav></div>
+        </section>
+
+        <section class="sidebar-card tt-soft-panel">
+          <p class="sidebar-label">สถานะระบบ</p>
+          <div class="status-list" id="system-status"></div>
+        </section>
+        <section class="sidebar-section" id="sidebar-user-section">
+          <p class="sidebar-label">บัญชีผู้ใช้งาน</p>
+          <p class="sidebar-user-note muted-text" id="user-menu-note">รอข้อมูลบัญชีผู้ใช้งาน</p>
+          <div id="sidebar-user-slot"><section class="profile-console" aria-label="โปรไฟล์ผู้ใช้งาน">
+                <div class="profile-console-head">
+                  <div class="avatar profile-avatar" id="user-avatar">TT</div>
+                  <div class="profile-console-copy">
+                    <strong id="user-name">-</strong>
+                    <p class="muted-text" id="user-email">-</p>
+                  </div>
+                  <div class="auth-chip subtle profile-status" id="account-status">เข้าสู่ระบบแล้ว</div>
+                </div>
+                <div class="profile-console-actions">
+                  <input id="display-name-input" type="text" maxlength="60" placeholder="ชื่อที่แสดงในระบบ" aria-label="ชื่อที่แสดงในระบบ">
+                  <button class="ghost-button" data-icon="save" id="save-profile-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 4h11l3 3v13H5z"></path>
+      <path d="M9 4v6h6V4"></path>
+      <path d="M9 18h6"></path>
+    </svg>
+  </span><span>บันทึกชื่อ</span></button>
+                  <button class="text-button" data-icon="logout" id="signout-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+      <path d="M16 17l5-5-5-5"></path>
+      <path d="M21 12H9"></path>
+    </svg>
+  </span><span>ออกจากระบบ</span></button>
+                </div>
+              </section></div>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar page-header tt-soft-panel">
+          <div class="topbar-main">
+            <div class="topbar-copy">
+              <div class="page-context">
+                <button class="ghost-button shell-toggle" data-icon="menu" id="sidebar-toggle-button" type="button" aria-controls="sidebar-nav-slot" aria-expanded="false" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 7h16"></path>
+      <path d="M4 12h16"></path>
+      <path d="M4 17h16"></path>
+    </svg>
+  </span><span>เมนู</span></button>
+                <p class="eyebrow" id="school-caption">TeachTable</p>
+              </div>
+              <nav class="page-breadcrumb hidden" id="page-breadcrumb" aria-label="Breadcrumb"></nav>
+              <h2 class="tt-display" id="page-title">ภาพรวมการทำงาน</h2>
+              <p class="topbar-description" id="page-description">ระบบตารางสอนพร้อมใช้งานหลังยืนยันตัวตน</p>
+            </div>
+
+            <div class="topbar-side">
+              <div class="topbar-actions">
+                <div class="live-pill" id="live-pill">กำลังโหลดสถานะ</div>
+                <div class="sync-note" id="sync-note">รอการซิงก์ครั้งแรก</div>
+                <button class="ghost-button" data-icon="refresh" id="refresh-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 11a8 8 0 1 0 2 5.3"></path>
+      <path d="M20 4v7h-7"></path>
+    </svg>
+  </span><span>รีเฟรชข้อมูล</span></button>
+              </div>
+
+              
+            </div>
+          </div>
+
+          <div class="topbar-nav page-subnav hidden" id="catalog-subnav">
+            
+          </div>
+        </header>
+
+        <section class="workspace-state hidden" id="workspace-state"></section>
+
+        <section class="screen" data-screen="dashboard">
+          <div class="hero-panel tt-soft-panel tt-focus-panel">
+            <div class="hero-copy">
+              <p class="eyebrow tt-kicker">ภาพรวมการดำเนินงาน</p>
+              <h3 class="tt-display">ดูความพร้อมของข้อมูลและตารางสอนได้ในมุมเดียว</h3>
+              <p class="hero-text">ติดตามสถานะตารางสอน รายการแจ้งเตือน และภาระงานครูเพื่อรู้ว่าควรแก้ส่วนไหนก่อน</p>
+            </div>
+            <div class="hero-actions">
+              <button class="primary-button" data-icon="spark" id="hero-auto-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m12 3 1.8 4.5L18 9.3l-4.2 1.8L12 15.6l-1.8-4.5L6 9.3l4.2-1.8Z"></path>
+      <path d="M19 16l.8 2 .8.3-.8.3-.8 2-.8-2-.8-.3.8-.3Z"></path>
+    </svg>
+  </span><span>จัดตารางอัตโนมัติ</span></button>
+              <button class="ghost-button" data-icon="timetable" data-screen-link="timetable" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="17" rx="3"></rect>
+      <path d="M8 2v4"></path>
+      <path d="M16 2v4"></path>
+      <path d="M3 10h18"></path>
+      <path d="M8 14h3"></path>
+      <path d="M13 14h3"></path>
+      <path d="M8 18h3"></path>
+    </svg>
+  </span><span>เปิดหน้าตารางสอน</span></button>
+            </div>
+          </div>
+
+          <section class="dashboard-toolbar panel compact-panel">
+            <div>
+              <p class="eyebrow">ตัวกรองและภาพสรุป</p>
+              <h3 class="tt-section-title">เลือกมุมมองที่ต้องการติดตาม</h3>
+              <p class="muted-text" id="dashboard-filter-note">กำลังแสดงภาพรวมทุกระดับชั้น</p>
+            </div>
+            <div class="toolbar">
+              <select id="dashboard-level-filter">
+                <option value="">ทุกระดับชั้น</option>
+                <option value="PRIMARY">ประถมศึกษา</option>
+                <option value="LOWER_SECONDARY">มัธยมศึกษาตอนต้น</option>
+              </select>
+            </div>
+          </section>
+
+          <div class="metrics-grid" id="metrics-grid"></div>
+
+          <div class="chart-grid">
+            <section class="panel chart-panel">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">สถิติภาพรวม</p>
+                  <h3 class="tt-section-title">ความพร้อมของชุดข้อมูลและตารางสอน</h3>
+                </div>
+              </div>
+              <div id="dashboard-insights"></div>
+            </section>
+
+            <section class="panel chart-panel">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">กราฟความครอบคลุม</p>
+                  <h3 class="tt-section-title">ชั้นเรียนที่ควรติดตามต่อ</h3>
+                </div>
+              </div>
+              <div id="dashboard-section-chart"></div>
+            </section>
+          </div>
+
+          <div class="dashboard-grid compact-dashboard-grid">
+            <section class="panel">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">ความพร้อมรายห้อง</p>
+                  <h3 class="tt-section-title">ความครอบคลุมตามห้องเรียน</h3>
+                </div>
+              </div>
+              <div id="section-statuses" class="stack-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">รายการแจ้งเตือน</p>
+                  <h3 class="tt-section-title">ประเด็นที่ต้องตรวจสอบ</h3>
+                </div>
+              </div>
+              <div class="stack-list" id="alert-feed"></div>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">ครูที่ต้องติดตาม</p>
+                <h3 class="tt-section-title">สรุปภาระงานครูที่ควรจับตา</h3>
+              </div>
+            </div>
+            <div id="dashboard-teacher-chart" class="chart-subpanel"></div>
+            <div id="teacher-loads"></div>
+          </section>
+        </section>
+
+        <section class="screen hidden" data-screen="catalog">
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">ข้อมูลหลักแบบมีโครงสร้าง</p>
+                <h3 class="tt-section-title">จัดการข้อมูลระบบ</h3>
+              </div>
+              <div class="toolbar">
+                <select id="catalog-type" hidden=""></select>
+                <select id="catalog-filter"></select>
+                <input id="catalog-search" type="search" placeholder="ค้นหาข้อมูล">
+                <button class="primary-button" data-icon="plus" id="add-record-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5v14"></path>
+      <path d="M5 12h14"></path>
+    </svg>
+  </span><span>เพิ่มรายการ</span></button>
+              </div>
+            </div>
+
+            <article class="catalog-guide compact-panel">
+              <strong class="tt-section-title">ลำดับแนะนำ</strong>
+              <p class="muted-text">เริ่มจากครู ห้องเรียน รายวิชา และชั้นเรียน ก่อนผูกเป็นแผนรายวิชาและกลุ่มการสอน</p>
+            </article>
+
+            <div id="catalog-summary" class="muted-text"></div>
+
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead id="catalog-head"></thead>
+                <tbody id="catalog-body"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section class="screen hidden" data-screen="timetable">
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">พื้นที่จัดตารางสอน</p>
+                <h3 class="tt-section-title">วางแผนตามห้องเรียนหรือครู</h3>
+              </div>
+              <div class="toolbar">
+                <div class="segmented" id="view-switch"></div>
+                <select id="scope-select"></select>
+                <button class="ghost-button" data-icon="check" id="validate-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 6 9 17l-5-5"></path>
+    </svg>
+  </span><span>ตรวจสอบ</span></button>
+                <button class="ghost-button" data-icon="download" id="export-csv-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v12"></path>
+      <path d="m7 10 5 5 5-5"></path>
+      <path d="M5 21h14"></path>
+    </svg>
+  </span><span>ส่งออก CSV</span></button>
+                <button class="ghost-button" data-icon="download" id="export-pdf-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v12"></path>
+      <path d="m7 10 5 5 5-5"></path>
+      <path d="M5 21h14"></path>
+    </svg>
+  </span><span>ส่งออก PDF</span></button>
+                <button class="primary-button" data-icon="print" id="print-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 8V4h10v4"></path>
+      <rect x="5" y="14" width="14" height="7" rx="2"></rect>
+      <rect x="3" y="8" width="18" height="8" rx="3"></rect>
+      <path d="M17 12h.01"></path>
+    </svg>
+  </span><span>พิมพ์</span></button>
+              </div>
+            </div>
+
+            <article class="workspace-guide compact-panel">
+              <strong class="tt-section-title">วิธีใช้งานแบบสั้น</strong>
+              <p class="muted-text">เลือกมุมมองครูหรือห้องเรียน จากนั้นเลือกคาบที่ยังไม่ลงและวางลงในตาราง ระบบจะช่วยป้องกันการชนกันและคอยซิงก์งานร่วมกันทุก 1 นาที</p>
+            </article>
+
+            <article class="export-console compact-panel">
+              <div class="section-head compact export-console-head">
+                <div>
+                  <p class="eyebrow">ส่งออกและพิมพ์</p>
+                  <h3 class="tt-section-title">เลือกชุดข้อมูลก่อนดาวน์โหลดหรือพิมพ์</h3>
+                  <p class="muted-text" id="export-scope-note">กำลังเตรียมชุดส่งออก</p>
+                </div>
+                <div class="toolbar export-console-actions">
+                  <select id="export-scope-select"></select>
+                  <input id="export-search-input" type="search" placeholder="ค้นหาครูหรือห้องเรียน">
+                  <button class="text-button" id="select-visible-button" type="button">เลือกที่เห็น</button>
+                  <button class="text-button" id="clear-export-selection-button" type="button">ล้างที่เลือก</button>
+                </div>
+              </div>
+              <div class="export-selection-panel" id="export-selection-panel"></div>
+            </article>
+
+            <div class="workspace-grid">
+              <section class="board-panel workspace-board">
+                <div class="board-scroll">
+                  <div class="board-head" id="board-head"></div>
+                  <div class="board-grid" id="board-grid"></div>
+                </div>
+              </section>
+
+              <aside class="panel accent-panel workspace-pool">
+                <div class="section-head compact">
+                  <div>
+                    <p class="eyebrow">กลุ่มที่ยังไม่ลงคาบ</p>
+                    <h3 class="tt-section-title">ภาระสอนที่ยังเหลือ</h3>
+                  </div>
+                  <button class="ghost-button compact-button" data-icon="spark" id="auto-schedule-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m12 3 1.8 4.5L18 9.3l-4.2 1.8L12 15.6l-1.8-4.5L6 9.3l4.2-1.8Z"></path>
+      <path d="M19 16l.8 2 .8.3-.8.3-.8 2-.8-2-.8-.3.8-.3Z"></path>
+    </svg>
+  </span><span>จัดวางอัตโนมัติ</span></button>
+                </div>
+                <div id="group-pool" class="group-pool"></div>
+              </aside>
+
+              <aside class="panel workspace-inspector">
+                <div class="section-head compact">
+                  <div>
+                    <p class="eyebrow">แผงตรวจสอบ</p>
+                    <h3 class="tt-section-title">คำแนะนำและการทำงานร่วมกัน</h3>
+                  </div>
+                </div>
+
+                <div class="sub-panel">
+                  <h4 class="tt-section-title">คาบที่แนะนำ</h4>
+                  <div class="stack-list" id="suggestion-list"></div>
+                </div>
+
+                <div class="sub-panel">
+                  <h4 class="tt-section-title">ผู้ใช้งานออนไลน์</h4>
+                  <div class="stack-list" id="presence-list"></div>
+                </div>
+
+                <div class="sub-panel">
+                  <h4 class="tt-section-title">รายการล็อกการแก้ไข</h4>
+                  <div class="stack-list" id="lock-list"></div>
+                </div>
+
+                <div class="sub-panel">
+                  <h4 class="tt-section-title">กิจกรรมล่าสุด</h4>
+                  <div class="stack-list" id="activity-list"></div>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">สรุปการตรวจสอบ</p>
+                <h3 class="tt-section-title">ผลตรวจตารางล่าสุด</h3>
+              </div>
+            </div>
+            <div class="stack-list" id="validation-list"></div>
+          </section>
+        </section>
+
+        <section class="screen hidden" data-screen="settings">
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">ข้อมูลสถานศึกษา</p>
+                <h3 class="tt-section-title">ตั้งค่าการส่งออกและเอกลักษณ์เอกสาร</h3>
+              </div>
+              <button class="primary-button" data-icon="save" id="save-settings-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 4h11l3 3v13H5z"></path>
+      <path d="M9 4v6h6V4"></path>
+      <path d="M9 18h6"></path>
+    </svg>
+  </span><span>บันทึกการตั้งค่า</span></button>
+            </div>
+            <form class="settings-form" id="settings-form"></form>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal hidden" id="modal">
+      <div class="modal-card tt-soft-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow" id="modal-caption">ตัวแก้ไข</p>
+            <h3 class="tt-section-title" id="modal-title">รายการใหม่</h3>
+          </div>
+          <button class="text-button" data-icon="close" id="modal-close-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 6 6 18"></path>
+      <path d="m6 6 12 12"></path>
+    </svg>
+  </span><span>ปิด</span></button>
+        </div>
+        <form id="modal-form" class="modal-form"></form>
+      </div>
+    </div>
+
+    <div class="toast-stack" id="toast-stack"></div>
+
+    <script>
+      (() => {
+        const reportStartupIssue = (rawMessage) => {
+          const message = String(rawMessage || "").trim();
+          if (!message) {
+            return;
+          }
+
+          window.__TEACHTABLE_STARTUP_ERROR__ = message;
+          const bootScreen = document.getElementById("boot-screen");
+          const bootStatus = document.getElementById("boot-status");
+
+          bootScreen?.classList.remove("hidden");
+          if (bootStatus) {
+            bootStatus.textContent = message;
+          }
+        };
+
+        window.__TEACHTABLE_REPORT_STARTUP_ISSUE__ = reportStartupIssue;
+
+        window.addEventListener("error", (event) => {
+          reportStartupIssue(event.error?.message || event.message || "TeachTable failed to start.");
+        });
+
+        window.addEventListener("unhandledrejection", (event) => {
+          reportStartupIssue(event.reason?.message || event.reason || "TeachTable failed to start.");
+        });
+      })();
+    </script>
+    <script type="module" src="./app/main.js"></script>
+  
+
+</body></html>

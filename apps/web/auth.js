@@ -17,6 +17,7 @@ const missingKeys = REQUIRED_KEYS.filter((key) => !config[key]);
 
 let firebaseApp = null;
 let authInstance = null;
+let authInitPromise = null;
 
 function ensureConfigured() {
   if (missingKeys.length > 0) {
@@ -38,10 +39,23 @@ export async function initializeFirebaseAuth() {
     return authInstance;
   }
 
-  firebaseApp = initializeApp(config);
-  authInstance = getAuth(firebaseApp);
-  await setPersistence(authInstance, browserLocalPersistence);
-  return authInstance;
+  if (authInitPromise) {
+    return authInitPromise;
+  }
+
+  authInitPromise = Promise.resolve().then(() => {
+    firebaseApp = initializeApp(config);
+    authInstance = getAuth(firebaseApp);
+
+    // Keep auth setup non-blocking so the app can leave the boot screen promptly.
+    setPersistence(authInstance, browserLocalPersistence).catch((error) => {
+      console.warn("TeachTable could not enable local auth persistence.", error);
+    });
+
+    return authInstance;
+  });
+
+  return authInitPromise;
 }
 
 export async function observeAuthState(onChange, onError) {

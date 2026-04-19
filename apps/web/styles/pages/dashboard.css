@@ -1,1 +1,128 @@
-/* Phase 1 placeholder: dashboard page styles will migrate here in Phase 2-6. */
+/* Phase 3 dashboard overrides */
+
+#dashboard-hero-panel {
+  align-items: stretch;
+}
+
+#dashboard-hero-panel .hero-copy {
+  display: grid;
+  gap: 12px;
+}
+
+.hero-meta-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.hero-meta-item {
+  padding: 12px 14px;
+  display: grid;
+  gap: 2px;
+  border-radius: 18px;
+  border: 1px solid rgba(24, 116, 152, 0.12);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.hero-meta-label,
+.hero-meta-detail {
+  color: var(--color-muted);
+  font-size: 0.78rem;
+}
+
+.hero-meta-value {
+  font-size: 1.2rem;
+  color: var(--color-text);
+}
+
+#dashboard-filter-panel {
+  border-style: dashed;
+}
+
+#dashboard-filter-panel .toolbar {
+  align-items: center;
+}
+
+#dashboard-filter-panel select {
+  min-width: 220px;
+}
+
+.metrics-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.metric-card-compact {
+  min-height: 144px;
+}
+
+.dashboard-insight-grid {
+  align-items: start;
+}
+
+.dashboard-readiness-panel,
+.dashboard-issues-panel,
+.dashboard-teacher-panel {
+  overflow: hidden;
+}
+
+#dashboard-insights {
+  margin-bottom: 18px;
+}
+
+#dashboard-section-chart {
+  padding-top: 4px;
+}
+
+#section-statuses {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+#section-statuses .status-card {
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(24, 116, 152, 0.1);
+  background: rgba(246, 250, 252, 0.8);
+}
+
+.issue-summary-card {
+  margin-bottom: 12px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(24, 116, 152, 0.1);
+  background: linear-gradient(135deg, rgba(121, 184, 209, 0.08), rgba(174, 244, 164, 0.08));
+}
+
+.issue-summary-card strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.dashboard-teacher-panel #dashboard-teacher-chart {
+  padding-bottom: 4px;
+}
+
+.dashboard-teacher-panel #teacher-loads {
+  margin-top: 10px;
+}
+
+@media (max-width: 1180px) {
+  .hero-meta-strip,
+  #section-statuses {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 780px) {
+  .hero-meta-strip,
+  #section-statuses {
+    grid-template-columns: 1fr;
+  }
+
+  #dashboard-filter-panel select {
+    min-width: 0;
+    width: 100%;
+  }
+}
