@@ -21,6 +21,7 @@ module.exports = {
     "/index.js", // Ignore legacy JS scaffold at the functions root.
     "/lib/**/*", // Ignore built files.
     "/generated/**/*", // Ignore generated files.
+    "/runtime/**/*", // Ignore synced runtime files copied in during build.
   ],
   plugins: [
     "@typescript-eslint",

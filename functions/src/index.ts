@@ -1,30 +1,37 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+import path from "node:path";
 
-import {setGlobalOptions} from "firebase-functions";
+import {setGlobalOptions} from "firebase-functions/v2";
+import {type Request, onRequest} from "firebase-functions/v2/https";
+import type {Response} from "express";
+// @ts-expect-error Runtime files are generated into ../runtime during build.
+import httpApp = require("../runtime/http-app.js");
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
+process.env.TEACHTABLE_ROOT_DIR ||= path.resolve(__dirname, "..");
+if (!process.env.TEACHTABLE_STORAGE_DRIVER && !process.env.DATABASE_URL) {
+  process.env.TEACHTABLE_STORAGE_DRIVER = "firebase_storage";
+}
 
-// For cost control, you can set the maximum number of containers that can be
-// running at the same time. This helps mitigate the impact of unexpected
-// traffic spikes by instead downgrading performance. This limit is a
-// per-function limit. You can override the limit for each function using the
-// `maxInstances` option in the function's options, e.g.
-// `onRequest({ maxInstances: 5 }, (req, res) => { ... })`.
-// NOTE: setGlobalOptions does not apply to functions using the v1 API. V1
-// functions should each use functions.runWith({ maxInstances: 10 }) instead.
-// In the v1 API, each function can only serve one request per container, so
-// this will be the maximum concurrent request count.
-setGlobalOptions({maxInstances: 10});
+const {createTeachTableRequestListener} = httpApp as {
+  createTeachTableRequestListener: (
+    options?: {enableStatic?: boolean; staticDir?: string}
+  ) => (request: Request, response: Response) => Promise<void>;
+};
 
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+setGlobalOptions({
+  region: "asia-southeast1",
+  maxInstances: 1,
+  concurrency: 1,
+  memory: "1GiB",
+});
+
+const handler = createTeachTableRequestListener({enableStatic: false});
+
+export const teachtableApi = onRequest(
+  {
+    cors: true,
+    timeoutSeconds: 60,
+  },
+  async (request, response) => {
+    await handler(request, response);
+  },
+);

@@ -10,7 +10,13 @@ let certificateCache = {
 };
 
 function getProjectId() {
-  return process.env.FIREBASE_PROJECT_ID || DEFAULT_PROJECT_ID;
+  return (
+    process.env.TEACHTABLE_FIREBASE_PROJECT_ID
+    || process.env.FIREBASE_PROJECT_ID
+    || process.env.GCLOUD_PROJECT
+    || process.env.GOOGLE_CLOUD_PROJECT
+    || DEFAULT_PROJECT_ID
+  );
 }
 
 function readBearerToken(headers = {}) {

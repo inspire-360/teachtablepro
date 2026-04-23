@@ -14,17 +14,37 @@
         "firebase-debug.*.log",
         "*.local"
       ],
-      "source": "functions"
+      "source": "functions",
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
     }
   ],
   "hosting": {
-    "public": "dist",
+    "public": "apps/web",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
+    "predeploy": [
+      "npm run build"
+    ],
     "rewrites": [
+      {
+        "source": "/app-config.js",
+        "function": {
+          "functionId": "teachtableApi",
+          "region": "asia-southeast1"
+        }
+      },
+      {
+        "source": "/api/**",
+        "function": {
+          "functionId": "teachtableApi",
+          "region": "asia-southeast1"
+        }
+      },
       {
         "source": "**",
         "destination": "/index.html"
