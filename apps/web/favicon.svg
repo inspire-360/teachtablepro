@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="tt-gradient" x1="8" x2="56" y1="8" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#187498" />
+      <stop offset="1" stop-color="#36ae7c" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="#edf4f7" />
+  <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#tt-gradient)" />
+  <path
+    d="M20 22h24v6H35v18h-6V28h-9z"
+    fill="#fffdf5"
+  />
+</svg>

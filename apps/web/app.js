@@ -111,6 +111,15 @@ const SUBJECT_AREA_COLORS = {
 };
 const DEVELOPMENT_ACTIVITY_COLOR = "#f28f3b";
 const DEFAULT_SUBJECT_COLOR = "#187498";
+const FIREBASE_CONFIG_ENV_KEYS = {
+  apiKey: "FIREBASE_WEB_API_KEY",
+  authDomain: "FIREBASE_AUTH_DOMAIN",
+  projectId: "FIREBASE_PROJECT_ID",
+  appId: "FIREBASE_APP_ID",
+  storageBucket: "FIREBASE_STORAGE_BUCKET",
+  messagingSenderId: "FIREBASE_MESSAGING_SENDER_ID",
+  databaseURL: "FIREBASE_DATABASE_URL",
+};
 
 const dom = getDom();
 
@@ -262,6 +271,24 @@ function setAuthError(message = "") {
 
 function clearAuthError() {
   setAuthError("");
+}
+
+function setAuthControlsEnabled(enabled) {
+  const shouldDisable = !enabled;
+  dom.googleSigninButton.disabled = shouldDisable;
+  dom.emailLoginButton.disabled = shouldDisable;
+  dom.authEmailInput.disabled = shouldDisable;
+  dom.authPasswordInput.disabled = shouldDisable;
+}
+
+function buildMissingFirebaseConfigMessage(missingKeys = []) {
+  const missingList = missingKeys.filter(Boolean);
+  if (missingList.length === 0) {
+    return "ยังตั้งค่า Firebase ไม่ครบ";
+  }
+
+  const envKeys = missingList.map((key) => FIREBASE_CONFIG_ENV_KEYS[key] || key);
+  return `ยังตั้งค่า Firebase ไม่ครบ: ${missingList.join(", ")}. เพิ่มค่า ${envKeys.join(", ")} ในไฟล์ .env แล้วรีสตาร์ตเซิร์ฟเวอร์`;
 }
 
 function currentViewLabel() {
@@ -737,8 +764,7 @@ function renderBusyState() {
   setButtonBusy(dom.saveSettingsButton, isBusy("save-settings"), "บันทึกการตั้งค่า", "กำลังบันทึก...");
 
   if (!state.auth.config.ready) {
-    dom.googleSigninButton.disabled = true;
-    dom.emailLoginButton.disabled = true;
+    setAuthControlsEnabled(false);
   }
 
   const modalSubmit = dom.modalForm.querySelector('button[type="submit"]');
@@ -1498,15 +1524,13 @@ function renderAppVisibility() {
 function renderAuthState() {
   if (!state.auth.config.ready) {
     dom.authStatusChip.textContent = "ต้องตั้งค่า Firebase";
-    setAuthError(`ยังตั้งค่า Firebase ไม่ครบ: ${state.auth.config.missingKeys.join(", ")}`);
-    dom.googleSigninButton.disabled = true;
-    dom.emailLoginButton.disabled = true;
+    setAuthError(buildMissingFirebaseConfigMessage(state.auth.config.missingKeys));
+    setAuthControlsEnabled(false);
     return;
   }
 
   dom.authStatusChip.textContent = "ต้องยืนยันตัวตน";
-  dom.googleSigninButton.disabled = false;
-  dom.emailLoginButton.disabled = false;
+  setAuthControlsEnabled(true);
 }
 
 function renderWorkspaceHeader() {

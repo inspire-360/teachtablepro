@@ -8,6 +8,8 @@
     "dev": "node server.js",
     "build": "npm run build:styles",
     "build:styles": "tailwindcss -i ./apps/web/tailwind.input.css -o ./apps/web/tailwind.css --minify",
+    "audit": "node scripts/full-audit.mjs",
+    "audit:browser": "node scripts/browser-audit.mjs",
     "test": "node apps/api/runtime/runtime.test.js",
     "prisma:generate": "prisma generate --schema prisma/schema.prisma",
     "prisma:push": "prisma db push --schema prisma/schema.prisma",

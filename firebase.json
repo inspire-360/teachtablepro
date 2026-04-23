@@ -1,12 +1,5 @@
 {
-  "authDomain": "teachtable-pro.firebaseapp.com",
-  "projectId": "teachtable-pro",
-  "storageBucket": "teachtable-pro.firebasestorage.app",
-  "messagingSenderId": "985169507159",
-  "appId": "1:985169507159:web:32145ebaf1506ca3b70412",
   "firestore": {
-    "database": "(default)",
-    "location": "asia-southeast1",
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
@@ -21,7 +14,6 @@
         "firebase-debug.*.log",
         "*.local"
       ],
-     
       "source": "functions"
     }
   ],
@@ -38,15 +30,5 @@
         "destination": "/index.html"
       }
     ]
-  },
-  "auth": {
-    "providers": {
-      "anonymous": true,
-      "emailPassword": true,
-      "googleSignIn": {
-        "oAuthBrandDisplayName": "TeachTable Pro",
-        "supportEmail": "inspire360@chpschool.ac.th"
-      }
-    }
   }
 }

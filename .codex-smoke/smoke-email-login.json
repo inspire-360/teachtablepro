@@ -1,10 +1,10 @@
 {
-  "success": true,
+  "success": false,
   "appUrl": "http://127.0.0.1:4178/",
-  "screenshotPath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-email-login.png",
-  "statePath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-email-login.json",
-  "domPath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-email-login.dom.html",
-  "startedAt": "2026-04-19T15:12:00.368Z",
+  "screenshotPath": "C:\\Users\\401ms\\Desktop\\Teachtable-pro\\.codex-smoke\\smoke-email-login.png",
+  "statePath": "C:\\Users\\401ms\\Desktop\\Teachtable-pro\\.codex-smoke\\smoke-email-login.json",
+  "domPath": "C:\\Users\\401ms\\Desktop\\Teachtable-pro\\.codex-smoke\\smoke-email-login.dom.html",
+  "startedAt": "2026-04-23T18:16:22.671Z",
   "beforeLogin": {
     "href": "http://127.0.0.1:4178/",
     "title": "TeachTable",
@@ -14,33 +14,14 @@
     "shellVisible": false,
     "hasEmailInput": true,
     "hasPasswordInput": true,
-    "emailButtonDisabled": false,
+    "emailButtonDisabled": true,
     "metricsCount": 0,
     "pageTitle": "กำลังเตรียมพื้นที่จัดตารางสอน",
     "userEmail": "-",
-    "authError": null,
-    "bodySample": "ระบบบริหารตารางสอน เข้าสู่ระบบก่อน แล้วเริ่มจัดตารางสอนทั้งโรงเรียนได้อย่างมั่นใจ TeachTable รวมข้อมูลครู ห้องเรียน รายวิชา ตารางสอน และการทำงานร่วมกันไว้ในหน้าจอเดียว เพื่อให้จัดตารางจริงได้ง่ายขึ้น ปลอดภัย เฉพาะผู้ใช้ที่ยืนยันตัวตนแล้วเท่านั้นที่เข้าถึงข้อมูลและการส่งออกเอกสารได้ เห็นภาพรวมเร็ว ดูสถานะตาราง ภาระงานครู และห้องที่ยังจัดไม่ครบจากหน้าจอเดียว พร้อมใช้งานจริง รองรับการจัดคาบ ตรวจชนข้อมูล ส่งออก และพิมพ์เอกสารแบบ production-ready ต้องยืนยันตัวตน เข้าสู่ระบบอย่างปลอดภัย เข้าสู่ระบบ TeachTable ใช้บัญชีของสถานศึกษาหรือบัญชีที่เปิดไว้ใน Firebase เพื่อเข้าถึงระบบ เข้าสู่ระบบด้วย Google "
-  },
-  "loginAttempt": {
-    "ok": true,
-    "buttonText": "กำลังเข้าสู่ระบบ..."
-  },
-  "afterLogin": {
-    "href": "http://127.0.0.1:4178/",
-    "title": "TeachTable",
-    "readyState": "complete",
-    "bootVisible": false,
-    "authVisible": false,
-    "shellVisible": true,
-    "hasEmailInput": true,
-    "hasPasswordInput": true,
-    "emailButtonDisabled": false,
-    "metricsCount": 4,
-    "pageTitle": "กำลังเตรียมพื้นที่จัดตารางสอน",
-    "userEmail": "smoke_test@chpschool.ac.th",
-    "authError": null,
-    "bodySample": "TT ระบบบริหารตารางสอน TeachTable จัดข้อมูลหลัก วางคาบ ตรวจชน และส่งออกเอกสารได้จากพื้นที่ทำงานเดียว เมนูหลัก ภาพรวม สถานะระบบและความคืบหน้า ข้อมูลหลัก ครู ห้องเรียน วิชา และห้องเรียนประจำ ตารางสอน วางแผน ตรวจสอบ และจัดคาบประจำสัปดาห์ ตั้งค่า ข้อมูลสถานศึกษาและผู้ลงนามเอกสาร สถานะระบบ ต้องตรวจสอบ 2 ข้อผิดพลาด • 5 คำเตือน สถานะนี้อัปเดตจากผลตรวจตารางสอนล่าสุดของระบบ บัญชีผู้ใช้งาน เข้าสู่ระบบด้วยอีเมล • ซิงก์ล่าสุด 22:12 S smoke_test smoke_test@chpschool.ac.th เข้าสู่ระบบด้วยอีเมล บันทึกชื่อ ออกจากระบบ โรงเรียนชุมชนบ้านพบพระ • ภาคเรียน 1/2569 ภาพรวมการดำเนินงาน ติดตามความพร้อม ความครอบคลุม ความข"
+    "authError": "ยังตั้งค่า Firebase ไม่ครบ: apiKey",
+    "bodySample": "ระบบบริหารตารางสอน เข้าสู่ระบบก่อน แล้วเริ่มจัดตารางสอนทั้งโรงเรียนได้อย่างมั่นใจ TeachTable รวมข้อมูลครู ห้องเรียน รายวิชา ตารางสอน และการทำงานร่วมกันไว้ในหน้าจอเดียว เพื่อให้จัดตารางจริงได้ง่ายขึ้น ปลอดภัย เฉพาะผู้ใช้ที่ยืนยันตัวตนแล้วเท่านั้นที่เข้าถึงข้อมูลและการส่งออกเอกสารได้ เห็นภาพรวมเร็ว ดูสถานะตาราง ภาระงานครู และห้องที่ยังจัดไม่ครบจากหน้าจอเดียว พร้อมใช้งานจริง รองรับการจัดคาบ ตรวจชนข้อมูล ส่งออก และพิมพ์เอกสารแบบ production-ready ต้องตั้งค่า Firebase เข้าสู่ระบบอย่างปลอดภัย เข้าสู่ระบบ TeachTable ใช้บัญชีของสถานศึกษาหรือบัญชีที่เปิดไว้ใน Firebase เพื่อเข้าถึงระบบ เข้าสู่ระบบด้วย Go"
   },
   "runtimeExceptions": [],
-  "endedAt": "2026-04-19T15:12:07.498Z"
+  "error": "Timed out waiting for visible email login form",
+  "endedAt": "2026-04-23T18:16:54.915Z"
 }

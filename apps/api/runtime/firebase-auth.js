@@ -2,7 +2,7 @@ const crypto = require("node:crypto");
 const https = require("node:https");
 
 const GOOGLE_CERT_URL = "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com";
-const DEFAULT_PROJECT_ID = "teachtable-chpschool";
+const DEFAULT_PROJECT_ID = "teachtable-pro";
 
 let certificateCache = {
   expiresAt: 0,

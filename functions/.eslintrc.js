@@ -18,6 +18,7 @@ module.exports = {
     sourceType: "module",
   },
   ignorePatterns: [
+    "/index.js", // Ignore legacy JS scaffold at the functions root.
     "/lib/**/*", // Ignore built files.
     "/generated/**/*", // Ignore generated files.
   ],

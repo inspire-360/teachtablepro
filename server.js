@@ -46,15 +46,15 @@ const RESOURCE_NAMES = new Set(["teachers", "rooms", "subjects", "sections", "en
 const PUBLIC_API_PATHS = new Set(["/api/health"]);
 
 const FIREBASE_WEB_CONFIG = {
-  apiKey: process.env.FIREBASE_WEB_API_KEY || "AIzaSyClpCVopmm2uMz-VIo14qBTlygI5qW0F9U",
+  apiKey: process.env.FIREBASE_WEB_API_KEY || "",
   authDomain: process.env.FIREBASE_AUTH_DOMAIN || `${getProjectId()}.firebaseapp.com`,
   databaseURL:
     process.env.FIREBASE_DATABASE_URL
     || `https://${getProjectId()}-default-rtdb.asia-southeast1.firebasedatabase.app`,
   projectId: getProjectId(),
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET || `${getProjectId()}.firebasestorage.app`,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "533934856388",
-  appId: process.env.FIREBASE_APP_ID || "1:533934856388:web:9731938ea1ed91fb699191",
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "985169507159",
+  appId: process.env.FIREBASE_APP_ID || "1:985169507159:web:32145ebaf1506ca3b70412",
 };
 
 const MIME_TYPES = {
