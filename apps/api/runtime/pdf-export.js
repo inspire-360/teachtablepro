@@ -8,7 +8,7 @@ const PAGE_HEIGHT = 595.28;
 const MARGIN = 32;
 const HEADER_HEIGHT = 28;
 const PERIOD_COLUMN = 64;
-const GRID_COLUMNS = 5;
+const GRID_COLUMNS = 6;
 
 async function loadFont(pdfDoc) {
   pdfDoc.registerFontkit(fontkit);
@@ -170,8 +170,9 @@ function drawReportPage(page, font, context, report, logoImage, signatoryImages)
   const cellWidth = (tableWidth - PERIOD_COLUMN) / GRID_COLUMNS;
   const renderMatrix = Array.isArray(report.matrix) && report.matrix.length
     ? report.matrix
-    : Array.from({ length: 6 }, () => Array.from({ length: 5 }, () => "-"));
+    : Array.from({ length: 5 }, () => Array.from({ length: 6 }, () => "-"));
   const rowHeight = 58;
+  const periodLabels = ["คาบ 1", "คาบ 2", "คาบ 3", "คาบ 4", "คาบ 5", "คาบ 6"];
 
   page.drawText(context.school_name || "TeachTable", {
     x: MARGIN,
@@ -217,7 +218,7 @@ function drawReportPage(page, font, context, report, logoImage, signatoryImages)
     color: headerColor,
   });
 
-  page.drawText("คาบ", {
+  page.drawText("วัน", {
     x: MARGIN + 18,
     y: tableTop - 19,
     size: 11,
@@ -225,7 +226,7 @@ function drawReportPage(page, font, context, report, logoImage, signatoryImages)
     color: rgb(1, 1, 1),
   });
 
-  dayLabels.forEach((label, index) => {
+  periodLabels.forEach((label, index) => {
     page.drawText(label, {
       x: MARGIN + PERIOD_COLUMN + cellWidth * index + 12,
       y: tableTop - 19,
@@ -247,7 +248,7 @@ function drawReportPage(page, font, context, report, logoImage, signatoryImages)
       borderColor: lineColor,
       borderWidth: 1,
     });
-    page.drawText(`คาบ ${rowIndex + 1}`, {
+    page.drawText(dayLabels[rowIndex] || `วัน ${rowIndex + 1}`, {
       x: MARGIN + 12,
       y: y + rowHeight / 2 - 6,
       size: 11,

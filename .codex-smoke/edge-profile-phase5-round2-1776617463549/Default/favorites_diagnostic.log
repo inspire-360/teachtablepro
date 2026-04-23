@@ -1,0 +1,26 @@
+2026-04-19 16:51:03.989: [INFO] VisibilityChanged: 0
+2026-04-19 16:51:04.010: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.011: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.011: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.013: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.014: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.015: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.016: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.017: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.018: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.020: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.021: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.021: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.037: [INFO] BookmarkNodeAdded, ABU: 0
+2026-04-19 16:51:04.037: [INFO] BookmarkNodeAdded, ABU: 0
+2026-04-19 16:51:04.038: [INFO] BookmarkNodeAdded, ABU: 0
+2026-04-19 16:51:04.038: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-04-19 16:51:04.038: [INFO] OnDoneLoading sync enabled: 0
+2026-04-19 16:51:04.041: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.638: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-04-19 16:51:04.642: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-04-19 16:51:04.646: [INFO] Primary account changed.
+2026-04-19 16:51:04.646: [INFO] OnPrimaryAccountChanged PrimaryAccountChangeEvent::Type::kSet
+2026-04-19 16:51:04.652: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-04-19 16:51:04.672: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-04-19 16:51:09.650: [INFO] Sync initialization duration: 4872ms

@@ -1,1 +1,329 @@
-/* Phase 1 placeholder: timetable page styles will migrate here in Phase 2-6. */
+.timetable-shell {
+  position: relative;
+  display: grid;
+  gap: 18px;
+}
+
+.timetable-toolbar-panel,
+.timetable-left-rail,
+.timetable-board-panel,
+.timetable-right-rail,
+.timetable-validation-drawer,
+.timetable-export-drawer {
+  border: 1px solid rgba(24, 116, 152, 0.1);
+  background:
+    linear-gradient(180deg, rgba(11, 42, 58, 0.94), rgba(14, 53, 72, 0.88)),
+    rgba(12, 43, 58, 0.92);
+  color: #eef8fb;
+  box-shadow: 0 18px 36px rgba(8, 25, 34, 0.08);
+}
+
+.timetable-toolbar-head {
+  gap: 14px;
+  align-items: center;
+}
+
+.timetable-toolbar-copy {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.timetable-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.timetable-workspace {
+  display: grid;
+  grid-template-columns: minmax(280px, 320px) minmax(0, 1fr) minmax(300px, 340px);
+  gap: 18px;
+  align-items: start;
+}
+
+.timetable-left-rail,
+.timetable-right-rail {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.timetable-rail-head,
+.timetable-scope-card,
+.timetable-pool-head {
+  display: grid;
+  gap: 10px;
+}
+
+.timetable-scope-card {
+  padding: 14px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.timetable-scope-card .segmented,
+.timetable-scope-card select,
+.timetable-pool-head select {
+  width: 100%;
+}
+
+.timetable-pool-head {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.timetable-pool-head select {
+  min-width: 0;
+}
+
+.timetable-board-panel {
+  min-width: 0;
+}
+
+.timetable-board-scroll {
+  overflow: auto;
+}
+
+.timetable-right-rail {
+  gap: 0;
+}
+
+.timetable-toolbar-panel .eyebrow,
+.timetable-left-rail .eyebrow,
+.timetable-right-rail .eyebrow,
+.timetable-validation-drawer .eyebrow,
+.timetable-toolbar-panel .muted-text,
+.timetable-left-rail .muted-text,
+.timetable-right-rail .muted-text,
+.timetable-validation-drawer .muted-text,
+.timetable-toolbar-panel .sidebar-label,
+.timetable-left-rail .sidebar-label,
+.timetable-right-rail .sidebar-label,
+.timetable-validation-drawer .sidebar-label {
+  color: rgba(228, 244, 250, 0.72);
+}
+
+.timetable-toolbar-panel .tt-section-title,
+.timetable-left-rail .tt-section-title,
+.timetable-right-rail .tt-section-title,
+.timetable-validation-drawer .tt-section-title {
+  color: #f7fbfd;
+}
+
+.timetable-toolbar-panel .pill,
+.timetable-left-rail .pill,
+.timetable-right-rail .pill,
+.timetable-validation-drawer .pill {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f3fbff;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.timetable-toolbar-panel .segmented,
+.timetable-left-rail .segmented,
+.timetable-right-rail .segmented {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.timetable-toolbar-panel select,
+.timetable-left-rail select,
+.timetable-right-rail select,
+.timetable-toolbar-panel input,
+.timetable-left-rail input,
+.timetable-right-rail input {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f4fbff;
+}
+
+.timetable-toolbar-panel option,
+.timetable-left-rail option,
+.timetable-right-rail option {
+  color: #123041;
+}
+
+.timetable-subpanel {
+  display: grid;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.timetable-subpanel:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.timetable-subpanel .stack-list {
+  display: grid;
+  gap: 10px;
+}
+
+.timetable-validation-drawer {
+  display: grid;
+  gap: 14px;
+}
+
+.timetable-validation-drawer.is-collapsed #validation-drawer-body {
+  display: none;
+}
+
+.stack-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.validation-jump-button {
+  padding-inline: 0;
+}
+
+.slot-cell.is-slot-soft-preview {
+  border-color: rgba(41, 167, 214, 0.76);
+  background:
+    linear-gradient(180deg, rgba(194, 240, 250, 0.54), rgba(224, 248, 252, 0.7)),
+    rgba(201, 233, 244, 0.38);
+  box-shadow:
+    inset 0 0 0 1px rgba(24, 116, 152, 0.16),
+    0 0 0 3px rgba(41, 167, 214, 0.08);
+}
+
+.slot-cell.is-slot-emphasis {
+  border-color: rgba(12, 121, 165, 0.82);
+  background:
+    linear-gradient(180deg, rgba(173, 228, 243, 0.62), rgba(224, 247, 252, 0.84)),
+    rgba(195, 235, 246, 0.38);
+  box-shadow:
+    inset 0 0 0 1px rgba(24, 116, 152, 0.24),
+    0 0 0 4px rgba(12, 121, 165, 0.1);
+}
+
+.slot-cell.is-drop-occupied {
+  border-style: solid;
+  box-shadow:
+    inset 0 0 0 1px rgba(223, 155, 55, 0.24),
+    0 0 0 3px rgba(223, 155, 55, 0.08);
+}
+
+.slot-cell.is-drop-locked {
+  background: rgba(244, 200, 200, 0.34);
+  border-color: rgba(191, 84, 84, 0.48);
+}
+
+.entry-card.is-dragging,
+.group-card.is-dragging {
+  cursor: grabbing;
+  opacity: 0.72;
+  transform: scale(0.99) rotate(-1deg);
+  box-shadow: 0 16px 30px rgba(18, 48, 65, 0.18);
+}
+
+.stack-item.is-active-preview {
+  border-color: rgba(24, 116, 152, 0.36);
+  background: rgba(214, 239, 247, 0.48);
+}
+
+.collaboration-health-card,
+.stack-item {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.collaboration-health-card.warning,
+.collaboration-health-card.reconnecting {
+  border-color: rgba(214, 162, 50, 0.24);
+  background: rgba(255, 249, 232, 0.88);
+}
+
+.collaboration-health-card.error,
+.collaboration-health-card.attention {
+  border-color: rgba(191, 84, 84, 0.24);
+  background: rgba(255, 241, 241, 0.88);
+}
+
+.collaboration-health-card.success,
+.collaboration-health-card.live {
+  border-color: rgba(55, 125, 88, 0.2);
+  background: rgba(238, 248, 242, 0.92);
+}
+
+.timetable-export-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  background: rgba(15, 23, 42, 0.28);
+  backdrop-filter: blur(6px);
+}
+
+.timetable-export-drawer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 50;
+  width: min(460px, calc(100vw - 24px));
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 16px;
+  padding: 22px;
+  overflow: auto;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2);
+}
+
+.timetable-export-summary {
+  margin-top: -8px;
+}
+
+.timetable-export-controls {
+  display: grid;
+  gap: 12px;
+}
+
+.timetable-export-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.timetable-export-actions > button {
+  flex: 1 1 140px;
+}
+
+@media (max-width: 1320px) {
+  .timetable-workspace {
+    grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
+  }
+
+  .timetable-right-rail {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 980px) {
+  .timetable-toolbar-actions,
+  .stack-item-actions,
+  .timetable-export-actions {
+    width: 100%;
+  }
+
+  .timetable-toolbar-actions > button,
+  .timetable-export-actions > button {
+    flex: 1 1 100%;
+  }
+
+  .timetable-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .timetable-export-drawer {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    bottom: 12px;
+    width: auto;
+  }
+}

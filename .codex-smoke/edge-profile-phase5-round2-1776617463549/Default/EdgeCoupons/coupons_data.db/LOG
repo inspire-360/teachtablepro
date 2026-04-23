@@ -1,0 +1,5 @@
+2026/04/19-23:51:06.492 7a00 Creating DB C:\Users\401ms\Desktop\TeachTable\.codex-smoke\edge-profile-phase5-round2-1776617463549\Default\EdgeCoupons/coupons_data.db since it was missing.
+2026/04/19-23:51:06.496 7a00 Reusing MANIFEST C:\Users\401ms\Desktop\TeachTable\.codex-smoke\edge-profile-phase5-round2-1776617463549\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/04/19-23:51:06.552 7b5c Level-0 table #5: started
+2026/04/19-23:51:06.556 7b5c Level-0 table #5: 682109 bytes OK
+2026/04/19-23:51:06.558 7b5c Delete type=0 #3

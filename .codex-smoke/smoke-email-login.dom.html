@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="./styles/utilities.css">
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="./styles/pages/dashboard.css">
+    <link rel="stylesheet" href="./styles/pages/catalog.css">
+    <link rel="stylesheet" href="./styles/pages/timetable.css">
     <link rel="stylesheet" href="./tailwind.css">
   </head>
   <body>
@@ -184,7 +186,7 @@
           <div class="status-list" id="system-status">
     <div class="status-row">
       <span class="tone-pill error">ต้องตรวจสอบ</span>
-      <span class="muted-text">3 ข้อผิดพลาด • 5 คำเตือน</span>
+      <span class="muted-text">2 ข้อผิดพลาด • 5 คำเตือน</span>
     </div>
     <div class="status-row">
       <span class="tone-dot error"></span>
@@ -194,7 +196,7 @@
         </section>
         <section class="sidebar-section" id="sidebar-user-section">
           <p class="sidebar-label">บัญชีผู้ใช้งาน</p>
-          <p class="sidebar-user-note muted-text" id="user-menu-note">เข้าสู่ระบบด้วยอีเมล • ซิงก์ล่าสุด 16:09</p>
+          <p class="sidebar-user-note muted-text" id="user-menu-note">เข้าสู่ระบบด้วยอีเมล • ซิงก์ล่าสุด 22:12</p>
           <div id="sidebar-user-slot"><section class="profile-console" aria-label="โปรไฟล์ผู้ใช้งาน">
                 <div class="profile-console-head">
                   <div class="avatar profile-avatar" id="user-avatar">S</div>
@@ -247,7 +249,7 @@
             <div class="topbar-side">
               <div class="topbar-actions">
                 <div class="live-pill" id="live-pill">คุณกำลังใช้งานอยู่เพียงคนเดียว</div>
-                <div class="sync-note" id="sync-note">ซิงก์ล่าสุด 16:09</div>
+                <div class="sync-note" id="sync-note">ซิงก์ล่าสุด 22:12</div>
                 <button class="ghost-button" data-icon="refresh" id="refresh-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <path d="M20 11a8 8 0 1 0 2 5.3"></path>
@@ -275,30 +277,30 @@
             <div class="hero-copy">
               <p class="eyebrow tt-kicker">Control Room</p>
               <h3 class="tt-display">พร้อมตัดสินใจเรื่องตารางสอนของ ทุกระดับชั้น</h3>
-              <p class="hero-text">คาบที่จัดแล้ว 3/30 คาบ เหลือกลุ่มที่ยังไม่ลงคาบ 1 กลุ่ม และยังมีประเด็นที่ควรไล่ตรวจ 8 รายการ</p>
+              <p class="hero-text">คาบที่จัดแล้ว 8/30 คาบ เหลือกลุ่มที่ยังไม่ลงคาบ 0 กลุ่ม และยังมีประเด็นที่ควรไล่ตรวจ 7 รายการ</p>
             <div class="hero-meta-strip" data-dashboard-hero-meta="true">
     <article class="hero-meta-item">
       <span class="hero-meta-label">ความพร้อม</span>
-      <strong class="hero-meta-value">10%</strong>
+      <strong class="hero-meta-value">27%</strong>
       <small class="hero-meta-detail">ภาพรวมล่าสุด</small>
     </article>
   
     <article class="hero-meta-item">
       <span class="hero-meta-label">กลุ่มค้างจัด</span>
-      <strong class="hero-meta-value">1</strong>
+      <strong class="hero-meta-value">0</strong>
       <small class="hero-meta-detail">ต้องลงคาบต่อ</small>
     </article>
   
     <article class="hero-meta-item">
       <span class="hero-meta-label">ประเด็นค้าง</span>
-      <strong class="hero-meta-value">8</strong>
+      <strong class="hero-meta-value">7</strong>
       <small class="hero-meta-detail">ควรตรวจสอบ</small>
     </article>
   
     <article class="hero-meta-item">
       <span class="hero-meta-label">ผู้ใช้ออนไลน์</span>
       <strong class="hero-meta-value">0</strong>
-      <small class="hero-meta-detail">ซิงก์ล่าสุด 16:09</small>
+      <small class="hero-meta-detail">ซิงก์ล่าสุด 22:12</small>
     </article>
   </div></div>
             <div class="hero-actions">
@@ -326,7 +328,7 @@
             <div>
               <p class="eyebrow">Dashboard Filter</p>
               <h3 class="tt-section-title">เลือกมุมมองที่ต้องการติดตาม</h3>
-              <p class="muted-text" id="dashboard-filter-note">กำลังแสดงภาพรวมทุกระดับชั้น • 3 ข้อผิดพลาด • 5 คำเตือน</p>
+              <p class="muted-text" id="dashboard-filter-note">กำลังแสดงภาพรวมทุกระดับชั้น • 2 ข้อผิดพลาด • 5 คำเตือน</p>
             </div>
             <div class="toolbar">
               <select id="dashboard-level-filter">
@@ -358,8 +360,8 @@
   
     <article class="metric-card metric-card-compact tone-primary tt-soft-panel">
       <p class="metric-label">กลุ่มค้างจัด</p>
-      <p class="metric-value">1</p>
-      <p class="metric-detail">ความพร้อมล่าสุด 10%</p>
+      <p class="metric-value">0</p>
+      <p class="metric-detail">ความพร้อมล่าสุด 27%</p>
     </article>
   </div>
 
@@ -373,20 +375,20 @@
               </div>
               <div id="dashboard-insights">
     <div class="insight-card">
-      <div class="insight-ring" style="--ring-progress:10%">
+      <div class="insight-ring" style="--ring-progress:27%">
         <div class="insight-ring-hole">
-          <strong>10%</strong>
+          <strong>27%</strong>
           <span>ความพร้อม</span>
         </div>
       </div>
       <div class="insight-copy">
         <p class="eyebrow">ภาพรวมที่ต้องจับตา</p>
         <h3 class="tt-section-title">ตารางสอนชุดปัจจุบันกำลังติดตาม ทุกระดับชั้น</h3>
-        <p class="muted-text">จัดแล้ว 3/30 คาบ เหลือกลุ่มที่ยังไม่ลงคาบ 1 กลุ่ม และมีประเด็นที่ควรตรวจสอบ 8 รายการ</p>
+        <p class="muted-text">จัดแล้ว 8/30 คาบ เหลือกลุ่มที่ยังไม่ลงคาบ 0 กลุ่ม และมีประเด็นที่ควรตรวจสอบ 7 รายการ</p>
         <div class="insight-stat-grid">
           <article class="mini-stat">
             <span class="mini-stat-label">คาบที่จัดแล้ว</span>
-            <strong>3</strong>
+            <strong>8</strong>
           </article>
           <article class="mini-stat">
             <span class="mini-stat-label">คาบที่ต้องจัด</span>
@@ -394,7 +396,7 @@
           </article>
           <article class="mini-stat">
             <span class="mini-stat-label">กลุ่มค้างจัด</span>
-            <strong>1</strong>
+            <strong>0</strong>
           </article>
           <article class="mini-stat">
             <span class="mini-stat-label">ผู้ใช้ออนไลน์</span>
@@ -420,14 +422,14 @@
             <strong class="tt-section-title">3/3</strong>
             <p class="muted-text">มัธยมศึกษาตอนต้น</p>
           </div>
-          <span class="pill">3/30</span>
+          <span class="pill">7/30</span>
         </div>
         <div class="bar-track">
-          <div class="bar-fill danger" style="width:10%"></div>
+          <div class="bar-fill danger" style="width:23%"></div>
         </div>
         <div class="bar-foot">
-          <span>10%</span>
-          <span>1 ข้อผิดพลาด • 5 คำเตือน</span>
+          <span>23%</span>
+          <span>2 ข้อผิดพลาด • 5 คำเตือน</span>
         </div>
       </article>
     </div></div>
@@ -449,15 +451,15 @@
                   <strong class="tt-section-title">3/3</strong>
                   <div class="muted-text">มัธยมศึกษาตอนต้น</div>
                 </div>
-                <span class="pill">3/30 คาบ</span>
+                <span class="pill">7/30 คาบ</span>
               </div>
               <div class="progress-row">
                 <div class="progress-track">
-                  <div class="progress-fill error" style="width: 10%"></div>
+                  <div class="progress-fill error" style="width: 23%"></div>
                 </div>
-                <span class="tone-pill error">10%</span>
+                <span class="tone-pill error">23%</span>
               </div>
-              <p class="muted-text">1 ข้อผิดพลาด • 5 คำเตือน</p>
+              <p class="muted-text">2 ข้อผิดพลาด • 5 คำเตือน</p>
             </article>
           </div>
             </section>
@@ -471,8 +473,8 @@
               </div>
               <div class="stack-list" id="alert-feed">
     <article class="issue-summary-card">
-      <strong>8 รายการที่ต้องตรวจสอบ</strong>
-      <p class="muted-text">3 ข้อผิดพลาด • 5 คำเตือน</p>
+      <strong>7 รายการที่ต้องตรวจสอบ</strong>
+      <p class="muted-text">2 ข้อผิดพลาด • 5 คำเตือน</p>
     </article>
     
             <article class="stack-item">
@@ -480,15 +482,7 @@
                 <h4 class="tt-section-title">คาบรายวิชาไม่ครบ</h4>
                 <span class="tone-pill error">ข้อผิดพลาด</span>
               </div>
-              <p>รายวิชาในห้องเรียนนี้ถูกจัด 0 จาก 3 คาบ</p>
-            </article>
-          
-            <article class="stack-item">
-              <div class="status-meta">
-                <h4 class="tt-section-title">คาบกลุ่มการสอนไม่ครบ</h4>
-                <span class="tone-pill error">ข้อผิดพลาด</span>
-              </div>
-              <p>กลุ่ม การงาน 1 ถูกจัด 0 จาก 2 คาบ</p>
+              <p>รายวิชาในห้องเรียนนี้ถูกจัด 2 จาก 3 คาบ</p>
             </article>
           
             <article class="stack-item">
@@ -496,7 +490,7 @@
                 <h4 class="tt-section-title">คาบรวมรายสัปดาห์ไม่ตรงเป้า</h4>
                 <span class="tone-pill error">ข้อผิดพลาด</span>
               </div>
-              <p>ห้อง 3/3 ถูกจัด 3 คาบ จากเป้าหมาย 30 คาบต่อสัปดาห์</p>
+              <p>ห้อง 3/3 ถูกจัด 7 คาบ จากเป้าหมาย 30 คาบต่อสัปดาห์</p>
             </article>
           
             <article class="stack-item">
@@ -504,7 +498,7 @@
                 <h4 class="tt-section-title">คาบรวมรายวันไม่สมดุล</h4>
                 <span class="tone-pill warning">คำเตือน</span>
               </div>
-              <p>ห้อง 3/3 มี 0 คาบในวันจันทร์ จากที่กำหนด 6 คาบ</p>
+              <p>ห้อง 3/3 มี 2 คาบในวันจันทร์ จากที่กำหนด 6 คาบ</p>
             </article>
           
             <article class="stack-item">
@@ -513,6 +507,14 @@
                 <span class="tone-pill warning">คำเตือน</span>
               </div>
               <p>ห้อง 3/3 มี 2 คาบในวันอังคาร จากที่กำหนด 6 คาบ</p>
+            </article>
+          
+            <article class="stack-item">
+              <div class="status-meta">
+                <h4 class="tt-section-title">คาบรวมรายวันไม่สมดุล</h4>
+                <span class="tone-pill warning">คำเตือน</span>
+              </div>
+              <p>ห้อง 3/3 มี 0 คาบในวันพุธ จากที่กำหนด 6 คาบ</p>
             </article>
           
   </div>
@@ -527,6 +529,23 @@
               </div>
             </div>
             <div id="dashboard-teacher-chart" class="chart-subpanel"><div class="bar-list">
+      <article class="bar-row">
+        <div class="bar-row-meta">
+          <div>
+            <strong class="tt-section-title">อภิวัฒน์ ยอดอินทร์</strong>
+            <p class="muted-text">การงานอาชีพเพิ่มเติม3, วิทยาศาสตร์และเทคโนโลยี</p>
+          </div>
+          <span class="pill">11/24</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill safe" style="width:46%"></div>
+        </div>
+        <div class="bar-foot">
+          <span>46%</span>
+          <span>2 กลุ่มการสอน</span>
+        </div>
+      </article>
+    
       <article class="bar-row">
         <div class="bar-row-meta">
           <div>
@@ -560,25 +579,23 @@
           <span>1 กลุ่มการสอน</span>
         </div>
       </article>
-    
-      <article class="bar-row">
-        <div class="bar-row-meta">
-          <div>
-            <strong class="tt-section-title">อภิวัฒน์ ยอดอินทร์</strong>
-            <p class="muted-text">การงานอาชีพเพิ่มเติม3, วิทยาศาสตร์และเทคโนโลยี</p>
-          </div>
-          <span class="pill">0/24</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill safe" style="width:0%"></div>
-        </div>
-        <div class="bar-foot">
-          <span>0%</span>
-          <span>0 กลุ่มการสอน</span>
-        </div>
-      </article>
     </div></div>
             <div id="teacher-loads">
+            <article class="load-focus-card safe">
+              <div class="status-meta load-focus-head">
+                <div>
+                  <strong class="tt-section-title">อภิวัฒน์ ยอดอินทร์</strong>
+                  <div class="muted-text">การงานอาชีพเพิ่มเติม3, วิทยาศาสตร์และเทคโนโลยี</div>
+                </div>
+                <span class="tone-pill safe">ภาระยังสมดุล</span>
+              </div>
+              <div class="load-bar"><div class="load-fill safe" style="width: 46%"></div></div>
+              <div class="load-focus-meta">
+                <strong>11/24 คาบ</strong>
+                <span class="muted-text">ดูแล 2 กลุ่มการสอน</span>
+              </div>
+            </article>
+          
             <article class="load-focus-card safe">
               <div class="status-meta load-focus-head">
                 <div>
@@ -613,42 +630,170 @@
         </section>
 
         <section class="screen hidden" data-screen="catalog">
-          <section class="panel">
-            <div class="section-head">
-              <div>
-                <p class="eyebrow">ข้อมูลหลักแบบมีโครงสร้าง</p>
-                <h3 class="tt-section-title">จัดการข้อมูลระบบ</h3>
+          <section class="catalog-shell">
+            <aside class="panel catalog-nav-panel">
+              <div class="catalog-nav-head">
+                <p class="eyebrow">ลำดับการตั้งค่าข้อมูล</p>
+                <h3 class="tt-section-title">ลำดับการตั้งค่าข้อมูลหลัก</h3>
+                <p class="muted-text">เริ่มจากข้อมูลที่เป็นฐานก่อน แล้วค่อยไล่ไปยังแผนรายวิชาและกลุ่มการสอนเพื่อให้ระบบตรวจความพร้อมได้ครบ</p>
               </div>
-              <div class="toolbar">
-                <select id="catalog-type" hidden=""><option value="teachers" selected="">ครู</option><option value="rooms">ห้อง/สถานที่</option><option value="subjects">รายวิชา</option><option value="sections">ชั้นเรียน</option><option value="enrollments">แผนรายวิชา</option><option value="instructionalGroups">กลุ่มการสอน</option></select>
-                <select id="catalog-filter"><option value="" selected="">ตัวกรองทั้งหมด</option><option value="WITH_SUBJECTS">ผูกวิชาแล้ว</option><option value="WITHOUT_SUBJECTS">ยังไม่ผูกวิชา</option><option value="WITH_ROLE">มีบทบาทกำกับ</option><option value="WITHOUT_ROLE">ยังไม่กำหนดบทบาท</option></select>
-                <input id="catalog-search" type="search" placeholder="ค้นหาข้อมูล">
-                <button class="primary-button" data-icon="plus" id="add-record-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+              <div id="catalog-nav" class="catalog-nav-list">
+        <button class="catalog-nav-item is-active" type="button" data-catalog-type="teachers" aria-pressed="true">
+          <span class="catalog-nav-step">1</span>
+          <span class="catalog-nav-copy">
+            <strong>ครู</strong>
+            <small>บทบาท ภาระสอน และวิชาที่รับผิดชอบ</small>
+          </span>
+          <span class="catalog-nav-meta">
+            <span class="catalog-nav-count">3 รายการ</span>
+            <span class="catalog-nav-ready has-issues">พร้อม 2/3</span>
+          </span>
+        </button>
+      
+        <button class="catalog-nav-item " type="button" data-catalog-type="rooms" aria-pressed="false">
+          <span class="catalog-nav-step">2</span>
+          <span class="catalog-nav-copy">
+            <strong>ห้อง/สถานที่</strong>
+            <small>ห้องเรียน ห้องพิเศษ และความจุ</small>
+          </span>
+          <span class="catalog-nav-meta">
+            <span class="catalog-nav-count">1 รายการ</span>
+            <span class="catalog-nav-ready is-clean">พร้อม 1/1</span>
+          </span>
+        </button>
+      
+        <button class="catalog-nav-item " type="button" data-catalog-type="subjects" aria-pressed="false">
+          <span class="catalog-nav-step">3</span>
+          <span class="catalog-nav-copy">
+            <strong>รายวิชา</strong>
+            <small>รหัสวิชา หน่วยกิต คาบ และกลุ่มสาระ</small>
+          </span>
+          <span class="catalog-nav-meta">
+            <span class="catalog-nav-count">3 รายการ</span>
+            <span class="catalog-nav-ready is-clean">พร้อม 3/3</span>
+          </span>
+        </button>
+      
+        <button class="catalog-nav-item " type="button" data-catalog-type="sections" aria-pressed="false">
+          <span class="catalog-nav-step">4</span>
+          <span class="catalog-nav-copy">
+            <strong>ชั้นเรียน</strong>
+            <small>ระดับชั้น ห้องเรียน และเป้าหมายคาบ</small>
+          </span>
+          <span class="catalog-nav-meta">
+            <span class="catalog-nav-count">1 รายการ</span>
+            <span class="catalog-nav-ready is-clean">พร้อม 1/1</span>
+          </span>
+        </button>
+      
+        <button class="catalog-nav-item " type="button" data-catalog-type="enrollments" aria-pressed="false">
+          <span class="catalog-nav-step">5</span>
+          <span class="catalog-nav-copy">
+            <strong>แผนรายวิชา</strong>
+            <small>จับคู่ชั้นเรียน วิชา ครูหลัก และห้องหลัก</small>
+          </span>
+          <span class="catalog-nav-meta">
+            <span class="catalog-nav-count">3 รายการ</span>
+            <span class="catalog-nav-ready is-clean">พร้อม 3/3</span>
+          </span>
+        </button>
+      
+        <button class="catalog-nav-item " type="button" data-catalog-type="instructionalGroups" aria-pressed="false">
+          <span class="catalog-nav-step">6</span>
+          <span class="catalog-nav-copy">
+            <strong>กลุ่มการสอน</strong>
+            <small>กลุ่มย่อย สอนร่วม ภาระสอน และห้องหลัก</small>
+          </span>
+          <span class="catalog-nav-meta">
+            <span class="catalog-nav-count">3 รายการ</span>
+            <span class="catalog-nav-ready is-clean">พร้อม 3/3</span>
+          </span>
+        </button>
+      </div>
+            </aside>
+
+            <div class="catalog-module-panel">
+              <section class="panel">
+                <div class="catalog-module-copy">
+                  <p id="catalog-module-kicker" class="eyebrow">ข้อมูลบุคลากร</p>
+                  <h3 id="catalog-module-title" class="tt-section-title">ครูและบทบาทการสอน</h3>
+                  <p id="catalog-module-description" class="muted-text">กำหนดรหัสครู ภาระสอน และวิชาที่รับผิดชอบก่อนผูกเข้ากับแผนรายวิชาและกลุ่มการสอน</p>
+                </div>
+                <div id="catalog-module-stats" class="catalog-module-stats">
+    <article class="catalog-stat-card ">
+      <span>รายการทั้งหมด</span>
+      <strong>3</strong>
+      <small>ข้อมูลในโมดูลนี้</small>
+    </article>
+  
+    <article class="catalog-stat-card is-ready">
+      <span>พร้อมใช้งาน</span>
+      <strong>2</strong>
+      <small>ใช้ต่อใน workflow ถัดไปได้</small>
+    </article>
+  
+    <article class="catalog-stat-card is-attention">
+      <span>ต้องตรวจสอบ</span>
+      <strong>1</strong>
+      <small>0 รายการขาดข้อมูล • 1 รายการรอเติม</small>
+    </article>
+  </div>
+              </section>
+
+              <section class="panel catalog-toolbar-panel">
+                <div class="section-head catalog-toolbar">
+                  <div>
+                    <p id="catalog-table-kicker" class="eyebrow">ทะเบียนครู</p>
+                    <h3 id="catalog-table-title" class="tt-section-title">รายการครูในระบบ</h3>
+                  </div>
+                  <div class="catalog-toolbar-filters">
+                    <select id="catalog-type" hidden=""><option value="teachers" selected="">ครู</option><option value="rooms">ห้อง/สถานที่</option><option value="subjects">รายวิชา</option><option value="sections">ชั้นเรียน</option><option value="enrollments">แผนรายวิชา</option><option value="instructionalGroups">กลุ่มการสอน</option></select>
+                    <select id="catalog-filter"><option value="" selected="">ตัวกรองทั้งหมด</option><option value="WITH_SUBJECTS">ผูกวิชาแล้ว</option><option value="WITHOUT_SUBJECTS">ยังไม่ผูกวิชา</option><option value="WITH_ROLE">มีบทบาทกำกับ</option><option value="WITHOUT_ROLE">ยังไม่กำหนดบทบาท</option></select>
+                    <input id="catalog-search" type="search" placeholder="ค้นหารหัสครูหรือชื่อครู">
+                    <button class="primary-button" data-icon="plus" id="add-record-button" type="button" data-icon-hydrated="true" data-idle-label="เพิ่มครู"><span class="tt-icon" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 5v14"></path>
       <path d="M5 12h14"></path>
     </svg>
-  </span><span>เพิ่มรายการ</span></button>
-              </div>
-            </div>
+  </span><span>เพิ่มครู</span></button>
+                  </div>
+                </div>
 
-            <article class="catalog-guide compact-panel">
-              <strong class="tt-section-title">ลำดับแนะนำ</strong>
-              <p class="muted-text">เริ่มจากครู ห้องเรียน รายวิชา และชั้นเรียน ก่อนผูกเป็นแผนรายวิชาและกลุ่มการสอน</p>
-            </article>
+                <article class="catalog-flow-card">
+                  <strong class="tt-section-title">แนวทางก่อนไปขั้นถัดไป</strong>
+                  <p id="catalog-flow-note" class="muted-text">เริ่มจากครูที่มีบทบาทและวิชาที่สอนครบก่อน เพื่อให้ขั้นผูกแผนรายวิชาเดินต่อได้ลื่น</p>
+                </article>
 
-            <div id="catalog-summary" class="muted-text">ทั้งหมด 3 รายการ • แสดง 3 รายการ</div>
+                <div id="catalog-summary" class="muted-text catalog-summary-text">ทั้งหมด 3 รายการ • พร้อมใช้งาน 2 • ต้องตรวจสอบ 1 • แสดง 3 รายการ</div>
+              </section>
 
-            <div class="table-wrap">
-              <table class="data-table">
-                <thead id="catalog-head"><tr><th>รหัส</th><th>ชื่อครู</th><th>คาบสูงสุด</th><th>บทบาท</th><th>รายวิชา</th><th>จัดการ</th></tr></thead>
-                <tbody id="catalog-body">
+              <section class="panel catalog-table-panel">
+                <div class="catalog-table-wrap">
+                  <table class="data-table catalog-data-table">
+                    <thead id="catalog-head"><tr><th>รหัส</th><th>ชื่อครู</th><th>คาบสูงสุด</th><th>บทบาท</th><th>วิชาที่ผูก</th><th>สถานะความพร้อม</th><th>จัดการ</th></tr></thead>
+                    <tbody id="catalog-body">
         <tr>
           <td>1</td>
-          <td>อภิวัฒน์ ยอดอินทร์</td>
+          <td>
+    <div class="catalog-cell-stack">
+      <strong>อภิวัฒน์ ยอดอินทร์</strong>
+      <small>ID teacher-dfe83fff</small>
+    </div>
+  </td>
           <td>24</td>
           <td>ครูผู้สอน</td>
-          <td>การงานอาชีพเพิ่มเติม3, วิทยาศาสตร์และเทคโนโลยี</td>
+          <td>
+    <div class="catalog-cell-stack">
+      <strong>2 วิชา</strong>
+      <small>การงานอาชีพเพิ่มเติม3, วิทยาศาสตร์และเทคโนโลยี</small>
+    </div>
+  </td>
+          <td>
+    <span class="readiness-badge is-ready" title="ผูกบทบาทและวิชาที่สอนแล้ว 2 วิชา">
+      <strong>พร้อมใช้งาน</strong>
+      <small>ผูกบทบาทและวิชาที่สอนแล้ว 2 วิชา</small>
+    </span>
+  </td>
           <td>
     <div class="action-row">
       <button class="text-button" type="button" data-action="edit" data-id="teacher-dfe83fff"><span class="tt-icon" aria-hidden="true">
@@ -672,10 +817,26 @@
       
         <tr>
           <td>11</td>
-          <td>อภิชาติ คีรีพล</td>
+          <td>
+    <div class="catalog-cell-stack">
+      <strong>อภิชาติ คีรีพล</strong>
+      <small>ID teacher-107185fa</small>
+    </div>
+  </td>
           <td>24</td>
           <td>ครูผู้สอน</td>
-          <td>การงานอาชีพเพิ่มเติม3</td>
+          <td>
+    <div class="catalog-cell-stack">
+      <strong>1 วิชา</strong>
+      <small>การงานอาชีพเพิ่มเติม3</small>
+    </div>
+  </td>
+          <td>
+    <span class="readiness-badge is-ready" title="ผูกบทบาทและวิชาที่สอนแล้ว 1 วิชา">
+      <strong>พร้อมใช้งาน</strong>
+      <small>ผูกบทบาทและวิชาที่สอนแล้ว 1 วิชา</small>
+    </span>
+  </td>
           <td>
     <div class="action-row">
       <button class="text-button" type="button" data-action="edit" data-id="teacher-107185fa"><span class="tt-icon" aria-hidden="true">
@@ -699,10 +860,26 @@
       
         <tr>
           <td>000</td>
-          <td>อภิรักษ์ ชาติไทย</td>
+          <td>
+    <div class="catalog-cell-stack">
+      <strong>อภิรักษ์ ชาติไทย</strong>
+      <small>ID teacher-39cabbf7</small>
+    </div>
+  </td>
           <td>24</td>
           <td>ผู้ดูแลระบบ, งานวิชาการ, ครูผู้สอน</td>
-          <td>-</td>
+          <td>
+    <div class="catalog-cell-stack">
+      <strong>ยังไม่ผูกวิชา</strong>
+      
+    </div>
+  </td>
+          <td>
+    <span class="readiness-badge is-warning" title="รอระบุ วิชาที่สอน">
+      <strong>ต้องเติมข้อมูล</strong>
+      <small>รอระบุ วิชาที่สอน</small>
+    </span>
+  </td>
           <td>
     <div class="action-row">
       <button class="text-button" type="button" data-action="edit" data-id="teacher-39cabbf7"><span class="tt-icon" aria-hidden="true">
@@ -724,84 +901,87 @@
   </td>
         </tr>
       </tbody>
-              </table>
+                  </table>
+                </div>
+              </section>
             </div>
           </section>
         </section>
 
         <section class="screen hidden" data-screen="timetable">
-          <section class="panel">
-            <div class="section-head">
-              <div>
-                <p class="eyebrow">พื้นที่จัดตารางสอน</p>
-                <h3 class="tt-section-title">วางแผนตามห้องเรียนหรือครู</h3>
-              </div>
-              <div class="toolbar">
-                <div class="segmented" id="view-switch">
-    <button class="is-active" data-view="section">มุมมองห้องเรียน</button>
-    <button class="" data-view="teacher">มุมมองครู</button>
-  </div>
-                <select id="scope-select"><option value="section-2e0d203f" selected="">ม.3/3</option></select>
-                <button class="ghost-button" data-icon="check" id="validate-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+          <section class="timetable-shell">
+            <section class="panel timetable-toolbar-panel">
+              <div class="section-head timetable-toolbar-head">
+                <div class="timetable-toolbar-copy">
+                  <p class="eyebrow">พื้นที่จัดตารางสอน</p>
+                  <h3 id="timetable-scope-title" class="tt-section-title">ตารางสอนของ ม.3/3</h3>
+                  <p id="timetable-scope-meta" class="muted-text">มุมมองห้องเรียน โดยลงคาบแล้ว 7 รายการ ใช้งาน 7 ช่อง</p>
+                </div>
+                <div class="timetable-toolbar-actions">
+                  <button class="ghost-button" data-icon="check" id="validate-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <path d="M20 6 9 17l-5-5"></path>
     </svg>
   </span><span>ตรวจสอบ</span></button>
-                <button class="ghost-button" data-icon="download" id="export-csv-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+                  <button class="ghost-button" data-icon="spark" id="auto-schedule-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m12 3 1.8 4.5L18 9.3l-4.2 1.8L12 15.6l-1.8-4.5L6 9.3l4.2-1.8Z"></path>
+      <path d="M19 16l.8 2 .8.3-.8.3-.8 2-.8-2-.8-.3.8-.3Z"></path>
+    </svg>
+  </span><span>จัดวางอัตโนมัติ</span></button>
+                  <button class="primary-button" data-icon="download" id="open-export-drawer-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 3v12"></path>
       <path d="m7 10 5 5 5-5"></path>
       <path d="M5 21h14"></path>
     </svg>
-  </span><span>ส่งออก CSV</span></button>
-                <button class="ghost-button" data-icon="download" id="export-pdf-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 3v12"></path>
-      <path d="m7 10 5 5 5-5"></path>
-      <path d="M5 21h14"></path>
-    </svg>
-  </span><span>ส่งออก PDF</span></button>
-                <button class="primary-button" data-icon="print" id="print-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M7 8V4h10v4"></path>
-      <rect x="5" y="14" width="14" height="7" rx="2"></rect>
-      <rect x="3" y="8" width="18" height="8" rx="3"></rect>
-      <path d="M17 12h.01"></path>
-    </svg>
-  </span><span>พิมพ์</span></button>
-              </div>
-            </div>
-
-            <article class="workspace-guide compact-panel">
-              <strong class="tt-section-title">วิธีใช้งานแบบสั้น</strong>
-              <p class="muted-text">เลือกมุมมองครูหรือห้องเรียน จากนั้นเลือกคาบที่ยังไม่ลงและวางลงในตาราง ระบบจะช่วยป้องกันการชนกันและคอยซิงก์งานร่วมกันทุก 1 นาที</p>
-            </article>
-
-            <article class="export-console compact-panel">
-              <div class="section-head compact export-console-head">
-                <div>
-                  <p class="eyebrow">ส่งออกและพิมพ์</p>
-                  <h3 class="tt-section-title">เลือกชุดข้อมูลก่อนดาวน์โหลดหรือพิมพ์</h3>
-                  <p class="muted-text" id="export-scope-note">กำลังเตรียมตารางของ ม.3/3</p>
-                </div>
-                <div class="toolbar export-console-actions">
-                  <select id="export-scope-select"><option value="current" selected="">ห้องเรียนที่เปิดอยู่</option><option value="all">ห้องเรียนทั้งหมด</option><option value="selected">เฉพาะห้องที่เลือก</option></select>
-                  <input id="export-search-input" type="search" placeholder="ค้นหาครูหรือห้องเรียน" hidden="" disabled="">
-                  <button class="text-button" id="select-visible-button" type="button" hidden="" disabled="">เลือกที่เห็น</button>
-                  <button class="text-button" id="clear-export-selection-button" type="button" hidden="" disabled="">ล้างที่เลือก</button>
+  </span><span>ส่งออก</span></button>
                 </div>
               </div>
-              <div class="export-selection-panel" id="export-selection-panel">
-      <div class="selection-empty">
-        <strong>พิมพ์หรือส่งออกตามห้องที่เปิดอยู่</strong>
-        <p>เปลี่ยนเป็นโหมดเฉพาะห้องที่เลือก หากต้องการพิมพ์หรือส่งออกหลายห้องพร้อมกัน</p>
-      </div>
-    </div>
-            </article>
+            </section>
 
-            <div class="workspace-grid">
-              <section class="board-panel workspace-board">
-                <div class="board-scroll">
+            <section class="timetable-workspace">
+              <aside class="panel accent-panel timetable-left-rail">
+                <div class="timetable-rail-head">
+                  <p class="eyebrow">ขอบเขตการจัดตาราง</p>
+                  <h3 class="tt-section-title">มุมมองและขอบเขตการทำงาน</h3>
+                  <p class="muted-text">สลับรายครูหรือรายห้องเรียนก่อน จากนั้นคัดกลุ่มที่ยังเหลือคาบในขอบเขตเดียวกัน</p>
+                </div>
+
+                <div class="timetable-scope-card">
+                  <div class="segmented" id="view-switch">
+    <button class="is-active" data-view="section">มุมมองห้องเรียน</button>
+    <button class="" data-view="teacher">มุมมองครู</button>
+  </div>
+                  <select id="scope-select"><option value="section-2e0d203f" selected="">ม.3/3</option></select>
+                  <p id="timetable-scope-note" class="muted-text">มุมมองห้องเรียน • ม.3/3 • เหลือกลุ่มค้างจัด 0 กลุ่ม</p>
+                </div>
+
+                <div class="timetable-pool-head">
+                  <div>
+                    <p class="eyebrow">กลุ่มค้างจัด</p>
+                    <h3 class="tt-section-title">กลุ่มการสอนที่ยังไม่ลงคาบ</h3>
+                  </div>
+                  <select id="group-sort-select" aria-label="เรียงกลุ่มการสอน"><option value="remaining_desc" selected="">เหลือคาบมากสุด</option><option value="unassigned_first">ยังไม่ลงคาบก่อน</option><option value="issues_desc">มี unresolved issue</option><option value="subject_asc">ตามวิชา</option><option value="section_asc">ตามระดับชั้น</option></select>
+                </div>
+                <p id="group-pool-summary" class="muted-text">ไม่มีภาระค้างจัดในขอบเขตที่กำลังเปิดอยู่</p>
+                <div id="group-pool" class="group-pool">
+    <article class="empty-state neutral tt-soft-panel">
+      <strong class="tt-section-title">จัดลงคาบครบแล้ว</strong>
+      <p class="tt-body-soft">ไม่มีกลุ่มการสอนที่ค้างอยู่ในขอบเขตที่คุณกำลังดู</p>
+    </article>
+  </div>
+              </aside>
+
+              <section class="panel timetable-board-panel">
+                <div class="section-head compact">
+                  <div>
+                    <p id="timetable-board-kicker" class="eyebrow">มุมมองห้องเรียน</p>
+                    <h3 id="timetable-board-title" class="tt-section-title">กระดานจัดตารางของ ม.3/3</h3>
+                    <p id="timetable-board-note" class="muted-text" data-default-text="ยังมีประเด็นตรวจสอบ 7 รายการ และมีกลุ่มค้างจัด 0 กลุ่มในขอบเขตนี้">ยังมีประเด็นตรวจสอบ 7 รายการ และมีกลุ่มค้างจัด 0 กลุ่มในขอบเขตนี้</p>
+                  </div>
+                </div>
+                <div class="board-scroll timetable-board-scroll">
                   <div class="board-head" id="board-head"><div class="board-corner">คาบ</div><div title="วันจันทร์">จ.<small>วันจันทร์</small></div><div title="วันอังคาร">อ.<small>วันอังคาร</small></div><div title="วันพุธ">พ.<small>วันพุธ</small></div><div title="วันพฤหัสบดี">พฤ.<small>วันพฤหัสบดี</small></div><div title="วันศุกร์">ศ.<small>วันศุกร์</small></div></div>
                   <div class="board-grid" id="board-grid">
         <div class="board-row">
@@ -809,10 +989,48 @@
           
                 <div class="slot-cell" data-day="MON" data-period="1">
                   
+                        <article class="entry-card" draggable="true" data-entry-id="generated-group-a572ac33-MON-1-1" style="--entry-color: #8f6b3a; --entry-soft: rgba(143, 107, 58, 0.16)">
+                          <button class="entry-delete" type="button" aria-label="นำออกจากตาราง" title="นำออกจากตาราง" data-entry-delete="generated-group-a572ac33-MON-1-1"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 6h18"></path>
+      <path d="M8 6V4h8v2"></path>
+      <path d="M19 6l-1 14H6L5 6"></path>
+      <path d="M10 11v6"></path>
+      <path d="M14 11v6"></path>
+    </svg>
+  </span></button>
+                          <h4 class="tt-section-title">การงานอาชีพเพิ่มเติม</h4>
+                          <p>การงาน 1</p>
+                          <p>อภิวัฒน์ ยอดอินทร์ (ครูหลัก)</p>
+                          <div class="entry-meta">
+                            <span class="pill">ม.1/3</span>
+                            <span class="pill">กลุ่มย่อย</span>
+                          </div>
+                        </article>
+                      
                 </div>
               
                 <div class="slot-cell" data-day="TUE" data-period="1">
                   
+                        <article class="entry-card" draggable="true" data-entry-id="generated-group-430955db-TUE-1-2" style="--entry-color: #2176c7; --entry-soft: rgba(33, 118, 199, 0.16)">
+                          <button class="entry-delete" type="button" aria-label="นำออกจากตาราง" title="นำออกจากตาราง" data-entry-delete="generated-group-430955db-TUE-1-2"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 6h18"></path>
+      <path d="M8 6V4h8v2"></path>
+      <path d="M19 6l-1 14H6L5 6"></path>
+      <path d="M10 11v6"></path>
+      <path d="M14 11v6"></path>
+    </svg>
+  </span></button>
+                          <h4 class="tt-section-title">วิทยาศาสตร์และเทคโนโลยี</h4>
+                          <p>1</p>
+                          <p>อภิวัฒน์ ยอดอินทร์ (ครูหลัก)</p>
+                          <div class="entry-meta">
+                            <span class="pill">ม.1/3</span>
+                            <span class="pill">ทั้งห้อง</span>
+                          </div>
+                        </article>
+                      
                 </div>
               
                 <div class="slot-cell" data-day="WED" data-period="1">
@@ -821,10 +1039,48 @@
               
                 <div class="slot-cell" data-day="THU" data-period="1">
                   
+                        <article class="entry-card" draggable="true" data-entry-id="entry-tt-current-section-2e0d203f-THU-1-group-859366ee" style="--entry-color: #8f6b3a; --entry-soft: rgba(143, 107, 58, 0.16)">
+                          <button class="entry-delete" type="button" aria-label="นำออกจากตาราง" title="นำออกจากตาราง" data-entry-delete="entry-tt-current-section-2e0d203f-THU-1-group-859366ee"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 6h18"></path>
+      <path d="M8 6V4h8v2"></path>
+      <path d="M19 6l-1 14H6L5 6"></path>
+      <path d="M10 11v6"></path>
+      <path d="M14 11v6"></path>
+    </svg>
+  </span></button>
+                          <h4 class="tt-section-title">การงานอาชีพเพิ่มเติม3</h4>
+                          <p>กลุ่มหญิง2</p>
+                          <p>อภิรักษ์ ชาติไทย (ครูหลัก), อภิชาติ คีรีพล (ครูหลัก)</p>
+                          <div class="entry-meta">
+                            <span class="pill">ม.1/3</span>
+                            <span class="pill">กลุ่มย่อย</span>
+                          </div>
+                        </article>
+                      
                 </div>
               
                 <div class="slot-cell" data-day="FRI" data-period="1">
                   
+                        <article class="entry-card" draggable="true" data-entry-id="entry-tt-current-section-2e0d203f-FRI-1-group-859366ee" style="--entry-color: #8f6b3a; --entry-soft: rgba(143, 107, 58, 0.16)">
+                          <button class="entry-delete" type="button" aria-label="นำออกจากตาราง" title="นำออกจากตาราง" data-entry-delete="entry-tt-current-section-2e0d203f-FRI-1-group-859366ee"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 6h18"></path>
+      <path d="M8 6V4h8v2"></path>
+      <path d="M19 6l-1 14H6L5 6"></path>
+      <path d="M10 11v6"></path>
+      <path d="M14 11v6"></path>
+    </svg>
+  </span></button>
+                          <h4 class="tt-section-title">การงานอาชีพเพิ่มเติม3</h4>
+                          <p>กลุ่มหญิง2</p>
+                          <p>อภิรักษ์ ชาติไทย (ครูหลัก), อภิชาติ คีรีพล (ครูหลัก)</p>
+                          <div class="entry-meta">
+                            <span class="pill">ม.1/3</span>
+                            <span class="pill">กลุ่มย่อย</span>
+                          </div>
+                        </article>
+                      
                 </div>
               
         </div>
@@ -838,6 +1094,25 @@
               
                 <div class="slot-cell" data-day="TUE" data-period="2">
                   
+                        <article class="entry-card" draggable="true" data-entry-id="generated-group-430955db-TUE-3-1" style="--entry-color: #2176c7; --entry-soft: rgba(33, 118, 199, 0.16)">
+                          <button class="entry-delete" type="button" aria-label="นำออกจากตาราง" title="นำออกจากตาราง" data-entry-delete="generated-group-430955db-TUE-3-1"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 6h18"></path>
+      <path d="M8 6V4h8v2"></path>
+      <path d="M19 6l-1 14H6L5 6"></path>
+      <path d="M10 11v6"></path>
+      <path d="M14 11v6"></path>
+    </svg>
+  </span></button>
+                          <h4 class="tt-section-title">วิทยาศาสตร์และเทคโนโลยี</h4>
+                          <p>1</p>
+                          <p>อภิวัฒน์ ยอดอินทร์ (ครูหลัก)</p>
+                          <div class="entry-meta">
+                            <span class="pill">ม.1/3</span>
+                            <span class="pill">ทั้งห้อง</span>
+                          </div>
+                        </article>
+                      
                 </div>
               
                 <div class="slot-cell" data-day="WED" data-period="2">
@@ -846,6 +1121,25 @@
               
                 <div class="slot-cell" data-day="THU" data-period="2">
                   
+                        <article class="entry-card" draggable="true" data-entry-id="entry-tt-current-section-2e0d203f-THU-2-group-859366ee" style="--entry-color: #8f6b3a; --entry-soft: rgba(143, 107, 58, 0.16)">
+                          <button class="entry-delete" type="button" aria-label="นำออกจากตาราง" title="นำออกจากตาราง" data-entry-delete="entry-tt-current-section-2e0d203f-THU-2-group-859366ee"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 6h18"></path>
+      <path d="M8 6V4h8v2"></path>
+      <path d="M19 6l-1 14H6L5 6"></path>
+      <path d="M10 11v6"></path>
+      <path d="M14 11v6"></path>
+    </svg>
+  </span></button>
+                          <h4 class="tt-section-title">การงานอาชีพเพิ่มเติม3</h4>
+                          <p>กลุ่มหญิง2</p>
+                          <p>อภิรักษ์ ชาติไทย (ครูหลัก), อภิชาติ คีรีพล (ครูหลัก)</p>
+                          <div class="entry-meta">
+                            <span class="pill">ม.1/3</span>
+                            <span class="pill">กลุ่มย่อย</span>
+                          </div>
+                        </article>
+                      
                 </div>
               
                 <div class="slot-cell" data-day="FRI" data-period="2">
@@ -859,52 +1153,33 @@
           
                 <div class="slot-cell" data-day="MON" data-period="3">
                   
+                        <article class="entry-card" draggable="true" data-entry-id="generated-group-430955db-MON-3-3" style="--entry-color: #2176c7; --entry-soft: rgba(33, 118, 199, 0.16)">
+                          <button class="entry-delete" type="button" aria-label="นำออกจากตาราง" title="นำออกจากตาราง" data-entry-delete="generated-group-430955db-MON-3-3"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 6h18"></path>
+      <path d="M8 6V4h8v2"></path>
+      <path d="M19 6l-1 14H6L5 6"></path>
+      <path d="M10 11v6"></path>
+      <path d="M14 11v6"></path>
+    </svg>
+  </span></button>
+                          <h4 class="tt-section-title">วิทยาศาสตร์และเทคโนโลยี</h4>
+                          <p>1</p>
+                          <p>อภิวัฒน์ ยอดอินทร์ (ครูหลัก)</p>
+                          <div class="entry-meta">
+                            <span class="pill">ม.1/3</span>
+                            <span class="pill">ทั้งห้อง</span>
+                          </div>
+                        </article>
+                      
                 </div>
               
                 <div class="slot-cell" data-day="TUE" data-period="3">
                   
-                        <article class="entry-card" draggable="true" data-entry-id="entry-tt-current-section-2e0d203f-TUE-3-group-859366ee" style="--entry-color: #8f6b3a; --entry-soft: rgba(143, 107, 58, 0.16)">
-                          <button class="entry-delete" type="button" aria-label="นำออกจากตาราง" title="นำออกจากตาราง" data-entry-delete="entry-tt-current-section-2e0d203f-TUE-3-group-859366ee"><span class="tt-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 6h18"></path>
-      <path d="M8 6V4h8v2"></path>
-      <path d="M19 6l-1 14H6L5 6"></path>
-      <path d="M10 11v6"></path>
-      <path d="M14 11v6"></path>
-    </svg>
-  </span></button>
-                          <h4 class="tt-section-title">การงานอาชีพเพิ่มเติม3</h4>
-                          <p>กลุ่มหญิง2</p>
-                          <p>อภิรักษ์ ชาติไทย (ครูหลัก), อภิชาติ คีรีพล (ครูหลัก)</p>
-                          <div class="entry-meta">
-                            <span class="pill">ม.1/3</span>
-                            <span class="pill">กลุ่มย่อย</span>
-                          </div>
-                        </article>
-                      
                 </div>
               
                 <div class="slot-cell" data-day="WED" data-period="3">
                   
-                        <article class="entry-card" draggable="true" data-entry-id="entry-tt-current-section-2e0d203f-WED-3-group-859366ee" style="--entry-color: #8f6b3a; --entry-soft: rgba(143, 107, 58, 0.16)">
-                          <button class="entry-delete" type="button" aria-label="นำออกจากตาราง" title="นำออกจากตาราง" data-entry-delete="entry-tt-current-section-2e0d203f-WED-3-group-859366ee"><span class="tt-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 6h18"></path>
-      <path d="M8 6V4h8v2"></path>
-      <path d="M19 6l-1 14H6L5 6"></path>
-      <path d="M10 11v6"></path>
-      <path d="M14 11v6"></path>
-    </svg>
-  </span></button>
-                          <h4 class="tt-section-title">การงานอาชีพเพิ่มเติม3</h4>
-                          <p>กลุ่มหญิง2</p>
-                          <p>อภิรักษ์ ชาติไทย (ครูหลัก), อภิชาติ คีรีพล (ครูหลัก)</p>
-                          <div class="entry-meta">
-                            <span class="pill">ม.1/3</span>
-                            <span class="pill">กลุ่มย่อย</span>
-                          </div>
-                        </article>
-                      
                 </div>
               
                 <div class="slot-cell" data-day="THU" data-period="3">
@@ -926,25 +1201,6 @@
               
                 <div class="slot-cell" data-day="TUE" data-period="4">
                   
-                        <article class="entry-card" draggable="true" data-entry-id="entry-tt-current-section-2e0d203f-TUE-4-group-859366ee" style="--entry-color: #8f6b3a; --entry-soft: rgba(143, 107, 58, 0.16)">
-                          <button class="entry-delete" type="button" aria-label="นำออกจากตาราง" title="นำออกจากตาราง" data-entry-delete="entry-tt-current-section-2e0d203f-TUE-4-group-859366ee"><span class="tt-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 6h18"></path>
-      <path d="M8 6V4h8v2"></path>
-      <path d="M19 6l-1 14H6L5 6"></path>
-      <path d="M10 11v6"></path>
-      <path d="M14 11v6"></path>
-    </svg>
-  </span></button>
-                          <h4 class="tt-section-title">การงานอาชีพเพิ่มเติม3</h4>
-                          <p>กลุ่มหญิง2</p>
-                          <p>อภิรักษ์ ชาติไทย (ครูหลัก), อภิชาติ คีรีพล (ครูหลัก)</p>
-                          <div class="entry-meta">
-                            <span class="pill">ม.1/3</span>
-                            <span class="pill">กลุ่มย่อย</span>
-                          </div>
-                        </article>
-                      
                 </div>
               
                 <div class="slot-cell" data-day="WED" data-period="4">
@@ -1014,155 +1270,149 @@
                 </div>
               </section>
 
-              <aside class="panel accent-panel workspace-pool">
-                <div class="section-head compact">
-                  <div>
-                    <p class="eyebrow">กลุ่มที่ยังไม่ลงคาบ</p>
-                    <h3 class="tt-section-title">ภาระสอนที่ยังเหลือ</h3>
+              <aside class="panel timetable-right-rail">
+                <section class="timetable-subpanel">
+                  <div class="section-head compact">
+                    <div>
+                      <p class="eyebrow">คำแนะนำจากระบบ</p>
+                      <h3 class="tt-section-title">คาบที่ระบบแนะนำ</h3>
+                      <p id="suggestion-summary" class="muted-text">เลือกกลุ่มการสอนจากฝั่งซ้ายเพื่อดู slot ที่ระบบแนะนำและเหตุผลประกอบ</p>
+                    </div>
                   </div>
-                  <button class="ghost-button compact-button" data-icon="spark" id="auto-schedule-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="m12 3 1.8 4.5L18 9.3l-4.2 1.8L12 15.6l-1.8-4.5L6 9.3l4.2-1.8Z"></path>
-      <path d="M19 16l.8 2 .8.3-.8.3-.8 2-.8-2-.8-.3.8-.3Z"></path>
-    </svg>
-  </span><span>จัดวางอัตโนมัติ</span></button>
-                </div>
-                <div id="group-pool" class="group-pool">
-    <article class="empty-state neutral tt-soft-panel">
-      <strong class="tt-section-title">จัดลงคาบครบแล้ว</strong>
-      <p class="tt-body-soft">ไม่มีกลุ่มการสอนที่ค้างอยู่ในขอบเขตที่คุณกำลังดู</p>
-    </article>
-  </div>
-              </aside>
-
-              <aside class="panel workspace-inspector">
-                <div class="section-head compact">
-                  <div>
-                    <p class="eyebrow">แผงตรวจสอบ</p>
-                    <h3 class="tt-section-title">คำแนะนำและการทำงานร่วมกัน</h3>
-                  </div>
-                </div>
-
-                <div class="sub-panel">
-                  <h4 class="tt-section-title">คาบที่แนะนำ</h4>
                   <div class="stack-list" id="suggestion-list">
     <article class="empty-state neutral tt-soft-panel">
       <strong class="tt-section-title">เลือกกลุ่มที่ต้องการก่อน</strong>
       <p class="tt-body-soft">เลือกกลุ่มการสอนที่ยังไม่ลงคาบ เพื่อดูช่วงเวลาที่ระบบแนะนำให้เหมาะสมที่สุด</p>
     </article>
   </div>
-                </div>
+                </section>
 
-                <div class="sub-panel">
-                  <h4 class="tt-section-title">ผู้ใช้งานออนไลน์</h4>
+                <section class="timetable-subpanel">
+                  <div class="section-head compact">
+                    <div>
+                      <p class="eyebrow">การทำงานร่วมกัน</p>
+                      <h3 class="tt-section-title">สถานะผู้ใช้งานและล็อกการแก้ไข</h3>
+                      <p id="collaboration-summary" class="muted-text">ยังไม่มีผู้ใช้งานออนไลน์ใน workspace นี้ และยังไม่มี lock ที่ถือค้าง</p>
+                    </div>
+                  </div>
+                  <div class="stack-list" id="collaboration-health">
+    <article class="stack-item collaboration-health-card live">
+      <div class="status-meta">
+        <h4 class="tt-section-title">สถานะ collaboration พร้อมใช้งาน</h4>
+        <span class="tone-pill success">พร้อม</span>
+      </div>
+      <p>พบผู้ใช้งานออนไลน์ 0 คน และมี lock ที่ active อยู่ 0 รายการ</p>
+      <p class="muted-text">ซิงก์ล่าสุด ซิงก์ล่าสุด 22:12</p>
+    </article>
+  </div>
                   <div class="stack-list" id="presence-list">
     <article class="empty-state neutral tt-soft-panel">
       <strong class="tt-section-title">ยังไม่มีผู้ใช้งานออนไลน์</strong>
       <p class="tt-body-soft">เมื่อผู้ใช้ที่ยืนยันตัวตนแล้วเปิดเข้ามาในหน้าจัดตาราง รายชื่อจะแสดงในส่วนนี้</p>
     </article>
   </div>
-                </div>
-
-                <div class="sub-panel">
-                  <h4 class="tt-section-title">รายการล็อกการแก้ไข</h4>
                   <div class="stack-list" id="lock-list">
     <article class="empty-state neutral tt-soft-panel">
       <strong class="tt-section-title">ยังไม่มีการล็อกการแก้ไข</strong>
       <p class="tt-body-soft">เมื่อมีการแก้ไขคาบเรียน ระบบจะแสดงรายการล็อกชั่วคราวเพื่อป้องกันการชนกันของงาน</p>
     </article>
   </div>
-                </div>
+                </section>
 
-                <div class="sub-panel">
-                  <h4 class="tt-section-title">กิจกรรมล่าสุด</h4>
+                <section class="timetable-subpanel">
+                  <div class="section-head compact">
+                    <div>
+                      <p class="eyebrow">กิจกรรมล่าสุด</p>
+                      <h3 class="tt-section-title">กิจกรรมล่าสุดของ workspace</h3>
+                      <p id="activity-summary" class="muted-text">กิจกรรมล่าสุด 12 รายการ โดยซิงก์ล่าสุด ซิงก์ล่าสุด 22:12</p>
+                    </div>
+                  </div>
                   <div class="stack-list" id="activity-list">
       <article class="stack-item">
+        <h4 class="tt-section-title">ปรับแก้คาบเรียน</h4>
+        <p>smoke_test • 19 เม.ย. 2569 16:43</p>
+      </article>
+    
+      <article class="stack-item">
+        <h4 class="tt-section-title">BULK_AUTOSCHEDULE</h4>
+        <p>smoke_test • 19 เม.ย. 2569 16:43</p>
+      </article>
+    
+      <article class="stack-item">
+        <h4 class="tt-section-title">BULK_AUTOSCHEDULE</h4>
+        <p>smoke_test • 19 เม.ย. 2569 16:41</p>
+      </article>
+    
+      <article class="stack-item">
+        <h4 class="tt-section-title">BULK_AUTOSCHEDULE</h4>
+        <p>smoke_test • 19 เม.ย. 2569 16:40</p>
+      </article>
+    
+      <article class="stack-item">
+        <h4 class="tt-section-title">เพิ่มคาบเรียน</h4>
+        <p>smoke_test • 19 เม.ย. 2569 16:37</p>
+      </article>
+    
+      <article class="stack-item">
+        <h4 class="tt-section-title">เพิ่มคาบเรียน</h4>
+        <p>smoke_test • 19 เม.ย. 2569 16:37</p>
+      </article>
+    
+      <article class="stack-item">
+        <h4 class="tt-section-title">เพิ่มคาบเรียน</h4>
+        <p>smoke_test • 19 เม.ย. 2569 16:37</p>
+      </article>
+    
+      <article class="stack-item">
+        <h4 class="tt-section-title">เพิ่มคาบเรียน</h4>
+        <p>smoke_test • 19 เม.ย. 2569 16:36</p>
+      </article>
+    
+      <article class="stack-item">
+        <h4 class="tt-section-title">ลบคาบเรียน</h4>
+        <p>smoke_test • 19 เม.ย. 2569 16:35</p>
+      </article>
+    
+      <article class="stack-item">
+        <h4 class="tt-section-title">ลบคาบเรียน</h4>
+        <p>smoke_test • 19 เม.ย. 2569 16:35</p>
+      </article>
+    
+      <article class="stack-item">
+        <h4 class="tt-section-title">ลบคาบเรียน</h4>
+        <p>smoke_test • 19 เม.ย. 2569 16:35</p>
+      </article>
+    
+      <article class="stack-item">
         <h4 class="tt-section-title">ลบคาบเรียน</h4>
         <p>Admin • 19 เม.ย. 2569 02:55</p>
-      </article>
-    
-      <article class="stack-item">
-        <h4 class="tt-section-title">ลบคาบเรียน</h4>
-        <p>Admin • 19 เม.ย. 2569 02:55</p>
-      </article>
-    
-      <article class="stack-item">
-        <h4 class="tt-section-title">เพิ่มคาบเรียน</h4>
-        <p>Admin • 19 เม.ย. 2569 02:55</p>
-      </article>
-    
-      <article class="stack-item">
-        <h4 class="tt-section-title">เพิ่มคาบเรียน</h4>
-        <p>Admin • 19 เม.ย. 2569 02:54</p>
-      </article>
-    
-      <article class="stack-item">
-        <h4 class="tt-section-title">เพิ่มคาบเรียน</h4>
-        <p>Admin • 19 เม.ย. 2569 02:54</p>
-      </article>
-    
-      <article class="stack-item">
-        <h4 class="tt-section-title">ลบคาบเรียน</h4>
-        <p>Admin • 19 เม.ย. 2569 02:53</p>
-      </article>
-    
-      <article class="stack-item">
-        <h4 class="tt-section-title">ปรับแก้คาบเรียน</h4>
-        <p>Admin • 19 เม.ย. 2569 02:53</p>
-      </article>
-    
-      <article class="stack-item">
-        <h4 class="tt-section-title">ปรับแก้คาบเรียน</h4>
-        <p>Admin • 19 เม.ย. 2569 02:53</p>
-      </article>
-    
-      <article class="stack-item">
-        <h4 class="tt-section-title">เพิ่มคาบเรียน</h4>
-        <p>Admin • 19 เม.ย. 2569 02:53</p>
-      </article>
-    
-      <article class="stack-item">
-        <h4 class="tt-section-title">เพิ่มคาบเรียน</h4>
-        <p>Admin • 19 เม.ย. 2569 02:53</p>
-      </article>
-    
-      <article class="stack-item">
-        <h4 class="tt-section-title">ปรับแก้คาบเรียน</h4>
-        <p>Admin • 19 เม.ย. 2569 02:46</p>
-      </article>
-    
-      <article class="stack-item">
-        <h4 class="tt-section-title">เพิ่มคาบเรียน</h4>
-        <p>Admin • 19 เม.ย. 2569 01:46</p>
       </article>
     </div>
-                </div>
+                </section>
               </aside>
-            </div>
-          </section>
+            </section>
 
-          <section class="panel">
-            <div class="section-head">
-              <div>
-                <p class="eyebrow">สรุปการตรวจสอบ</p>
-                <h3 class="tt-section-title">ผลตรวจตารางล่าสุด</h3>
+            <section class="panel timetable-validation-drawer" id="validation-drawer">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">ผลตรวจตาราง</p>
+                  <h3 class="tt-section-title">สรุปผลการตรวจสอบล่าสุด</h3>
+                  <p id="validation-summary" class="muted-text">พบข้อผิดพลาด 2 รายการ และคำเตือน 5 รายการ</p>
+                </div>
+                <button class="text-button" id="toggle-validation-button" type="button">ซ่อนแผงตรวจสอบ</button>
               </div>
-            </div>
-            <div class="stack-list" id="validation-list">
+              <div id="validation-drawer-body">
+                <div class="stack-list" id="validation-list">
       <article class="stack-item">
         <div class="status-meta">
           <h4 class="tt-section-title">คาบรายวิชาไม่ครบ</h4>
           <span class="tone-pill error">ข้อผิดพลาด</span>
         </div>
-        <p>รายวิชาในห้องเรียนนี้ถูกจัด 0 จาก 3 คาบ</p>
-      </article>
-    
-      <article class="stack-item">
-        <div class="status-meta">
-          <h4 class="tt-section-title">คาบกลุ่มการสอนไม่ครบ</h4>
-          <span class="tone-pill error">ข้อผิดพลาด</span>
+        <p>รายวิชาในห้องเรียนนี้ถูกจัด 2 จาก 3 คาบ</p>
+        <div class="stack-item-actions">
+          
+          <span class="muted-text">เกี่ยวข้อง 3 รายการ</span>
         </div>
-        <p>กลุ่ม การงาน 1 ถูกจัด 0 จาก 2 คาบ</p>
       </article>
     
       <article class="stack-item">
@@ -1170,7 +1420,11 @@
           <h4 class="tt-section-title">คาบรวมรายสัปดาห์ไม่ตรงเป้า</h4>
           <span class="tone-pill error">ข้อผิดพลาด</span>
         </div>
-        <p>ห้อง 3/3 ถูกจัด 3 คาบ จากเป้าหมาย 30 คาบต่อสัปดาห์</p>
+        <p>ห้อง 3/3 ถูกจัด 7 คาบ จากเป้าหมาย 30 คาบต่อสัปดาห์</p>
+        <div class="stack-item-actions">
+          
+          <span class="muted-text">เกี่ยวข้อง 1 รายการ</span>
+        </div>
       </article>
     
       <article class="stack-item">
@@ -1178,7 +1432,11 @@
           <h4 class="tt-section-title">คาบรวมรายวันไม่สมดุล</h4>
           <span class="tone-pill warning">คำเตือน</span>
         </div>
-        <p>ห้อง 3/3 มี 0 คาบในวันจันทร์ จากที่กำหนด 6 คาบ</p>
+        <p>ห้อง 3/3 มี 2 คาบในวันจันทร์ จากที่กำหนด 6 คาบ</p>
+        <div class="stack-item-actions">
+          
+          <span class="muted-text">เกี่ยวข้อง 1 รายการ</span>
+        </div>
       </article>
     
       <article class="stack-item">
@@ -1187,6 +1445,10 @@
           <span class="tone-pill warning">คำเตือน</span>
         </div>
         <p>ห้อง 3/3 มี 2 คาบในวันอังคาร จากที่กำหนด 6 คาบ</p>
+        <div class="stack-item-actions">
+          
+          <span class="muted-text">เกี่ยวข้อง 1 รายการ</span>
+        </div>
       </article>
     
       <article class="stack-item">
@@ -1194,7 +1456,11 @@
           <h4 class="tt-section-title">คาบรวมรายวันไม่สมดุล</h4>
           <span class="tone-pill warning">คำเตือน</span>
         </div>
-        <p>ห้อง 3/3 มี 1 คาบในวันพุธ จากที่กำหนด 6 คาบ</p>
+        <p>ห้อง 3/3 มี 0 คาบในวันพุธ จากที่กำหนด 6 คาบ</p>
+        <div class="stack-item-actions">
+          
+          <span class="muted-text">เกี่ยวข้อง 1 รายการ</span>
+        </div>
       </article>
     
       <article class="stack-item">
@@ -1202,7 +1468,11 @@
           <h4 class="tt-section-title">คาบรวมรายวันไม่สมดุล</h4>
           <span class="tone-pill warning">คำเตือน</span>
         </div>
-        <p>ห้อง 3/3 มี 0 คาบในวันพฤหัสบดี จากที่กำหนด 6 คาบ</p>
+        <p>ห้อง 3/3 มี 2 คาบในวันพฤหัสบดี จากที่กำหนด 6 คาบ</p>
+        <div class="stack-item-actions">
+          
+          <span class="muted-text">เกี่ยวข้อง 1 รายการ</span>
+        </div>
       </article>
     
       <article class="stack-item">
@@ -1210,9 +1480,73 @@
           <h4 class="tt-section-title">คาบรวมรายวันไม่สมดุล</h4>
           <span class="tone-pill warning">คำเตือน</span>
         </div>
-        <p>ห้อง 3/3 มี 0 คาบในวันศุกร์ จากที่กำหนด 6 คาบ</p>
+        <p>ห้อง 3/3 มี 1 คาบในวันศุกร์ จากที่กำหนด 6 คาบ</p>
+        <div class="stack-item-actions">
+          
+          <span class="muted-text">เกี่ยวข้อง 1 รายการ</span>
+        </div>
       </article>
     </div>
+              </div>
+            </section>
+
+            <div class="timetable-export-backdrop hidden" id="export-drawer-backdrop"></div>
+            <aside class="panel timetable-export-drawer hidden" id="export-drawer" aria-hidden="true">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">ส่งออกและพิมพ์</p>
+                  <h3 class="tt-section-title">ส่งออกและพิมพ์ตารางสอน</h3>
+                  <p id="export-drawer-note" class="muted-text">กำลังเตรียมตารางของ ม.3/3</p>
+                </div>
+                <button class="text-button" data-icon="close" id="close-export-drawer-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 6 6 18"></path>
+      <path d="m6 6 12 12"></path>
+    </svg>
+  </span><span>ปิด</span></button>
+              </div>
+
+              <p id="export-scope-note" class="muted-text timetable-export-summary">กำลังเตรียมชุดส่งออก</p>
+
+              <div class="timetable-export-controls">
+                <select id="export-scope-select"><option value="current" selected="">ห้องเรียนที่เปิดอยู่</option><option value="all">ห้องเรียนทั้งหมด</option><option value="selected">เฉพาะห้องที่เลือก</option></select>
+                <input id="export-search-input" type="search" placeholder="ค้นหาครูหรือห้องเรียน" hidden="" disabled="">
+                <button class="text-button" id="select-visible-button" type="button" hidden="" disabled="">เลือกที่เห็น</button>
+                <button class="text-button" id="clear-export-selection-button" type="button" hidden="" disabled="">ล้างที่เลือก</button>
+              </div>
+
+              <div class="export-selection-panel" id="export-selection-panel">
+      <div class="selection-empty">
+        <strong>พิมพ์หรือส่งออกตามห้องที่เปิดอยู่</strong>
+        <p>เปลี่ยนเป็นโหมดเฉพาะห้องที่เลือก หากต้องการพิมพ์หรือส่งออกหลายห้องพร้อมกัน</p>
+      </div>
+    </div>
+
+              <div class="timetable-export-actions">
+                <button class="ghost-button" data-icon="download" id="export-csv-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v12"></path>
+      <path d="m7 10 5 5 5-5"></path>
+      <path d="M5 21h14"></path>
+    </svg>
+  </span><span>ส่งออก CSV</span></button>
+                <button class="ghost-button" data-icon="download" id="export-pdf-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v12"></path>
+      <path d="m7 10 5 5 5-5"></path>
+      <path d="M5 21h14"></path>
+    </svg>
+  </span><span>ส่งออก PDF</span></button>
+                <button class="primary-button" data-icon="print" id="print-button" type="button" data-icon-hydrated="true"><span class="tt-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 8V4h10v4"></path>
+      <rect x="5" y="14" width="14" height="7" rx="2"></rect>
+      <rect x="3" y="8" width="18" height="8" rx="3"></rect>
+      <path d="M17 12h.01"></path>
+    </svg>
+  </span><span>พิมพ์</span></button>
+              </div>
+            </aside>
           </section>
         </section>
 

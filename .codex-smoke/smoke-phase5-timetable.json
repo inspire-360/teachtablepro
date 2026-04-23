@@ -1,0 +1,107 @@
+{
+  "success": true,
+  "appUrl": "http://127.0.0.1:4178/",
+  "screenshotPath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-phase5-timetable.png",
+  "statePath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-phase5-timetable.json",
+  "domPath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-phase5-timetable.dom.html",
+  "startedAt": "2026-04-19T15:15:30.967Z",
+  "routeToTimetable": {
+    "hash": "#/timetable"
+  },
+  "timetable": {
+    "hash": "#/timetable",
+    "timetableVisible": true,
+    "scopeTitle": "ตารางสอนของ ม.3/3",
+    "groupSortExists": true,
+    "slotCount": 30,
+    "entryCount": 7,
+    "groupCardCount": 0,
+    "validationVisible": true,
+    "exportDrawerVisible": false,
+    "exportScopeExists": true,
+    "suggestionSectionExists": true,
+    "suggestionItemCount": 0,
+    "collaborationSectionExists": true,
+    "collaborationHealthExists": true,
+    "activitySectionExists": true
+  },
+  "scopeProbe": {
+    "ok": false,
+    "changed": true,
+    "view": "teacher",
+    "scopeValue": "teacher-39cabbf7",
+    "scopeLabel": "อภิรักษ์ ชาติไทย",
+    "groupCardCount": 0,
+    "summary": "ไม่มีภาระค้างจัดในขอบเขตที่กำลังเปิดอยู่"
+  },
+  "timetableWithGroups": {
+    "hash": "#/timetable",
+    "timetableVisible": true,
+    "scopeTitle": "ตารางสอนของ อภิรักษ์ ชาติไทย",
+    "groupSortExists": true,
+    "slotCount": 30,
+    "entryCount": 3,
+    "groupCardCount": 0,
+    "validationVisible": true,
+    "exportDrawerVisible": false,
+    "exportScopeExists": true,
+    "suggestionSectionExists": true,
+    "suggestionItemCount": 0,
+    "collaborationSectionExists": true,
+    "collaborationHealthExists": true,
+    "activitySectionExists": true
+  },
+  "dragPreview": {
+    "ok": true,
+    "dragging": false,
+    "dropTarget": true,
+    "dropOccupied": false,
+    "dropLocked": false,
+    "boardNote": "วันจันทร์ คาบ 1: ยังไม่มีคาบในช่องนี้ และยังไม่มี lock ที่ถือค้าง",
+    "remainingPreviewCount": 0
+  },
+  "selectGroup": {
+    "ok": true,
+    "skipped": true,
+    "reason": "no-unresolved-groups-in-current-dataset",
+    "summary": "ไม่มีภาระค้างจัดในขอบเขตที่กำลังเปิดอยู่"
+  },
+  "suggestions": {
+    "ok": true,
+    "skipped": true,
+    "reason": "no-unresolved-groups-in-current-dataset"
+  },
+  "suggestionPreview": {
+    "ok": true,
+    "skipped": true,
+    "reason": "no-unresolved-groups-in-current-dataset"
+  },
+  "toggleValidation": {
+    "ok": true,
+    "before": true,
+    "after": false,
+    "restored": true
+  },
+  "openExportDrawer": {
+    "ok": true,
+    "visible": true
+  },
+  "exportDrawer": {
+    "hash": "#/timetable",
+    "timetableVisible": true,
+    "scopeTitle": "ตารางสอนของ อภิรักษ์ ชาติไทย",
+    "groupSortExists": true,
+    "slotCount": 30,
+    "entryCount": 3,
+    "groupCardCount": 0,
+    "validationVisible": true,
+    "exportDrawerVisible": true,
+    "exportScopeExists": true,
+    "suggestionSectionExists": true,
+    "suggestionItemCount": 0,
+    "collaborationSectionExists": true,
+    "collaborationHealthExists": true,
+    "activitySectionExists": true
+  },
+  "endedAt": "2026-04-19T15:15:37.104Z"
+}

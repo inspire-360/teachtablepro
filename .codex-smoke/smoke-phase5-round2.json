@@ -1,0 +1,179 @@
+{
+  "success": true,
+  "appUrl": "http://127.0.0.1:4181/",
+  "screenshotPath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-phase5-round2.png",
+  "statePath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-phase5-round2.json",
+  "domPath": "C:\\Users\\401ms\\Desktop\\TeachTable\\.codex-smoke\\smoke-phase5-round2.dom.html",
+  "startedAt": "2026-04-19T16:52:11.491Z",
+  "beforeLogin": {
+    "href": "http://127.0.0.1:4181/",
+    "title": "TeachTable",
+    "readyState": "complete",
+    "authVisible": true,
+    "bootVisible": false,
+    "shellVisible": false,
+    "hasEmailInput": true,
+    "hasPasswordInput": true,
+    "emailButtonDisabled": false,
+    "authError": null,
+    "bodySample": "ระบบบริหารตารางสอน เข้าสู่ระบบก่อน แล้วเริ่มจัดตารางสอนทั้งโรงเรียนได้อย่างมั่นใจ TeachTable รวมข้อมูลครู ห้องเรียน รายวิชา ตารางสอน และการทำงานร่วมกันไว้ในหน้าจอเดียว เพื่อให้จัดตารางจริงได้ง่ายขึ้น ปลอดภัย เฉพาะผู้ใช้ที่ยืนยันตัวตนแล้วเท่านั้นที่เข้าถึงข้อมูลและการส่งออกเอกสารได้ เห็นภาพรวมเร็ว ดูสถานะตาราง ภาระงานครู และห้องที่ยังจัดไม่ครบจากหน้าจอเดียว พร้อมใช้งานจริง รองรับการจัดคาบ ตรวจชนข้อมูล ส่งออก และพิมพ์เอกสารแบบ production-ready ต้องยืนยันตัวตน เข้าสู่ระบบอย่างปลอดภัย เข้าสู่ระบบ TeachTable ใช้บัญชีของสถานศึกษาหรือบัญชีที่เปิดไว้ใน Firebase เพื่อเข้าถึงระบบ เข้าสู่ระบบด้วย Google "
+  },
+  "dashboard": {
+    "shellVisible": true,
+    "metricsCount": 4,
+    "pageTitle": "ภาพรวมการดำเนินงาน"
+  },
+  "catalogRoute": {
+    "hash": "#/catalog/enrollments",
+    "screen": "catalog",
+    "appVisible": true
+  },
+  "enrollmentCatalog": {
+    "catalogVisible": true,
+    "hash": "#/catalog/enrollments",
+    "activeCatalog": "enrollments",
+    "rowCount": 3,
+    "copyNextYearCount": 3,
+    "summary": "ทั้งหมด 3 รายการ • พร้อมใช้งาน 3 • ต้องตรวจสอบ 0 • แสดง 3 รายการ"
+  },
+  "openEnrollmentModal": {
+    "clicked": true
+  },
+  "enrollmentModal": {
+    "modalVisible": true,
+    "title": "เพิ่มแผนรายวิชา",
+    "hasScopeMode": true,
+    "hasDeliveryTemplate": true,
+    "hasLeadTeacher": true,
+    "hasPreferredRoom": true,
+    "targetSectionCount": 1,
+    "copyButtonCount": 3,
+    "selectedPanelVisible": false,
+    "sharedPanelVisible": true,
+    "splitPanelVisible": false
+  },
+  "enrollmentModalModes": {
+    "ok": true,
+    "scopeMode": "SELECTED_SECTIONS",
+    "deliveryTemplate": "SPLIT_GROUP",
+    "selectedPanelVisible": true,
+    "sharedPanelVisible": false,
+    "splitPanelVisible": true,
+    "splitRowCount": 2
+  },
+  "timetableRoute": {
+    "hash": "#/timetable",
+    "screen": "timetable",
+    "appVisible": true
+  },
+  "timetable": {
+    "timetableVisible": true,
+    "hash": "#/timetable",
+    "periodHeadCount": 6,
+    "dayLabelCount": 5,
+    "slotCount": 30,
+    "entryCount": 7,
+    "groupPreviewCount": 0,
+    "entryPreviewCount": 7
+  },
+  "previewModal": {
+    "ok": true,
+    "source": "entry",
+    "title": "การงานอาชีพเพิ่มเติม • 1",
+    "caption": "รายละเอียดคาบในตาราง",
+    "metaCardCount": 4,
+    "detailPanelCount": 2,
+    "closed": true
+  },
+  "exportsViaButton": {
+    "clicked": true,
+    "hash": "#/exports",
+    "activeScreen": "exports",
+    "exportsVisible": true,
+    "timetableVisible": false,
+    "dashboardVisible": false,
+    "pageTitle": "จัดชุดส่งออก",
+    "screens": [
+      {
+        "screen": "dashboard",
+        "hidden": true,
+        "hasHiddenClass": true,
+        "display": "none"
+      },
+      {
+        "screen": "catalog",
+        "hidden": true,
+        "hasHiddenClass": true,
+        "display": "none"
+      },
+      {
+        "screen": "timetable",
+        "hidden": true,
+        "hasHiddenClass": true,
+        "display": "none"
+      },
+      {
+        "screen": "exports",
+        "hidden": false,
+        "hasHiddenClass": false,
+        "display": "block"
+      },
+      {
+        "screen": "settings",
+        "hidden": true,
+        "hasHiddenClass": true,
+        "display": "none"
+      }
+    ]
+  },
+  "exports": {
+    "exportsVisible": true,
+    "timetableVisible": false,
+    "dashboardVisible": false,
+    "activeScreen": "exports",
+    "hash": "#/exports",
+    "previewCount": 1,
+    "hasViewSwitch": true,
+    "hasScopeSelect": true,
+    "hasExportScopeSelect": true,
+    "hasCsv": true,
+    "hasPdf": true,
+    "hasPrint": true,
+    "note": "กำลังเตรียมตารางของ ม.3/3",
+    "pageTitle": "จัดชุดส่งออก",
+    "renderError": "",
+    "screenStates": [
+      {
+        "screen": "dashboard",
+        "hidden": true,
+        "hasHiddenClass": true,
+        "display": "none"
+      },
+      {
+        "screen": "catalog",
+        "hidden": true,
+        "hasHiddenClass": true,
+        "display": "none"
+      },
+      {
+        "screen": "timetable",
+        "hidden": true,
+        "hasHiddenClass": true,
+        "display": "none"
+      },
+      {
+        "screen": "exports",
+        "hidden": false,
+        "hasHiddenClass": false,
+        "display": "block"
+      },
+      {
+        "screen": "settings",
+        "hidden": true,
+        "hasHiddenClass": true,
+        "display": "none"
+      }
+    ]
+  },
+  "endedAt": "2026-04-19T16:52:17.767Z"
+}

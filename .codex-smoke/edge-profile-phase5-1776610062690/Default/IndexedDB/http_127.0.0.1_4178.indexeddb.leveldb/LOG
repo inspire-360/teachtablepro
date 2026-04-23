@@ -1,0 +1,6 @@
+2026/04/19-21:47:44.353 7a98 Creating DB C:\Users\401ms\Desktop\TeachTable\.codex-smoke\edge-profile-phase5-1776610062690\Default\IndexedDB\http_127.0.0.1_4178.indexeddb.leveldb since it was missing.
+2026/04/19-21:47:44.357 7a98 Reusing MANIFEST C:\Users\401ms\Desktop\TeachTable\.codex-smoke\edge-profile-phase5-1776610062690\Default\IndexedDB\http_127.0.0.1_4178.indexeddb.leveldb/MANIFEST-000001
+2026/04/19-21:47:44.365 7228 Level-0 table #5: started
+2026/04/19-21:47:44.367 7228 Level-0 table #5: 1264 bytes OK
+2026/04/19-21:47:44.368 7228 Delete type=0 #3
+2026/04/19-21:47:44.368 7228 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)

@@ -1,0 +1,5 @@
+2026/04/19-23:23:52.311 3b58 Creating DB C:\Users\401ms\Desktop\TeachTable\.codex-smoke\edge-profile-phase5-round2-1776615829244\Default\Asset Store\assets.db since it was missing.
+2026/04/19-23:23:52.328 3b58 Reusing MANIFEST C:\Users\401ms\Desktop\TeachTable\.codex-smoke\edge-profile-phase5-round2-1776615829244\Default\Asset Store\assets.db/MANIFEST-000001
+2026/04/19-23:23:54.166 2068 Level-0 table #5: started
+2026/04/19-23:23:54.173 2068 Level-0 table #5: 332815 bytes OK
+2026/04/19-23:23:54.174 2068 Delete type=0 #3

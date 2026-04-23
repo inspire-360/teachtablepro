@@ -78,6 +78,9 @@
       "credits": 2,
       "weeklyPeriods": 4,
       "learningArea": "การงานอาชีพ",
+      "subjectKind": "ACADEMIC",
+      "subjectType": "CORE",
+      "activityCategory": "",
       "educationLevels": []
     },
     {
@@ -87,6 +90,9 @@
       "credits": 1.5,
       "weeklyPeriods": 3,
       "learningArea": "การงานอาชีพ",
+      "subjectKind": "ACADEMIC",
+      "subjectType": "CORE",
+      "activityCategory": "",
       "educationLevels": []
     },
     {
@@ -96,6 +102,9 @@
       "credits": 1.5,
       "weeklyPeriods": 3,
       "learningArea": "วิทยาศาสตร์และเทคโนโลยี",
+      "subjectKind": "ACADEMIC",
+      "subjectType": "CORE",
+      "activityCategory": "",
       "educationLevels": []
     }
   ],
@@ -114,7 +123,7 @@
   "enrollments": [
     {
       "id": "enroll-fcc8e366",
-      "sectionId": "",
+      "sectionId": "section-2e0d203f",
       "subjectId": "subject-406d4725",
       "leadTeacherId": "teacher-dfe83fff",
       "requiredPeriodsPerWeek": 3,
@@ -126,6 +135,15 @@
       "sectionId": "section-2e0d203f",
       "subjectId": "subject-efb60f49",
       "leadTeacherId": "teacher-107185fa",
+      "requiredPeriodsPerWeek": 3,
+      "preferredRoomId": "room-17808209",
+      "notes": ""
+    },
+    {
+      "id": "enroll-7db0dfd2",
+      "sectionId": "section-2e0d203f",
+      "subjectId": "subject-58381226",
+      "leadTeacherId": "teacher-dfe83fff",
       "requiredPeriodsPerWeek": 3,
       "preferredRoomId": "room-17808209",
       "notes": ""
@@ -176,6 +194,25 @@
           "loadFactor": 3
         }
       ]
+    },
+    {
+      "id": "group-430955db",
+      "enrollmentId": "enroll-7db0dfd2",
+      "groupCode": "1",
+      "displayName": "1",
+      "deliveryMode": "WHOLE_CLASS",
+      "studentGroupKey": "1",
+      "requiredPeriodsPerWeek": 3,
+      "preferredRoomId": "room-17808209",
+      "teachers": [
+        {
+          "id": "agt-b493fcb6",
+          "instructionalGroupId": "group-430955db",
+          "teacherId": "teacher-dfe83fff",
+          "teachingRole": "LEAD",
+          "loadFactor": 3
+        }
+      ]
     }
   ],
   "timetables": [
@@ -185,83 +222,45 @@
       "academicYear": "",
       "term": "",
       "status": "DRAFT",
-      "version": 19,
-      "unresolved": [
-        {
-          "instructionalGroupId": "group-a572ac33",
-          "remainingPeriods": 2,
-          "reason": "ยังจัดไม่ครบตามจำนวนคาบที่กำหนด"
-        }
-      ],
+      "version": 33,
+      "unresolved": [],
       "createdAt": "2026-04-18T00:00:00.000Z",
-      "updatedAt": "2026-04-18T19:55:46.351Z",
+      "updatedAt": "2026-04-19T15:19:50.553Z",
       "entries": [
         {
-          "id": "entry-tt-current-section-2e0d203f-TUE-3-group-859366ee",
+          "id": "entry-tt-current--WED-2-group-a572ac33",
           "timetableId": "tt-current",
-          "enrollmentId": "enroll-10f015a7",
-          "instructionalGroupId": "group-859366ee",
-          "sectionId": "section-2e0d203f",
-          "subjectId": "subject-efb60f49",
+          "enrollmentId": "enroll-fcc8e366",
+          "instructionalGroupId": "group-a572ac33",
+          "sectionId": "",
+          "subjectId": "subject-406d4725",
           "deliveryMode": "SPLIT_GROUP",
-          "studentGroupKey": "2",
-          "roomId": "room-17808209",
-          "day": "TUE",
-          "period": 3,
-          "teachers": [
-            {
-              "teacherId": "teacher-39cabbf7",
-              "teachingRole": "LEAD",
-              "loadFactor": 3
-            },
-            {
-              "teacherId": "teacher-107185fa",
-              "teachingRole": "LEAD",
-              "loadFactor": 3
-            }
-          ],
-          "revision": 1,
-          "updatedByUserId": "zU5ZBkFbo4NfetvLSmdJMAD3LTT2"
-        },
-        {
-          "id": "entry-tt-current-section-2e0d203f-TUE-4-group-859366ee",
-          "timetableId": "tt-current",
-          "enrollmentId": "enroll-10f015a7",
-          "instructionalGroupId": "group-859366ee",
-          "sectionId": "section-2e0d203f",
-          "subjectId": "subject-efb60f49",
-          "deliveryMode": "SPLIT_GROUP",
-          "studentGroupKey": "2",
-          "roomId": "room-17808209",
-          "day": "TUE",
-          "period": 4,
-          "teachers": [
-            {
-              "teacherId": "teacher-39cabbf7",
-              "teachingRole": "LEAD",
-              "loadFactor": 3
-            },
-            {
-              "teacherId": "teacher-107185fa",
-              "teachingRole": "LEAD",
-              "loadFactor": 3
-            }
-          ],
-          "revision": 1,
-          "updatedByUserId": "zU5ZBkFbo4NfetvLSmdJMAD3LTT2"
-        },
-        {
-          "id": "entry-tt-current-section-2e0d203f-WED-3-group-859366ee",
-          "timetableId": "tt-current",
-          "enrollmentId": "enroll-10f015a7",
-          "instructionalGroupId": "group-859366ee",
-          "sectionId": "section-2e0d203f",
-          "subjectId": "subject-efb60f49",
-          "deliveryMode": "SPLIT_GROUP",
-          "studentGroupKey": "2",
+          "studentGroupKey": "1",
           "roomId": "room-17808209",
           "day": "WED",
-          "period": 3,
+          "period": 2,
+          "teachers": [
+            {
+              "teacherId": "teacher-dfe83fff",
+              "teachingRole": "LEAD",
+              "loadFactor": 1
+            }
+          ],
+          "revision": 1,
+          "updatedByUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2"
+        },
+        {
+          "id": "entry-tt-current-section-2e0d203f-THU-1-group-859366ee",
+          "timetableId": "tt-current",
+          "enrollmentId": "enroll-10f015a7",
+          "instructionalGroupId": "group-859366ee",
+          "sectionId": "section-2e0d203f",
+          "subjectId": "subject-efb60f49",
+          "deliveryMode": "SPLIT_GROUP",
+          "studentGroupKey": "2",
+          "roomId": "room-17808209",
+          "day": "THU",
+          "period": 1,
           "teachers": [
             {
               "teacherId": "teacher-39cabbf7",
@@ -275,7 +274,145 @@
             }
           ],
           "revision": 1,
-          "updatedByUserId": "zU5ZBkFbo4NfetvLSmdJMAD3LTT2"
+          "updatedByUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2"
+        },
+        {
+          "id": "entry-tt-current-section-2e0d203f-FRI-1-group-859366ee",
+          "timetableId": "tt-current",
+          "enrollmentId": "enroll-10f015a7",
+          "instructionalGroupId": "group-859366ee",
+          "sectionId": "section-2e0d203f",
+          "subjectId": "subject-efb60f49",
+          "deliveryMode": "SPLIT_GROUP",
+          "studentGroupKey": "2",
+          "roomId": "room-17808209",
+          "day": "FRI",
+          "period": 1,
+          "teachers": [
+            {
+              "teacherId": "teacher-39cabbf7",
+              "teachingRole": "LEAD",
+              "loadFactor": 3
+            },
+            {
+              "teacherId": "teacher-107185fa",
+              "teachingRole": "LEAD",
+              "loadFactor": 3
+            }
+          ],
+          "revision": 1,
+          "updatedByUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2"
+        },
+        {
+          "id": "entry-tt-current-section-2e0d203f-THU-2-group-859366ee",
+          "timetableId": "tt-current",
+          "enrollmentId": "enroll-10f015a7",
+          "instructionalGroupId": "group-859366ee",
+          "sectionId": "section-2e0d203f",
+          "subjectId": "subject-efb60f49",
+          "deliveryMode": "SPLIT_GROUP",
+          "studentGroupKey": "2",
+          "roomId": "room-17808209",
+          "day": "THU",
+          "period": 2,
+          "teachers": [
+            {
+              "teacherId": "teacher-39cabbf7",
+              "teachingRole": "LEAD",
+              "loadFactor": 3
+            },
+            {
+              "teacherId": "teacher-107185fa",
+              "teachingRole": "LEAD",
+              "loadFactor": 3
+            }
+          ],
+          "revision": 1,
+          "updatedByUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2"
+        },
+        {
+          "id": "generated-group-a572ac33-MON-1-1",
+          "timetableId": "tt-current",
+          "enrollmentId": "enroll-fcc8e366",
+          "instructionalGroupId": "group-a572ac33",
+          "sectionId": "section-2e0d203f",
+          "subjectId": "subject-406d4725",
+          "deliveryMode": "SPLIT_GROUP",
+          "studentGroupKey": "1",
+          "roomId": "room-17808209",
+          "day": "MON",
+          "period": 1,
+          "teachers": [
+            {
+              "teacherId": "teacher-dfe83fff",
+              "teachingRole": "LEAD",
+              "loadFactor": 1
+            }
+          ]
+        },
+        {
+          "id": "generated-group-430955db-MON-3-3",
+          "timetableId": "tt-current",
+          "enrollmentId": "enroll-7db0dfd2",
+          "instructionalGroupId": "group-430955db",
+          "sectionId": "section-2e0d203f",
+          "subjectId": "subject-58381226",
+          "deliveryMode": "WHOLE_CLASS",
+          "studentGroupKey": "1",
+          "roomId": "room-17808209",
+          "day": "MON",
+          "period": 3,
+          "teachers": [
+            {
+              "teacherId": "teacher-dfe83fff",
+              "teachingRole": "LEAD",
+              "loadFactor": 3
+            }
+          ]
+        },
+        {
+          "id": "generated-group-430955db-TUE-1-2",
+          "timetableId": "tt-current",
+          "enrollmentId": "enroll-7db0dfd2",
+          "instructionalGroupId": "group-430955db",
+          "sectionId": "section-2e0d203f",
+          "subjectId": "subject-58381226",
+          "deliveryMode": "WHOLE_CLASS",
+          "studentGroupKey": "1",
+          "roomId": "room-17808209",
+          "day": "TUE",
+          "period": 1,
+          "teachers": [
+            {
+              "teacherId": "teacher-dfe83fff",
+              "teachingRole": "LEAD",
+              "loadFactor": 3
+            }
+          ],
+          "revision": 3,
+          "updatedByUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2"
+        },
+        {
+          "id": "generated-group-430955db-TUE-3-1",
+          "timetableId": "tt-current",
+          "enrollmentId": "enroll-7db0dfd2",
+          "instructionalGroupId": "group-430955db",
+          "sectionId": "section-2e0d203f",
+          "subjectId": "subject-58381226",
+          "deliveryMode": "WHOLE_CLASS",
+          "studentGroupKey": "1",
+          "roomId": "room-17808209",
+          "day": "TUE",
+          "period": 2,
+          "teachers": [
+            {
+              "teacherId": "teacher-dfe83fff",
+              "teachingRole": "LEAD",
+              "loadFactor": 3
+            }
+          ],
+          "revision": 2,
+          "updatedByUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2"
         }
       ]
     }
@@ -291,8 +428,8 @@
         "currentView": "section",
         "selectedSectionId": "section-2e0d203f",
         "selectedTeacherId": "",
-        "lastSeenAt": "2026-04-19T09:30:15.344Z",
-        "expiresAt": "2026-04-19T09:31:45.344Z"
+        "lastSeenAt": "2026-04-19T16:54:32.972Z",
+        "expiresAt": "2026-04-19T16:56:02.972Z"
       }
     ],
     "locks": [],
@@ -916,6 +1053,430 @@
           ]
         },
         "createdAt": "2026-04-18T19:55:46.351Z"
+      },
+      {
+        "id": "evt-tt-current-20",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "ENTRY_DELETED",
+        "baseVersion": 19,
+        "nextVersion": 20,
+        "payload": {
+          "patches": [
+            {
+              "id": "entry-tt-current-section-2e0d203f-TUE-4-group-859366ee",
+              "timetableId": "tt-current",
+              "enrollmentId": "enroll-10f015a7",
+              "instructionalGroupId": "group-859366ee",
+              "sectionId": "section-2e0d203f",
+              "subjectId": "subject-efb60f49",
+              "deliveryMode": "SPLIT_GROUP",
+              "studentGroupKey": "2",
+              "roomId": "room-17808209",
+              "day": "TUE",
+              "period": 4,
+              "teachers": [
+                {
+                  "teacherId": "teacher-39cabbf7",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                },
+                {
+                  "teacherId": "teacher-107185fa",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                }
+              ],
+              "revision": 1,
+              "updatedByUserId": "zU5ZBkFbo4NfetvLSmdJMAD3LTT2",
+              "remove": true
+            }
+          ]
+        },
+        "createdAt": "2026-04-19T09:35:23.727Z"
+      },
+      {
+        "id": "evt-tt-current-21",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "ENTRY_DELETED",
+        "baseVersion": 20,
+        "nextVersion": 21,
+        "payload": {
+          "patches": [
+            {
+              "id": "entry-tt-current-section-2e0d203f-TUE-3-group-859366ee",
+              "timetableId": "tt-current",
+              "enrollmentId": "enroll-10f015a7",
+              "instructionalGroupId": "group-859366ee",
+              "sectionId": "section-2e0d203f",
+              "subjectId": "subject-efb60f49",
+              "deliveryMode": "SPLIT_GROUP",
+              "studentGroupKey": "2",
+              "roomId": "room-17808209",
+              "day": "TUE",
+              "period": 3,
+              "teachers": [
+                {
+                  "teacherId": "teacher-39cabbf7",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                },
+                {
+                  "teacherId": "teacher-107185fa",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                }
+              ],
+              "revision": 1,
+              "updatedByUserId": "zU5ZBkFbo4NfetvLSmdJMAD3LTT2",
+              "remove": true
+            }
+          ]
+        },
+        "createdAt": "2026-04-19T09:35:31.457Z"
+      },
+      {
+        "id": "evt-tt-current-22",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "ENTRY_DELETED",
+        "baseVersion": 21,
+        "nextVersion": 22,
+        "payload": {
+          "patches": [
+            {
+              "id": "entry-tt-current-section-2e0d203f-WED-3-group-859366ee",
+              "timetableId": "tt-current",
+              "enrollmentId": "enroll-10f015a7",
+              "instructionalGroupId": "group-859366ee",
+              "sectionId": "section-2e0d203f",
+              "subjectId": "subject-efb60f49",
+              "deliveryMode": "SPLIT_GROUP",
+              "studentGroupKey": "2",
+              "roomId": "room-17808209",
+              "day": "WED",
+              "period": 3,
+              "teachers": [
+                {
+                  "teacherId": "teacher-39cabbf7",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                },
+                {
+                  "teacherId": "teacher-107185fa",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                }
+              ],
+              "revision": 1,
+              "updatedByUserId": "zU5ZBkFbo4NfetvLSmdJMAD3LTT2",
+              "remove": true
+            }
+          ]
+        },
+        "createdAt": "2026-04-19T09:35:38.416Z"
+      },
+      {
+        "id": "evt-tt-current-23",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "ENTRY_CREATED",
+        "baseVersion": 22,
+        "nextVersion": 23,
+        "payload": {
+          "patches": [
+            {
+              "enrollmentId": "enroll-fcc8e366",
+              "instructionalGroupId": "group-a572ac33",
+              "sectionId": "",
+              "subjectId": "subject-406d4725",
+              "deliveryMode": "SPLIT_GROUP",
+              "studentGroupKey": "1",
+              "roomId": "room-17808209",
+              "day": "WED",
+              "period": 2,
+              "teachers": [
+                {
+                  "teacherId": "teacher-dfe83fff",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 1
+                }
+              ]
+            }
+          ]
+        },
+        "createdAt": "2026-04-19T09:36:46.475Z"
+      },
+      {
+        "id": "evt-tt-current-24",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "ENTRY_CREATED",
+        "baseVersion": 23,
+        "nextVersion": 24,
+        "payload": {
+          "patches": [
+            {
+              "enrollmentId": "enroll-10f015a7",
+              "instructionalGroupId": "group-859366ee",
+              "sectionId": "section-2e0d203f",
+              "subjectId": "subject-efb60f49",
+              "deliveryMode": "SPLIT_GROUP",
+              "studentGroupKey": "2",
+              "roomId": "room-17808209",
+              "day": "THU",
+              "period": 1,
+              "teachers": [
+                {
+                  "teacherId": "teacher-39cabbf7",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                },
+                {
+                  "teacherId": "teacher-107185fa",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                }
+              ]
+            }
+          ]
+        },
+        "createdAt": "2026-04-19T09:37:12.791Z"
+      },
+      {
+        "id": "evt-tt-current-25",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "ENTRY_CREATED",
+        "baseVersion": 24,
+        "nextVersion": 25,
+        "payload": {
+          "patches": [
+            {
+              "enrollmentId": "enroll-10f015a7",
+              "instructionalGroupId": "group-859366ee",
+              "sectionId": "section-2e0d203f",
+              "subjectId": "subject-efb60f49",
+              "deliveryMode": "SPLIT_GROUP",
+              "studentGroupKey": "2",
+              "roomId": "room-17808209",
+              "day": "FRI",
+              "period": 1,
+              "teachers": [
+                {
+                  "teacherId": "teacher-39cabbf7",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                },
+                {
+                  "teacherId": "teacher-107185fa",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                }
+              ]
+            }
+          ]
+        },
+        "createdAt": "2026-04-19T09:37:25.785Z"
+      },
+      {
+        "id": "evt-tt-current-26",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "ENTRY_CREATED",
+        "baseVersion": 25,
+        "nextVersion": 26,
+        "payload": {
+          "patches": [
+            {
+              "enrollmentId": "enroll-10f015a7",
+              "instructionalGroupId": "group-859366ee",
+              "sectionId": "section-2e0d203f",
+              "subjectId": "subject-efb60f49",
+              "deliveryMode": "SPLIT_GROUP",
+              "studentGroupKey": "2",
+              "roomId": "room-17808209",
+              "day": "THU",
+              "period": 2,
+              "teachers": [
+                {
+                  "teacherId": "teacher-39cabbf7",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                },
+                {
+                  "teacherId": "teacher-107185fa",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                }
+              ]
+            }
+          ]
+        },
+        "createdAt": "2026-04-19T09:37:33.290Z"
+      },
+      {
+        "id": "evt-51b6352c",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "BULK_AUTOSCHEDULE",
+        "baseVersion": 26,
+        "nextVersion": 27,
+        "payload": {
+          "unresolved": [],
+          "forceRebuild": false
+        },
+        "createdAt": "2026-04-19T09:40:10.785Z"
+      },
+      {
+        "id": "evt-8ea51152",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "BULK_AUTOSCHEDULE",
+        "baseVersion": 27,
+        "nextVersion": 28,
+        "payload": {
+          "unresolved": [],
+          "forceRebuild": false
+        },
+        "createdAt": "2026-04-19T09:41:59.260Z"
+      },
+      {
+        "id": "evt-49b2c777",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "BULK_AUTOSCHEDULE",
+        "baseVersion": 28,
+        "nextVersion": 29,
+        "payload": {
+          "unresolved": [],
+          "forceRebuild": false
+        },
+        "createdAt": "2026-04-19T09:43:08.590Z"
+      },
+      {
+        "id": "evt-tt-current-30",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "ENTRY_UPDATED",
+        "baseVersion": 29,
+        "nextVersion": 30,
+        "payload": {
+          "patches": [
+            {
+              "id": "generated-group-430955db-TUE-3-1",
+              "enrollmentId": "enroll-7db0dfd2",
+              "instructionalGroupId": "group-430955db",
+              "sectionId": "section-2e0d203f",
+              "subjectId": "subject-58381226",
+              "deliveryMode": "WHOLE_CLASS",
+              "studentGroupKey": "1",
+              "roomId": "room-17808209",
+              "day": "TUE",
+              "period": 2,
+              "teachers": [
+                {
+                  "teacherId": "teacher-dfe83fff",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                }
+              ]
+            }
+          ]
+        },
+        "createdAt": "2026-04-19T09:43:54.083Z"
+      },
+      {
+        "id": "evt-tt-current-31",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "ENTRY_UPDATED",
+        "baseVersion": 30,
+        "nextVersion": 31,
+        "payload": {
+          "patches": [
+            {
+              "id": "generated-group-430955db-TUE-1-2",
+              "enrollmentId": "enroll-7db0dfd2",
+              "instructionalGroupId": "group-430955db",
+              "sectionId": "section-2e0d203f",
+              "subjectId": "subject-58381226",
+              "deliveryMode": "WHOLE_CLASS",
+              "studentGroupKey": "1",
+              "roomId": "room-17808209",
+              "day": "WED",
+              "period": 1,
+              "teachers": [
+                {
+                  "teacherId": "teacher-dfe83fff",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                }
+              ]
+            }
+          ]
+        },
+        "createdAt": "2026-04-19T15:17:00.075Z"
+      },
+      {
+        "id": "evt-tt-current-32",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "ENTRY_UPDATED",
+        "baseVersion": 31,
+        "nextVersion": 32,
+        "payload": {
+          "patches": [
+            {
+              "id": "generated-group-430955db-TUE-1-2",
+              "enrollmentId": "enroll-7db0dfd2",
+              "instructionalGroupId": "group-430955db",
+              "sectionId": "section-2e0d203f",
+              "subjectId": "subject-58381226",
+              "deliveryMode": "WHOLE_CLASS",
+              "studentGroupKey": "1",
+              "roomId": "room-17808209",
+              "day": "TUE",
+              "period": 1,
+              "teachers": [
+                {
+                  "teacherId": "teacher-dfe83fff",
+                  "teachingRole": "LEAD",
+                  "loadFactor": 3
+                }
+              ]
+            }
+          ]
+        },
+        "createdAt": "2026-04-19T15:19:01.183Z"
+      },
+      {
+        "id": "evt-56e11d67",
+        "timetableId": "tt-current",
+        "actorUserId": "41fw7hZREaTJRWJcYWrnsosRd0M2",
+        "actorDisplayName": "smoke_test",
+        "eventType": "BULK_AUTOSCHEDULE",
+        "baseVersion": 32,
+        "nextVersion": 33,
+        "payload": {
+          "unresolved": [],
+          "forceRebuild": false
+        },
+        "createdAt": "2026-04-19T15:19:50.554Z"
       }
     ]
   }

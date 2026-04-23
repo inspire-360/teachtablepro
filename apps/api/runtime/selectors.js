@@ -234,8 +234,8 @@ function resolveEntityIdsForView(db, options = {}) {
 
 function buildTimetableMatrix(db, options, dataset = buildDataset(db), maps = buildMaps(db)) {
   const entries = getEntriesForView(db, options.view, options.entityId, dataset);
-  const matrix = Array.from({ length: PERIODS_PER_DAY }, () =>
-    Array.from({ length: WEEKDAYS.length }, () => []),
+  const matrix = Array.from({ length: WEEKDAYS.length }, () =>
+    Array.from({ length: PERIODS_PER_DAY }, () => []),
   );
 
   for (const entry of entries) {
@@ -243,11 +243,11 @@ function buildTimetableMatrix(db, options, dataset = buildDataset(db), maps = bu
     if (dayIndex === -1) {
       continue;
     }
-    matrix[entry.period - 1][dayIndex].push(decorateEntry(entry, db, maps));
+    matrix[dayIndex][entry.period - 1].push(decorateEntry(entry, db, maps));
   }
 
-  for (const periodRows of matrix) {
-    for (const cellEntries of periodRows) {
+  for (const dayRows of matrix) {
+    for (const cellEntries of dayRows) {
       cellEntries.sort((left, right) => left.subjectName.localeCompare(right.subjectName));
     }
   }
@@ -257,8 +257,8 @@ function buildTimetableMatrix(db, options, dataset = buildDataset(db), maps = bu
 
 function buildPrintableMatrix(db, options, dataset = buildDataset(db), maps = buildMaps(db)) {
   const matrix = buildTimetableMatrix(db, options, dataset, maps);
-  return matrix.map((periodRow) =>
-    periodRow.map((entries) => {
+  return matrix.map((dayRow) =>
+    dayRow.map((entries) => {
       if (entries.length === 0) {
         return "-";
       }

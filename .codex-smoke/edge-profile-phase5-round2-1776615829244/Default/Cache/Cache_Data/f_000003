@@ -1,0 +1,572 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeachTable</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/tokens.css" />
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/layout.css" />
+    <link rel="stylesheet" href="./styles/components.css" />
+    <link rel="stylesheet" href="./styles/utilities.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles/pages/dashboard.css" />
+    <link rel="stylesheet" href="./styles/pages/catalog.css" />
+    <link rel="stylesheet" href="./styles/pages/timetable.css" />
+    <link rel="stylesheet" href="./styles/pages/exports.css" />
+    <link rel="stylesheet" href="./tailwind.css" />
+  </head>
+  <body>
+    <script src="/app-config.js"></script>
+
+    <section class="boot-screen" id="boot-screen">
+      <div class="boot-card tt-soft-panel tt-focus-panel">
+        <p class="eyebrow tt-kicker">TeachTable</p>
+        <h1 class="tt-display">เธเธณเธฅเธฑเธเน€เธ•เธฃเธตเธขเธกเธเธทเนเธเธ—เธตเนเธเธฑเธ”เธ•เธฒเธฃเธฒเธเธชเธญเธ</h1>
+        <p class="tt-body-soft" id="boot-status">เธเธณเธฅเธฑเธเธ•เธฃเธงเธเธชเธญเธเธชเธดเธ—เธเธดเนเนเธฅเธฐเนเธซเธฅเธ”เธเนเธญเธกเธนเธฅเธฅเนเธฒเธชเธธเธ”เธเธญเธเธชเธ–เธฒเธเธจเธถเธเธฉเธฒ</p>
+      </div>
+    </section>
+
+    <section class="auth-screen hidden" id="auth-screen">
+      <div class="auth-showcase tt-focus-panel">
+        <p class="eyebrow tt-kicker">เธฃเธฐเธเธเธเธฃเธดเธซเธฒเธฃเธ•เธฒเธฃเธฒเธเธชเธญเธ</p>
+        <h1 class="tt-display">เน€เธเนเธฒเธชเธนเนเธฃเธฐเธเธเธเนเธญเธ เนเธฅเนเธงเน€เธฃเธดเนเธกเธเธฑเธ”เธ•เธฒเธฃเธฒเธเธชเธญเธเธ—เธฑเนเธเนเธฃเธเน€เธฃเธตเธขเธเนเธ”เนเธญเธขเนเธฒเธเธกเธฑเนเธเนเธ</h1>
+        <p class="auth-copy tt-body-soft">
+          TeachTable เธฃเธงเธกเธเนเธญเธกเธนเธฅเธเธฃเธน เธซเนเธญเธเน€เธฃเธตเธขเธ เธฃเธฒเธขเธงเธดเธเธฒ เธ•เธฒเธฃเธฒเธเธชเธญเธ เนเธฅเธฐเธเธฒเธฃเธ—เธณเธเธฒเธเธฃเนเธงเธกเธเธฑเธเนเธงเนเนเธเธซเธเนเธฒเธเธญเน€เธ”เธตเธขเธง เน€เธเธทเนเธญเนเธซเนเธเธฑเธ”เธ•เธฒเธฃเธฒเธเธเธฃเธดเธเนเธ”เนเธเนเธฒเธขเธเธถเนเธ
+        </p>
+        <div class="auth-feature-list">
+          <article class="tt-feature-card">
+            <strong class="tt-heading">เธเธฅเธญเธ”เธ เธฑเธข</strong>
+            <p>เน€เธเธเธฒเธฐเธเธนเนเนเธเนเธ—เธตเนเธขเธทเธเธขเธฑเธเธ•เธฑเธงเธ•เธเนเธฅเนเธงเน€เธ—เนเธฒเธเธฑเนเธเธ—เธตเนเน€เธเนเธฒเธ–เธถเธเธเนเธญเธกเธนเธฅเนเธฅเธฐเธเธฒเธฃเธชเนเธเธญเธญเธเน€เธญเธเธชเธฒเธฃเนเธ”เน</p>
+          </article>
+          <article class="tt-feature-card">
+            <strong class="tt-heading">เน€เธซเนเธเธ เธฒเธเธฃเธงเธกเน€เธฃเนเธง</strong>
+            <p>เธ”เธนเธชเธ–เธฒเธเธฐเธ•เธฒเธฃเธฒเธ เธ เธฒเธฃเธฐเธเธฒเธเธเธฃเธน เนเธฅเธฐเธซเนเธญเธเธ—เธตเนเธขเธฑเธเธเธฑเธ”เนเธกเนเธเธฃเธเธเธฒเธเธซเธเนเธฒเธเธญเน€เธ”เธตเธขเธง</p>
+          </article>
+          <article class="tt-feature-card">
+            <strong class="tt-heading">เธเธฃเนเธญเธกเนเธเนเธเธฒเธเธเธฃเธดเธ</strong>
+            <p>เธฃเธญเธเธฃเธฑเธเธเธฒเธฃเธเธฑเธ”เธเธฒเธ เธ•เธฃเธงเธเธเธเธเนเธญเธกเธนเธฅ เธชเนเธเธญเธญเธ เนเธฅเธฐเธเธดเธกเธเนเน€เธญเธเธชเธฒเธฃเนเธเธ production-ready</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="auth-panel">
+        <div class="auth-card tt-soft-panel">
+          <div class="auth-chip" id="auth-status-chip">เธ•เนเธญเธเธขเธทเธเธขเธฑเธเธ•เธฑเธงเธ•เธ</div>
+          <p class="eyebrow tt-kicker">เน€เธเนเธฒเธชเธนเนเธฃเธฐเธเธเธญเธขเนเธฒเธเธเธฅเธญเธ”เธ เธฑเธข</p>
+          <h2 class="tt-display tt-title-spacing">เน€เธเนเธฒเธชเธนเนเธฃเธฐเธเธ TeachTable</h2>
+          <p class="muted-text tt-body-soft">
+            เนเธเนเธเธฑเธเธเธตเธเธญเธเธชเธ–เธฒเธเธจเธถเธเธฉเธฒเธซเธฃเธทเธญเธเธฑเธเธเธตเธ—เธตเนเน€เธเธดเธ”เนเธงเนเนเธ Firebase เน€เธเธทเนเธญเน€เธเนเธฒเธ–เธถเธเธฃเธฐเธเธ
+          </p>
+
+          <button class="primary-button wide" data-icon="spark" id="google-signin-button" type="button">เน€เธเนเธฒเธชเธนเนเธฃเธฐเธเธเธ”เนเธงเธข Google</button>
+
+          <div class="auth-divider"><span>เธซเธฃเธทเธญเน€เธเนเธฒเธชเธนเนเธฃเธฐเธเธเธ”เนเธงเธขเธญเธตเน€เธกเธฅ</span></div>
+
+          <form class="auth-form" id="email-login-form">
+            <label class="field">
+              <span>เธญเธตเน€เธกเธฅ</span>
+              <input id="auth-email-input" type="email" autocomplete="username" required />
+            </label>
+            <label class="field">
+              <span>เธฃเธซเธฑเธชเธเนเธฒเธ</span>
+              <input id="auth-password-input" type="password" autocomplete="current-password" required />
+            </label>
+            <button class="ghost-button wide" data-icon="check" id="email-login-button" type="submit">เน€เธเนเธฒเธชเธนเนเธฃเธฐเธเธเธ”เนเธงเธขเธญเธตเน€เธกเธฅ</button>
+          </form>
+
+          <p class="auth-error hidden" id="auth-error-message" role="alert"></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="shell hidden" id="app-shell">
+      <button class="sidebar-backdrop hidden" id="sidebar-backdrop" type="button" aria-label="เธเธดเธ”เน€เธกเธเธนเธ”เนเธฒเธเธเนเธฒเธ"></button>
+      <aside class="sidebar">
+        <div class="brand brand-panel">
+          <div class="brand-mark">TT</div>
+          <div>
+            <p class="eyebrow tt-kicker">เธฃเธฐเธเธเธเธฃเธดเธซเธฒเธฃเธ•เธฒเธฃเธฒเธเธชเธญเธ</p>
+            <h1 class="tt-display">TeachTable</h1>
+            <p class="muted-text">เธเธฑเธ”เธเนเธญเธกเธนเธฅเธซเธฅเธฑเธ เธงเธฒเธเธเธฒเธ เธ•เธฃเธงเธเธเธ เนเธฅเธฐเธชเนเธเธญเธญเธเน€เธญเธเธชเธฒเธฃเนเธ”เนเธเธฒเธเธเธทเนเธเธ—เธตเนเธ—เธณเธเธฒเธเน€เธ”เธตเธขเธง</p>
+          </div>
+        </div>
+
+        <button class="text-button sidebar-close hidden" data-icon="close" id="sidebar-close-button" type="button">เธเธดเธ”เน€เธกเธเธน</button>
+
+        <section class="sidebar-section hidden" id="sidebar-nav-section">
+          <p class="sidebar-label">เน€เธกเธเธนเธซเธฅเธฑเธ</p>
+          <div id="sidebar-nav-slot"></div>
+        </section>
+
+        <section class="sidebar-card tt-soft-panel">
+          <p class="sidebar-label">เธชเธ–เธฒเธเธฐเธฃเธฐเธเธ</p>
+          <div class="status-list" id="system-status"></div>
+        </section>
+        <section class="sidebar-section hidden" id="sidebar-user-section">
+          <p class="sidebar-label">เธเธฑเธเธเธตเธเธนเนเนเธเนเธเธฒเธ</p>
+          <p class="sidebar-user-note muted-text" id="user-menu-note">เธฃเธญเธเนเธญเธกเธนเธฅเธเธฑเธเธเธตเธเธนเนเนเธเนเธเธฒเธ</p>
+          <div id="sidebar-user-slot"></div>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar page-header tt-soft-panel">
+          <div class="topbar-main">
+            <div class="topbar-copy">
+              <div class="page-context">
+                <button class="ghost-button shell-toggle" data-icon="menu" id="sidebar-toggle-button" type="button" aria-controls="sidebar-nav-slot" aria-expanded="false">เน€เธกเธเธน</button>
+                <p class="eyebrow" id="school-caption">TeachTable</p>
+              </div>
+              <nav class="page-breadcrumb hidden" id="page-breadcrumb" aria-label="Breadcrumb"></nav>
+              <h2 class="tt-display" id="page-title">เธ เธฒเธเธฃเธงเธกเธเธฒเธฃเธ—เธณเธเธฒเธ</h2>
+              <p class="topbar-description" id="page-description">เธฃเธฐเธเธเธ•เธฒเธฃเธฒเธเธชเธญเธเธเธฃเนเธญเธกเนเธเนเธเธฒเธเธซเธฅเธฑเธเธขเธทเธเธขเธฑเธเธ•เธฑเธงเธ•เธ</p>
+            </div>
+
+            <div class="topbar-side">
+              <div class="topbar-actions">
+                <div class="live-pill" id="live-pill">เธเธณเธฅเธฑเธเนเธซเธฅเธ”เธชเธ–เธฒเธเธฐ</div>
+                <div class="sync-note" id="sync-note">เธฃเธญเธเธฒเธฃเธเธดเธเธเนเธเธฃเธฑเนเธเนเธฃเธ</div>
+                <button class="ghost-button" data-icon="refresh" id="refresh-button" type="button">เธฃเธตเน€เธเธฃเธเธเนเธญเธกเธนเธฅ</button>
+              </div>
+
+              <section class="profile-console" aria-label="เนเธเธฃเนเธเธฅเนเธเธนเนเนเธเนเธเธฒเธ">
+                <div class="profile-console-head">
+                  <div class="avatar profile-avatar" id="user-avatar">TT</div>
+                  <div class="profile-console-copy">
+                    <strong id="user-name">-</strong>
+                    <p class="muted-text" id="user-email">-</p>
+                  </div>
+                  <div class="auth-chip subtle profile-status" id="account-status">เน€เธเนเธฒเธชเธนเนเธฃเธฐเธเธเนเธฅเนเธง</div>
+                </div>
+                <div class="profile-console-actions">
+                  <input id="display-name-input" type="text" maxlength="60" placeholder="เธเธทเนเธญเธ—เธตเนเนเธชเธ”เธเนเธเธฃเธฐเธเธ" aria-label="เธเธทเนเธญเธ—เธตเนเนเธชเธ”เธเนเธเธฃเธฐเธเธ" />
+                  <button class="ghost-button" data-icon="save" id="save-profile-button" type="button">เธเธฑเธเธ—เธถเธเธเธทเนเธญ</button>
+                  <button class="text-button" data-icon="logout" id="signout-button" type="button">เธญเธญเธเธเธฒเธเธฃเธฐเธเธ</button>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div class="topbar-nav page-subnav hidden" id="catalog-subnav">
+            <nav class="nav top-nav" id="nav"></nav>
+          </div>
+        </header>
+
+        <section class="workspace-state hidden" id="workspace-state"></section>
+
+        <section class="screen" data-screen="dashboard">
+          <div class="hero-panel tt-soft-panel tt-focus-panel" id="dashboard-hero-panel">
+            <div class="hero-copy">
+              <p class="eyebrow tt-kicker">เธ เธฒเธเธฃเธงเธกเธเธฒเธฃเธ”เธณเน€เธเธดเธเธเธฒเธ</p>
+              <h3 class="tt-display">เธ”เธนเธเธงเธฒเธกเธเธฃเนเธญเธกเธเธญเธเธเนเธญเธกเธนเธฅเนเธฅเธฐเธ•เธฒเธฃเธฒเธเธชเธญเธเนเธ”เนเนเธเธกเธธเธกเน€เธ”เธตเธขเธง</h3>
+              <p class="hero-text">เธ•เธดเธ”เธ•เธฒเธกเธชเธ–เธฒเธเธฐเธ•เธฒเธฃเธฒเธเธชเธญเธ เธฃเธฒเธขเธเธฒเธฃเนเธเนเธเน€เธ•เธทเธญเธ เนเธฅเธฐเธ เธฒเธฃเธฐเธเธฒเธเธเธฃเธนเน€เธเธทเนเธญเธฃเธนเนเธงเนเธฒเธเธงเธฃเนเธเนเธชเนเธงเธเนเธซเธเธเนเธญเธ</p>
+            </div>
+            <div class="hero-actions">
+              <button class="primary-button" data-icon="spark" id="hero-auto-button" type="button">เธเธฑเธ”เธ•เธฒเธฃเธฒเธเธญเธฑเธ•เนเธเธกเธฑเธ•เธด</button>
+              <button class="ghost-button" data-icon="timetable" data-screen-link="timetable" type="button">เน€เธเธดเธ”เธซเธเนเธฒเธ•เธฒเธฃเธฒเธเธชเธญเธ</button>
+            </div>
+          </div>
+
+          <section class="dashboard-toolbar panel compact-panel" id="dashboard-filter-panel">
+            <div>
+              <p class="eyebrow">เธ•เธฑเธงเธเธฃเธญเธเนเธฅเธฐเธ เธฒเธเธชเธฃเธธเธ</p>
+              <h3 class="tt-section-title">เน€เธฅเธทเธญเธเธกเธธเธกเธกเธญเธเธ—เธตเนเธ•เนเธญเธเธเธฒเธฃเธ•เธดเธ”เธ•เธฒเธก</h3>
+              <p class="muted-text" id="dashboard-filter-note">เธเธณเธฅเธฑเธเนเธชเธ”เธเธ เธฒเธเธฃเธงเธกเธ—เธธเธเธฃเธฐเธ”เธฑเธเธเธฑเนเธ</p>
+            </div>
+            <div class="toolbar">
+              <select id="dashboard-level-filter">
+                <option value="">เธ—เธธเธเธฃเธฐเธ”เธฑเธเธเธฑเนเธ</option>
+                <option value="PRIMARY">เธเธฃเธฐเธ–เธกเธจเธถเธเธฉเธฒ</option>
+                <option value="LOWER_SECONDARY">เธกเธฑเธเธขเธกเธจเธถเธเธฉเธฒเธ•เธญเธเธ•เนเธ</option>
+              </select>
+            </div>
+          </section>
+
+          <div class="metrics-grid" id="metrics-grid"></div>
+
+          <div class="chart-grid">
+            <section class="panel chart-panel">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">เธชเธ–เธดเธ•เธดเธ เธฒเธเธฃเธงเธก</p>
+                  <h3 class="tt-section-title">เธเธงเธฒเธกเธเธฃเนเธญเธกเธเธญเธเธเธธเธ”เธเนเธญเธกเธนเธฅเนเธฅเธฐเธ•เธฒเธฃเธฒเธเธชเธญเธ</h3>
+                </div>
+              </div>
+              <div id="dashboard-insights"></div>
+            </section>
+
+            <section class="panel chart-panel">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">เธเธฃเธฒเธเธเธงเธฒเธกเธเธฃเธญเธเธเธฅเธธเธก</p>
+                  <h3 class="tt-section-title">เธเธฑเนเธเน€เธฃเธตเธขเธเธ—เธตเนเธเธงเธฃเธ•เธดเธ”เธ•เธฒเธกเธ•เนเธญ</h3>
+                </div>
+              </div>
+              <div id="dashboard-section-chart"></div>
+            </section>
+          </div>
+
+          <div class="dashboard-grid compact-dashboard-grid">
+            <section class="panel">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">เธเธงเธฒเธกเธเธฃเนเธญเธกเธฃเธฒเธขเธซเนเธญเธ</p>
+                  <h3 class="tt-section-title">เธเธงเธฒเธกเธเธฃเธญเธเธเธฅเธธเธกเธ•เธฒเธกเธซเนเธญเธเน€เธฃเธตเธขเธ</h3>
+                </div>
+              </div>
+              <div id="section-statuses" class="stack-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">เธฃเธฒเธขเธเธฒเธฃเนเธเนเธเน€เธ•เธทเธญเธ</p>
+                  <h3 class="tt-section-title">เธเธฃเธฐเน€เธ”เนเธเธ—เธตเนเธ•เนเธญเธเธ•เธฃเธงเธเธชเธญเธ</h3>
+                </div>
+              </div>
+              <div class="stack-list" id="alert-feed"></div>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">เธเธฃเธนเธ—เธตเนเธ•เนเธญเธเธ•เธดเธ”เธ•เธฒเธก</p>
+                <h3 class="tt-section-title">เธชเธฃเธธเธเธ เธฒเธฃเธฐเธเธฒเธเธเธฃเธนเธ—เธตเนเธเธงเธฃเธเธฑเธเธ•เธฒ</h3>
+              </div>
+            </div>
+            <div id="dashboard-teacher-chart" class="chart-subpanel"></div>
+            <div id="teacher-loads"></div>
+          </section>
+        </section>
+
+        <section class="screen hidden" data-screen="catalog">
+          <section class="catalog-shell">
+            <aside class="panel catalog-nav-panel">
+              <div class="catalog-nav-head">
+                <p class="eyebrow">เธฅเธณเธ”เธฑเธเธเธฒเธฃเธ•เธฑเนเธเธเนเธฒเธเนเธญเธกเธนเธฅ</p>
+                <h3 class="tt-section-title">เธฅเธณเธ”เธฑเธเธเธฒเธฃเธ•เธฑเนเธเธเนเธฒเธเนเธญเธกเธนเธฅเธซเธฅเธฑเธ</h3>
+                <p class="muted-text">เน€เธฃเธดเนเธกเธเธฒเธเธเนเธญเธกเธนเธฅเธ—เธตเนเน€เธเนเธเธเธฒเธเธเนเธญเธ เนเธฅเนเธงเธเนเธญเธขเนเธฅเนเนเธเธขเธฑเธเนเธเธเธฃเธฒเธขเธงเธดเธเธฒเนเธฅเธฐเธเธฅเธธเนเธกเธเธฒเธฃเธชเธญเธเน€เธเธทเนเธญเนเธซเนเธฃเธฐเธเธเธ•เธฃเธงเธเธเธงเธฒเธกเธเธฃเนเธญเธกเนเธ”เนเธเธฃเธ</p>
+              </div>
+              <div id="catalog-nav" class="catalog-nav-list"></div>
+            </aside>
+
+            <div class="catalog-module-panel">
+              <section class="panel">
+                <div class="catalog-module-copy">
+                  <p id="catalog-module-kicker" class="eyebrow">เนเธกเธ”เธนเธฅเธเนเธญเธกเธนเธฅ</p>
+                  <h3 id="catalog-module-title" class="tt-section-title">เธเธฑเธ”เธเธฒเธฃเธเนเธญเธกเธนเธฅเธซเธฅเธฑเธ</h3>
+                  <p id="catalog-module-description" class="muted-text">เน€เธฅเธทเธญเธเนเธกเธ”เธนเธฅเธเธฒเธเธ”เนเธฒเธเธเนเธฒเธขเน€เธเธทเนเธญเธเธฑเธ”เธเธฒเธฃเธฃเธฒเธขเธเธฒเธฃ เธเนเธเธซเธฒ เนเธฅเธฐเธ•เธฃเธงเธเธเธงเธฒเธกเธเธฃเนเธญเธกเธเธญเธเธเนเธญเธกเธนเธฅเธเนเธญเธเธชเนเธเธ•เนเธญเนเธเธขเธฑเธเธเธฒเธฃเธเธฑเธ”เธ•เธฒเธฃเธฒเธ</p>
+                </div>
+                <div id="catalog-module-stats" class="catalog-module-stats"></div>
+              </section>
+
+              <section class="panel catalog-toolbar-panel">
+                <div class="section-head catalog-toolbar">
+                  <div>
+                    <p id="catalog-table-kicker" class="eyebrow">เธ—เธฐเน€เธเธตเธขเธเธเนเธญเธกเธนเธฅ</p>
+                    <h3 id="catalog-table-title" class="tt-section-title">เธฃเธฒเธขเธเธฒเธฃเนเธเธฃเธฐเธเธ</h3>
+                  </div>
+                  <div class="catalog-toolbar-filters">
+                    <select id="catalog-type" hidden></select>
+                    <select id="catalog-filter"></select>
+                    <input id="catalog-search" type="search" placeholder="เธเนเธเธซเธฒเธเนเธญเธกเธนเธฅ" />
+                    <button class="primary-button" data-icon="plus" id="add-record-button" type="button">เน€เธเธดเนเธกเธฃเธฒเธขเธเธฒเธฃ</button>
+                  </div>
+                </div>
+
+                <article class="catalog-flow-card">
+                  <strong class="tt-section-title">เนเธเธงเธ—เธฒเธเธเนเธญเธเนเธเธเธฑเนเธเธ–เธฑเธ”เนเธ</strong>
+                  <p id="catalog-flow-note" class="muted-text">เน€เธฅเธทเธญเธเนเธกเธ”เธนเธฅเธ—เธตเนเธ•เนเธญเธเธเธฒเธฃเธเนเธญเธ เนเธฅเนเธงเธเธถเธเธเธฃเธญเธ เธเนเธเธซเธฒ เนเธฅเธฐเธญเธฑเธเน€เธ”เธ•เธฃเธฒเธขเธเธฒเธฃเธ•เธฒเธกเธเธฑเนเธเธ•เธญเธเธเธญเธเธเนเธญเธกเธนเธฅเธเธธเธ”เธเธฑเนเธ</p>
+                </article>
+
+                <div id="catalog-summary" class="muted-text catalog-summary-text"></div>
+              </section>
+
+              <section class="panel catalog-table-panel">
+                <div class="catalog-table-wrap">
+                  <table class="data-table catalog-data-table">
+                    <thead id="catalog-head"></thead>
+                    <tbody id="catalog-body"></tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </section>
+        </section>
+
+        <section class="screen hidden" data-screen="timetable">
+          <section class="timetable-shell">
+            <section class="panel timetable-toolbar-panel">
+              <div class="section-head timetable-toolbar-head">
+                <div class="timetable-toolbar-copy">
+                  <p class="eyebrow">เธเธทเนเธเธ—เธตเนเธเธฑเธ”เธ•เธฒเธฃเธฒเธเธชเธญเธ</p>
+                  <h3 id="timetable-scope-title" class="tt-section-title">เธงเธฒเธเธ•เธฒเธฃเธฒเธเธ•เธฒเธกเธเธญเธเน€เธเธ•เธ—เธตเนเน€เธฅเธทเธญเธ</h3>
+                  <p id="timetable-scope-meta" class="muted-text">เน€เธฅเธทเธญเธเธกเธธเธกเธกเธญเธเนเธฅเธฐเธเธญเธเน€เธเธ•เธเนเธญเธ เนเธฅเนเธงเธเนเธญเธขเธฅเธฒเธเธเธฅเธธเนเธกเธเธฒเธฃเธชเธญเธเธฅเธเธ•เธฒเธฃเธฒเธเนเธเธชเธฑเธเธ”เธฒเธซเนเธเธตเน</p>
+                </div>
+                <div class="timetable-toolbar-actions">
+                  <button class="ghost-button" data-icon="check" id="validate-button" type="button">เธ•เธฃเธงเธเธชเธญเธ</button>
+                  <button class="ghost-button" data-icon="spark" id="auto-schedule-button" type="button">เธเธฑเธ”เธงเธฒเธเธญเธฑเธ•เนเธเธกเธฑเธ•เธด</button>
+                  <button class="primary-button" data-icon="download" id="go-to-exports-button" type="button">เธชเนเธเธญเธญเธ/เธเธดเธกเธเน</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="timetable-workspace">
+              <aside class="panel accent-panel timetable-left-rail">
+                <div class="timetable-rail-head">
+                  <p class="eyebrow">เธเธญเธเน€เธเธ•เธเธฒเธฃเธเธฑเธ”เธ•เธฒเธฃเธฒเธ</p>
+                  <h3 class="tt-section-title">เธกเธธเธกเธกเธญเธเนเธฅเธฐเธเธญเธเน€เธเธ•เธเธฒเธฃเธ—เธณเธเธฒเธ</h3>
+                  <p class="muted-text">เธชเธฅเธฑเธเธฃเธฒเธขเธเธฃเธนเธซเธฃเธทเธญเธฃเธฒเธขเธซเนเธญเธเน€เธฃเธตเธขเธเธเนเธญเธ เธเธฒเธเธเธฑเนเธเธเธฑเธ”เธเธฅเธธเนเธกเธ—เธตเนเธขเธฑเธเน€เธซเธฅเธทเธญเธเธฒเธเนเธเธเธญเธเน€เธเธ•เน€เธ”เธตเธขเธงเธเธฑเธ</p>
+                </div>
+
+                <div class="timetable-scope-card">
+                  <div class="segmented" id="view-switch"></div>
+                  <select id="scope-select"></select>
+                  <p id="timetable-scope-note" class="muted-text">เน€เธกเธทเนเธญเน€เธเธฅเธตเนเธขเธเธเธญเธเน€เธเธ• เธฃเธฐเธเธเธเธฐเธฃเธตเน€เธเธฃเธเธเธฃเธฐเธ”เธฒเธเนเธฅเธฐเธเธฅเธธเนเธกเธเธฒเธฃเธชเธญเธเธ—เธตเนเน€เธเธตเนเธขเธงเธเนเธญเธเนเธซเนเธ—เธฑเธเธ—เธต</p>
+                </div>
+
+                <div class="timetable-pool-head">
+                  <div>
+                    <p class="eyebrow">เธเธฅเธธเนเธกเธเนเธฒเธเธเธฑเธ”</p>
+                    <h3 class="tt-section-title">เธเธฅเธธเนเธกเธเธฒเธฃเธชเธญเธเธ—เธตเนเธขเธฑเธเนเธกเนเธฅเธเธเธฒเธ</h3>
+                  </div>
+                  <select id="group-sort-select" aria-label="เน€เธฃเธตเธขเธเธเธฅเธธเนเธกเธเธฒเธฃเธชเธญเธ"></select>
+                </div>
+                <p id="group-pool-summary" class="muted-text">เธเธณเธฅเธฑเธเน€เธ•เธฃเธตเธขเธกเธเธฅเธธเนเธกเธเธฒเธฃเธชเธญเธเธ—เธตเนเน€เธเธตเนเธขเธงเธเนเธญเธ</p>
+                <div id="group-pool" class="group-pool"></div>
+              </aside>
+
+              <section class="panel timetable-board-panel">
+                <div class="section-head compact">
+                  <div>
+                    <p id="timetable-board-kicker" class="eyebrow">เธเธฃเธฐเธ”เธฒเธเธฃเธฒเธขเธชเธฑเธเธ”เธฒเธซเน</p>
+                    <h3 id="timetable-board-title" class="tt-section-title">เธ•เธฒเธฃเธฒเธเธเธฃเธฐเธเธณเธชเธฑเธเธ”เธฒเธซเน</h3>
+                    <p id="timetable-board-note" class="muted-text">เธฅเธฒเธเธเธฅเธธเนเธกเธเธฒเธเธ”เนเธฒเธเธเนเธฒเธขเธกเธฒเธงเธฒเธเนเธเธเธฒเธเธ—เธตเนเน€เธซเธกเธฒเธฐเธชเธก เธซเธฃเธทเธญเน€เธฅเธทเธญเธเธเธฒเธเธเธณเนเธเธฐเธเธณเธ—เธฒเธเธ”เนเธฒเธเธเธงเธฒ</p>
+                  </div>
+                </div>
+                <div class="board-scroll timetable-board-scroll">
+                  <div class="board-head" id="board-head"></div>
+                  <div class="board-grid" id="board-grid"></div>
+                </div>
+              </section>
+
+              <aside class="panel timetable-right-rail">
+                <section class="timetable-subpanel">
+                  <div class="section-head compact">
+                    <div>
+                      <p class="eyebrow">เธเธณเนเธเธฐเธเธณเธเธฒเธเธฃเธฐเธเธ</p>
+                      <h3 class="tt-section-title">เธเธฒเธเธ—เธตเนเธฃเธฐเธเธเนเธเธฐเธเธณ</h3>
+                      <p id="suggestion-summary" class="muted-text">เน€เธฅเธทเธญเธเธเธฅเธธเนเธกเธเธฒเธฃเธชเธญเธเธเธฒเธเธ”เนเธฒเธเธเนเธฒเธขเน€เธเธทเนเธญเธ”เธนเน€เธซเธ•เธธเธเธฅเธเธญเธ slot เธ—เธตเนเน€เธซเธกเธฒเธฐเธชเธก</p>
+                    </div>
+                  </div>
+                  <div class="stack-list" id="suggestion-list"></div>
+                </section>
+
+                <section class="timetable-subpanel">
+                  <div class="section-head compact">
+                    <div>
+                      <p class="eyebrow">เธเธฒเธฃเธ—เธณเธเธฒเธเธฃเนเธงเธกเธเธฑเธ</p>
+                      <h3 class="tt-section-title">เธชเธ–เธฒเธเธฐเธเธนเนเนเธเนเธเธฒเธเนเธฅเธฐเธฅเนเธญเธเธเธฒเธฃเนเธเนเนเธ</h3>
+                      <p id="collaboration-summary" class="muted-text">เน€เธกเธทเนเธญเธกเธตเธเธนเนเนเธเนเธเธฒเธเธญเธญเธเนเธฅเธเนเธซเธฃเธทเธญเธฅเนเธญเธเธเธฒเธ เธฃเธฒเธขเธเธฒเธฃเธเธฐเธญเธฑเธเน€เธ”เธ•เนเธเธเธทเนเธเธ—เธตเนเธเธตเน</p>
+                    </div>
+                  </div>
+                  <div class="stack-list" id="collaboration-health"></div>
+                  <div class="stack-list" id="presence-list"></div>
+                  <div class="stack-list" id="lock-list"></div>
+                </section>
+
+                <section class="timetable-subpanel">
+                  <div class="section-head compact">
+                    <div>
+                      <p class="eyebrow">เธเธดเธเธเธฃเธฃเธกเธฅเนเธฒเธชเธธเธ”</p>
+                      <h3 class="tt-section-title">เธเธดเธเธเธฃเธฃเธกเธฅเนเธฒเธชเธธเธ”เธเธญเธ workspace</h3>
+                      <p id="activity-summary" class="muted-text">เนเธเนเธ•เธดเธ”เธ•เธฒเธกเธเธฒเธฃเนเธเนเนเธเธฅเนเธฒเธชเธธเธ”เนเธฅเธฐเธเธฑเธเธซเธงเธฐเธ—เธตเนเธฃเธฐเธเธเธ—เธณเธเธฒเธเธญเธฑเธ•เนเธเธกเธฑเธ•เธด</p>
+                    </div>
+                  </div>
+                  <div class="stack-list" id="activity-list"></div>
+                </section>
+              </aside>
+            </section>
+
+            <section class="panel timetable-validation-drawer" id="validation-drawer">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">เธเธฅเธ•เธฃเธงเธเธ•เธฒเธฃเธฒเธ</p>
+                  <h3 class="tt-section-title">เธชเธฃเธธเธเธเธฅเธเธฒเธฃเธ•เธฃเธงเธเธชเธญเธเธฅเนเธฒเธชเธธเธ”</h3>
+                  <p id="validation-summary" class="muted-text">เธเธฅเธ•เธฃเธงเธเธเธฐเธฃเธงเธกเธเธงเธฒเธกเธเธฑเธ”เนเธขเนเธเธเธญเธเธเธฃเธน เธซเนเธญเธ เนเธฅเธฐเธเธฒเธเธ—เธตเนเธขเธฑเธเธเธฑเธ”เนเธกเนเธเธฃเธ</p>
+                </div>
+                <button class="text-button" id="toggle-validation-button" type="button">เธเนเธญเธเนเธเธเธ•เธฃเธงเธเธชเธญเธ</button>
+              </div>
+              <div id="validation-drawer-body">
+                <div class="stack-list" id="validation-list"></div>
+              </div>
+            </section>
+
+            <div class="timetable-export-backdrop hidden" id="legacy-export-drawer-backdrop"></div>
+            <aside class="panel timetable-export-drawer hidden" id="legacy-export-drawer">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">เธชเนเธเธญเธญเธเนเธฅเธฐเธเธดเธกเธเน</p>
+                  <h3 class="tt-section-title">เธชเนเธเธญเธญเธเนเธฅเธฐเธเธดเธกเธเนเธ•เธฒเธฃเธฒเธเธชเธญเธ</h3>
+                  <p id="legacy-export-drawer-note" class="muted-text">เน€เธฅเธทเธญเธ current, selected เธซเธฃเธทเธญ all เธเนเธญเธเธชเธฑเนเธเธชเนเธเธญเธญเธ CSV, PDF เธซเธฃเธทเธญเธเธดเธกเธเน</p>
+                </div>
+                <button class="text-button" data-icon="close" id="legacy-close-export-drawer-button" type="button">เธเธดเธ”</button>
+              </div>
+
+              <p id="legacy-export-scope-note" class="muted-text timetable-export-summary">เธเธณเธฅเธฑเธเน€เธ•เธฃเธตเธขเธกเธเธธเธ”เธชเนเธเธญเธญเธ</p>
+
+              <div class="timetable-export-controls">
+                <select id="legacy-export-scope-select"></select>
+                <input id="legacy-export-search-input" type="search" placeholder="เธเนเธเธซเธฒเธเธฃเธนเธซเธฃเธทเธญเธซเนเธญเธเน€เธฃเธตเธขเธ" />
+                <button class="text-button" id="legacy-select-visible-button" type="button">เน€เธฅเธทเธญเธเธ—เธตเนเน€เธซเนเธ</button>
+                <button class="text-button" id="legacy-clear-export-selection-button" type="button">เธฅเนเธฒเธเธ—เธตเนเน€เธฅเธทเธญเธ</button>
+              </div>
+
+              <div class="export-selection-panel" id="legacy-export-selection-panel"></div>
+
+              <div class="timetable-export-actions">
+                <button class="ghost-button" data-icon="download" id="legacy-export-csv-button" type="button">เธชเนเธเธญเธญเธ CSV</button>
+                <button class="ghost-button" data-icon="download" id="legacy-export-pdf-button" type="button">เธชเนเธเธญเธญเธ PDF</button>
+                <button class="primary-button" data-icon="print" id="legacy-print-button" type="button">เธเธดเธกเธเน</button>
+              </div>
+            </aside>
+          </section>
+        </section>
+
+        <section class="screen hidden" data-screen="exports">
+          <section class="exports-shell">
+            <aside class="panel accent-panel exports-overview-panel">
+              <div class="exports-panel-copy">
+                <p class="eyebrow">ส่งออกและพิมพ์</p>
+                <h3 class="tt-section-title">จัดชุดส่งออกจาก workspace กลาง</h3>
+                <p class="muted-text">กำหนดมุมมอง ขอบเขต และรายการที่ต้องการก่อน แล้วค่อยสั่ง CSV, PDF หรือพิมพ์จากหน้าที่แยกต่างหาก</p>
+              </div>
+
+              <div class="exports-scope-card">
+                <div class="segmented" id="exports-view-switch"></div>
+                <select id="exports-scope-select"></select>
+                <p id="export-page-view-note" class="muted-text">กำลังเตรียมชุดส่งออก</p>
+              </div>
+
+              <section class="exports-preview-block">
+                <div class="section-head compact">
+                  <div>
+                    <p class="eyebrow">พรีวิวก่อนส่งออก</p>
+                    <h3 class="tt-section-title">รายการที่จะถูกรวม</h3>
+                    <p id="export-page-summary" class="muted-text">ระบบจะสรุปชุดก่อนสั่งส่งออก</p>
+                  </div>
+                </div>
+                <div class="exports-preview-list" id="export-preview-list"></div>
+              </section>
+            </aside>
+
+            <section class="panel exports-console">
+              <div class="export-console-head">
+                <p class="eyebrow">คำสั่งส่งออก</p>
+                <h3 class="tt-section-title">จัดการ CSV, PDF และพิมพ์</h3>
+                <p id="export-page-note" class="muted-text">กำลังเตรียมชุดส่งออก</p>
+              </div>
+
+              <div class="export-console-actions">
+                <select id="export-scope-select"></select>
+                <input id="export-search-input" type="search" placeholder="ค้นหาครูหรือห้องเรียน" />
+                <button class="text-button" id="select-visible-button" type="button">เลือกที่มองเห็น</button>
+                <button class="text-button" id="clear-export-selection-button" type="button">ล้างที่เลือก</button>
+              </div>
+
+              <div class="export-selection-panel" id="export-selection-panel"></div>
+
+              <div class="exports-action-row">
+                <button class="ghost-button" data-icon="download" id="export-csv-button" type="button">ส่งออก CSV</button>
+                <button class="ghost-button" data-icon="download" id="export-pdf-button" type="button">ส่งออก PDF</button>
+                <button class="primary-button" data-icon="print" id="print-button" type="button">พิมพ์</button>
+              </div>
+            </section>
+          </section>
+        </section>
+
+        <section class="screen hidden" data-screen="settings">
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">เธเนเธญเธกเธนเธฅเธชเธ–เธฒเธเธจเธถเธเธฉเธฒ</p>
+                <h3 class="tt-section-title">เธ•เธฑเนเธเธเนเธฒเธเธฒเธฃเธชเนเธเธญเธญเธเนเธฅเธฐเน€เธญเธเธฅเธฑเธเธฉเธ“เนเน€เธญเธเธชเธฒเธฃ</h3>
+              </div>
+              <button class="primary-button" data-icon="save" id="save-settings-button" type="button">เธเธฑเธเธ—เธถเธเธเธฒเธฃเธ•เธฑเนเธเธเนเธฒ</button>
+            </div>
+            <form class="settings-form" id="settings-form"></form>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal hidden" id="modal">
+      <div class="modal-card tt-soft-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow" id="modal-caption">เธ•เธฑเธงเนเธเนเนเธ</p>
+            <h3 class="tt-section-title" id="modal-title">เธฃเธฒเธขเธเธฒเธฃเนเธซเธกเน</h3>
+          </div>
+          <button class="text-button" data-icon="close" id="modal-close-button" type="button">เธเธดเธ”</button>
+        </div>
+        <form id="modal-form" class="modal-form"></form>
+      </div>
+    </div>
+
+    <div class="modal hidden preview-modal" id="preview-modal">
+      <div class="modal-card preview-modal-card tt-soft-panel">
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow" id="preview-modal-caption">พรีวิว</p>
+            <h3 class="tt-section-title" id="preview-modal-title">รายละเอียด</h3>
+          </div>
+          <button class="text-button" data-icon="close" id="preview-modal-close-button" type="button">ปิด</button>
+        </div>
+        <div class="preview-modal-body" id="preview-modal-body"></div>
+      </div>
+    </div>
+
+    <div class="toast-stack" id="toast-stack"></div>
+
+    <script>
+      (() => {
+        const reportStartupIssue = (rawMessage) => {
+          const message = String(rawMessage || "").trim();
+          if (!message) {
+            return;
+          }
+
+          window.__TEACHTABLE_STARTUP_ERROR__ = message;
+          const bootScreen = document.getElementById("boot-screen");
+          const bootStatus = document.getElementById("boot-status");
+
+          bootScreen?.classList.remove("hidden");
+          if (bootStatus) {
+            bootStatus.textContent = message;
+          }
+        };
+
+        window.__TEACHTABLE_REPORT_STARTUP_ISSUE__ = reportStartupIssue;
+
+        window.addEventListener("error", (event) => {
+          reportStartupIssue(event.error?.message || event.message || "TeachTable failed to start.");
+        });
+
+        window.addEventListener("unhandledrejection", (event) => {
+          reportStartupIssue(event.reason?.message || event.reason || "TeachTable failed to start.");
+        });
+      })();
+    </script>
+    <script type="module" src="./app/main.js"></script>
+  </body>
+</html>
+
+

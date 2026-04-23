@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeachTable</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/tokens.css" />
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/layout.css" />
+    <link rel="stylesheet" href="./styles/components.css" />
+    <link rel="stylesheet" href="./styles/utilities.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles/pages/dashboard.css" />
+    <link rel="stylesheet" href="./styles/pages/catalog.css" />
+    <link rel="stylesheet" href="./styles/pages/timetable.css" />
+    <link rel="stylesheet" href="./tailwind.css" />
+  </head>
+  <body>
+    <script src="/app-config.js"></script>
+
+    <section class="boot-screen" id="boot-screen">
+      <div class="boot-card tt-soft-panel tt-focus-panel">
+        <p class="eyebrow tt-kicker">TeachTable</p>
+        <h1 class="tt-display">กำลังเตรียมพื้นที่จัดตารางสอน</h1>
+        <p class="tt-body-soft" id="boot-status">กำลังตรวจสอบสิทธิ์และโหลดข้อมูลล่าสุดของสถานศึกษา</p>
+      </div>
+    </section>
+
+    <section class="auth-screen hidden" id="auth-screen">
+      <div class="auth-showcase tt-focus-panel">
+        <p class="eyebrow tt-kicker">ระบบบริหารตารางสอน</p>
+        <h1 class="tt-display">เข้าสู่ระบบก่อน แล้วเริ่มจัดตารางสอนทั้งโรงเรียนได้อย่างมั่นใจ</h1>
+        <p class="auth-copy tt-body-soft">
+          TeachTable รวมข้อมูลครู ห้องเรียน รายวิชา ตารางสอน และการทำงานร่วมกันไว้ในหน้าจอเดียว เพื่อให้จัดตารางจริงได้ง่ายขึ้น
+        </p>
+        <div class="auth-feature-list">
+          <article class="tt-feature-card">
+            <strong class="tt-heading">ปลอดภัย</strong>
+            <p>เฉพาะผู้ใช้ที่ยืนยันตัวตนแล้วเท่านั้นที่เข้าถึงข้อมูลและการส่งออกเอกสารได้</p>
+          </article>
+          <article class="tt-feature-card">
+            <strong class="tt-heading">เห็นภาพรวมเร็ว</strong>
+            <p>ดูสถานะตาราง ภาระงานครู และห้องที่ยังจัดไม่ครบจากหน้าจอเดียว</p>
+          </article>
+          <article class="tt-feature-card">
+            <strong class="tt-heading">พร้อมใช้งานจริง</strong>
+            <p>รองรับการจัดคาบ ตรวจชนข้อมูล ส่งออก และพิมพ์เอกสารแบบ production-ready</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="auth-panel">
+        <div class="auth-card tt-soft-panel">
+          <div class="auth-chip" id="auth-status-chip">ต้องยืนยันตัวตน</div>
+          <p class="eyebrow tt-kicker">เข้าสู่ระบบอย่างปลอดภัย</p>
+          <h2 class="tt-display tt-title-spacing">เข้าสู่ระบบ TeachTable</h2>
+          <p class="muted-text tt-body-soft">
+            ใช้บัญชีของสถานศึกษาหรือบัญชีที่เปิดไว้ใน Firebase เพื่อเข้าถึงระบบ
+          </p>
+
+          <button class="primary-button wide" data-icon="spark" id="google-signin-button" type="button">เข้าสู่ระบบด้วย Google</button>
+
+          <div class="auth-divider"><span>หรือเข้าสู่ระบบด้วยอีเมล</span></div>
+
+          <form class="auth-form" id="email-login-form">
+            <label class="field">
+              <span>อีเมล</span>
+              <input id="auth-email-input" type="email" autocomplete="username" required />
+            </label>
+            <label class="field">
+              <span>รหัสผ่าน</span>
+              <input id="auth-password-input" type="password" autocomplete="current-password" required />
+            </label>
+            <button class="ghost-button wide" data-icon="check" id="email-login-button" type="submit">เข้าสู่ระบบด้วยอีเมล</button>
+          </form>
+
+          <p class="auth-error hidden" id="auth-error-message" role="alert"></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="shell hidden" id="app-shell">
+      <button class="sidebar-backdrop hidden" id="sidebar-backdrop" type="button" aria-label="ปิดเมนูด้านข้าง"></button>
+      <aside class="sidebar">
+        <div class="brand brand-panel">
+          <div class="brand-mark">TT</div>
+          <div>
+            <p class="eyebrow tt-kicker">ระบบบริหารตารางสอน</p>
+            <h1 class="tt-display">TeachTable</h1>
+            <p class="muted-text">จัดข้อมูลหลัก วางคาบ ตรวจชน และส่งออกเอกสารได้จากพื้นที่ทำงานเดียว</p>
+          </div>
+        </div>
+
+        <button class="text-button sidebar-close hidden" data-icon="close" id="sidebar-close-button" type="button">ปิดเมนู</button>
+
+        <section class="sidebar-section hidden" id="sidebar-nav-section">
+          <p class="sidebar-label">เมนูหลัก</p>
+          <div id="sidebar-nav-slot"></div>
+        </section>
+
+        <section class="sidebar-card tt-soft-panel">
+          <p class="sidebar-label">สถานะระบบ</p>
+          <div class="status-list" id="system-status"></div>
+        </section>
+        <section class="sidebar-section hidden" id="sidebar-user-section">
+          <p class="sidebar-label">บัญชีผู้ใช้งาน</p>
+          <p class="sidebar-user-note muted-text" id="user-menu-note">รอข้อมูลบัญชีผู้ใช้งาน</p>
+          <div id="sidebar-user-slot"></div>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar page-header tt-soft-panel">
+          <div class="topbar-main">
+            <div class="topbar-copy">
+              <div class="page-context">
+                <button class="ghost-button shell-toggle" data-icon="menu" id="sidebar-toggle-button" type="button" aria-controls="sidebar-nav-slot" aria-expanded="false">เมนู</button>
+                <p class="eyebrow" id="school-caption">TeachTable</p>
+              </div>
+              <nav class="page-breadcrumb hidden" id="page-breadcrumb" aria-label="Breadcrumb"></nav>
+              <h2 class="tt-display" id="page-title">ภาพรวมการทำงาน</h2>
+              <p class="topbar-description" id="page-description">ระบบตารางสอนพร้อมใช้งานหลังยืนยันตัวตน</p>
+            </div>
+
+            <div class="topbar-side">
+              <div class="topbar-actions">
+                <div class="live-pill" id="live-pill">กำลังโหลดสถานะ</div>
+                <div class="sync-note" id="sync-note">รอการซิงก์ครั้งแรก</div>
+                <button class="ghost-button" data-icon="refresh" id="refresh-button" type="button">รีเฟรชข้อมูล</button>
+              </div>
+
+              <section class="profile-console" aria-label="โปรไฟล์ผู้ใช้งาน">
+                <div class="profile-console-head">
+                  <div class="avatar profile-avatar" id="user-avatar">TT</div>
+                  <div class="profile-console-copy">
+                    <strong id="user-name">-</strong>
+                    <p class="muted-text" id="user-email">-</p>
+                  </div>
+                  <div class="auth-chip subtle profile-status" id="account-status">เข้าสู่ระบบแล้ว</div>
+                </div>
+                <div class="profile-console-actions">
+                  <input id="display-name-input" type="text" maxlength="60" placeholder="ชื่อที่แสดงในระบบ" aria-label="ชื่อที่แสดงในระบบ" />
+                  <button class="ghost-button" data-icon="save" id="save-profile-button" type="button">บันทึกชื่อ</button>
+                  <button class="text-button" data-icon="logout" id="signout-button" type="button">ออกจากระบบ</button>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div class="topbar-nav page-subnav hidden" id="catalog-subnav">
+            <nav class="nav top-nav" id="nav"></nav>
+          </div>
+        </header>
+
+        <section class="workspace-state hidden" id="workspace-state"></section>
+
+        <section class="screen" data-screen="dashboard">
+          <div class="hero-panel tt-soft-panel tt-focus-panel" id="dashboard-hero-panel">
+            <div class="hero-copy">
+              <p class="eyebrow tt-kicker">ภาพรวมการดำเนินงาน</p>
+              <h3 class="tt-display">ดูความพร้อมของข้อมูลและตารางสอนได้ในมุมเดียว</h3>
+              <p class="hero-text">ติดตามสถานะตารางสอน รายการแจ้งเตือน และภาระงานครูเพื่อรู้ว่าควรแก้ส่วนไหนก่อน</p>
+            </div>
+            <div class="hero-actions">
+              <button class="primary-button" data-icon="spark" id="hero-auto-button" type="button">จัดตารางอัตโนมัติ</button>
+              <button class="ghost-button" data-icon="timetable" data-screen-link="timetable" type="button">เปิดหน้าตารางสอน</button>
+            </div>
+          </div>
+
+          <section class="dashboard-toolbar panel compact-panel" id="dashboard-filter-panel">
+            <div>
+              <p class="eyebrow">ตัวกรองและภาพสรุป</p>
+              <h3 class="tt-section-title">เลือกมุมมองที่ต้องการติดตาม</h3>
+              <p class="muted-text" id="dashboard-filter-note">กำลังแสดงภาพรวมทุกระดับชั้น</p>
+            </div>
+            <div class="toolbar">
+              <select id="dashboard-level-filter">
+                <option value="">ทุกระดับชั้น</option>
+                <option value="PRIMARY">ประถมศึกษา</option>
+                <option value="LOWER_SECONDARY">มัธยมศึกษาตอนต้น</option>
+              </select>
+            </div>
+          </section>
+
+          <div class="metrics-grid" id="metrics-grid"></div>
+
+          <div class="chart-grid">
+            <section class="panel chart-panel">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">สถิติภาพรวม</p>
+                  <h3 class="tt-section-title">ความพร้อมของชุดข้อมูลและตารางสอน</h3>
+                </div>
+              </div>
+              <div id="dashboard-insights"></div>
+            </section>
+
+            <section class="panel chart-panel">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">กราฟความครอบคลุม</p>
+                  <h3 class="tt-section-title">ชั้นเรียนที่ควรติดตามต่อ</h3>
+                </div>
+              </div>
+              <div id="dashboard-section-chart"></div>
+            </section>
+          </div>
+
+          <div class="dashboard-grid compact-dashboard-grid">
+            <section class="panel">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">ความพร้อมรายห้อง</p>
+                  <h3 class="tt-section-title">ความครอบคลุมตามห้องเรียน</h3>
+                </div>
+              </div>
+              <div id="section-statuses" class="stack-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">รายการแจ้งเตือน</p>
+                  <h3 class="tt-section-title">ประเด็นที่ต้องตรวจสอบ</h3>
+                </div>
+              </div>
+              <div class="stack-list" id="alert-feed"></div>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">ครูที่ต้องติดตาม</p>
+                <h3 class="tt-section-title">สรุปภาระงานครูที่ควรจับตา</h3>
+              </div>
+            </div>
+            <div id="dashboard-teacher-chart" class="chart-subpanel"></div>
+            <div id="teacher-loads"></div>
+          </section>
+        </section>
+
+        <section class="screen hidden" data-screen="catalog">
+          <section class="catalog-shell">
+            <aside class="panel catalog-nav-panel">
+              <div class="catalog-nav-head">
+                <p class="eyebrow">ลำดับการตั้งค่าข้อมูล</p>
+                <h3 class="tt-section-title">ลำดับการตั้งค่าข้อมูลหลัก</h3>
+                <p class="muted-text">เริ่มจากข้อมูลที่เป็นฐานก่อน แล้วค่อยไล่ไปยังแผนรายวิชาและกลุ่มการสอนเพื่อให้ระบบตรวจความพร้อมได้ครบ</p>
+              </div>
+              <div id="catalog-nav" class="catalog-nav-list"></div>
+            </aside>
+
+            <div class="catalog-module-panel">
+              <section class="panel">
+                <div class="catalog-module-copy">
+                  <p id="catalog-module-kicker" class="eyebrow">โมดูลข้อมูล</p>
+                  <h3 id="catalog-module-title" class="tt-section-title">จัดการข้อมูลหลัก</h3>
+                  <p id="catalog-module-description" class="muted-text">เลือกโมดูลจากด้านซ้ายเพื่อจัดการรายการ ค้นหา และตรวจความพร้อมของข้อมูลก่อนส่งต่อไปยังการจัดตาราง</p>
+                </div>
+                <div id="catalog-module-stats" class="catalog-module-stats"></div>
+              </section>
+
+              <section class="panel catalog-toolbar-panel">
+                <div class="section-head catalog-toolbar">
+                  <div>
+                    <p id="catalog-table-kicker" class="eyebrow">ทะเบียนข้อมูล</p>
+                    <h3 id="catalog-table-title" class="tt-section-title">รายการในระบบ</h3>
+                  </div>
+                  <div class="catalog-toolbar-filters">
+                    <select id="catalog-type" hidden></select>
+                    <select id="catalog-filter"></select>
+                    <input id="catalog-search" type="search" placeholder="ค้นหาข้อมูล" />
+                    <button class="primary-button" data-icon="plus" id="add-record-button" type="button">เพิ่มรายการ</button>
+                  </div>
+                </div>
+
+                <article class="catalog-flow-card">
+                  <strong class="tt-section-title">แนวทางก่อนไปขั้นถัดไป</strong>
+                  <p id="catalog-flow-note" class="muted-text">เลือกโมดูลที่ต้องการก่อน แล้วจึงกรอง ค้นหา และอัปเดตรายการตามขั้นตอนของข้อมูลชุดนั้น</p>
+                </article>
+
+                <div id="catalog-summary" class="muted-text catalog-summary-text"></div>
+              </section>
+
+              <section class="panel catalog-table-panel">
+                <div class="catalog-table-wrap">
+                  <table class="data-table catalog-data-table">
+                    <thead id="catalog-head"></thead>
+                    <tbody id="catalog-body"></tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </section>
+        </section>
+
+        <section class="screen hidden" data-screen="timetable">
+          <section class="timetable-shell">
+            <section class="panel timetable-toolbar-panel">
+              <div class="section-head timetable-toolbar-head">
+                <div class="timetable-toolbar-copy">
+                  <p class="eyebrow">พื้นที่จัดตารางสอน</p>
+                  <h3 id="timetable-scope-title" class="tt-section-title">วางตารางตามขอบเขตที่เลือก</h3>
+                  <p id="timetable-scope-meta" class="muted-text">เลือกมุมมองและขอบเขตก่อน แล้วค่อยลากกลุ่มการสอนลงตารางในสัปดาห์นี้</p>
+                </div>
+                <div class="timetable-toolbar-actions">
+                  <button class="ghost-button" data-icon="check" id="validate-button" type="button">ตรวจสอบ</button>
+                  <button class="ghost-button" data-icon="spark" id="auto-schedule-button" type="button">จัดวางอัตโนมัติ</button>
+                  <button class="primary-button" data-icon="download" id="open-export-drawer-button" type="button">ส่งออก</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="timetable-workspace">
+              <aside class="panel accent-panel timetable-left-rail">
+                <div class="timetable-rail-head">
+                  <p class="eyebrow">ขอบเขตการจัดตาราง</p>
+                  <h3 class="tt-section-title">มุมมองและขอบเขตการทำงาน</h3>
+                  <p class="muted-text">สลับรายครูหรือรายห้องเรียนก่อน จากนั้นคัดกลุ่มที่ยังเหลือคาบในขอบเขตเดียวกัน</p>
+                </div>
+
+                <div class="timetable-scope-card">
+                  <div class="segmented" id="view-switch"></div>
+                  <select id="scope-select"></select>
+                  <p id="timetable-scope-note" class="muted-text">เมื่อเปลี่ยนขอบเขต ระบบจะรีเฟรชกระดานและกลุ่มการสอนที่เกี่ยวข้องให้ทันที</p>
+                </div>
+
+                <div class="timetable-pool-head">
+                  <div>
+                    <p class="eyebrow">กลุ่มค้างจัด</p>
+                    <h3 class="tt-section-title">กลุ่มการสอนที่ยังไม่ลงคาบ</h3>
+                  </div>
+                  <select id="group-sort-select" aria-label="เรียงกลุ่มการสอน"></select>
+                </div>
+                <p id="group-pool-summary" class="muted-text">กำลังเตรียมกลุ่มการสอนที่เกี่ยวข้อง</p>
+                <div id="group-pool" class="group-pool"></div>
+              </aside>
+
+              <section class="panel timetable-board-panel">
+                <div class="section-head compact">
+                  <div>
+                    <p id="timetable-board-kicker" class="eyebrow">กระดานรายสัปดาห์</p>
+                    <h3 id="timetable-board-title" class="tt-section-title">ตารางประจำสัปดาห์</h3>
+                    <p id="timetable-board-note" class="muted-text">ลากกลุ่มจากด้านซ้ายมาวางในคาบที่เหมาะสม หรือเลือกจากคำแนะนำทางด้านขวา</p>
+                  </div>
+                </div>
+                <div class="board-scroll timetable-board-scroll">
+                  <div class="board-head" id="board-head"></div>
+                  <div class="board-grid" id="board-grid"></div>
+                </div>
+              </section>
+
+              <aside class="panel timetable-right-rail">
+                <section class="timetable-subpanel">
+                  <div class="section-head compact">
+                    <div>
+                      <p class="eyebrow">คำแนะนำจากระบบ</p>
+                      <h3 class="tt-section-title">คาบที่ระบบแนะนำ</h3>
+                      <p id="suggestion-summary" class="muted-text">เลือกกลุ่มการสอนจากด้านซ้ายเพื่อดูเหตุผลของ slot ที่เหมาะสม</p>
+                    </div>
+                  </div>
+                  <div class="stack-list" id="suggestion-list"></div>
+                </section>
+
+                <section class="timetable-subpanel">
+                  <div class="section-head compact">
+                    <div>
+                      <p class="eyebrow">การทำงานร่วมกัน</p>
+                      <h3 class="tt-section-title">สถานะผู้ใช้งานและล็อกการแก้ไข</h3>
+                      <p id="collaboration-summary" class="muted-text">เมื่อมีผู้ใช้งานออนไลน์หรือล็อกคาบ รายการจะอัปเดตในพื้นที่นี้</p>
+                    </div>
+                  </div>
+                  <div class="stack-list" id="presence-list"></div>
+                  <div class="stack-list" id="lock-list"></div>
+                </section>
+
+                <section class="timetable-subpanel">
+                  <div class="section-head compact">
+                    <div>
+                      <p class="eyebrow">กิจกรรมล่าสุด</p>
+                      <h3 class="tt-section-title">กิจกรรมล่าสุดของ workspace</h3>
+                      <p id="activity-summary" class="muted-text">ใช้ติดตามการแก้ไขล่าสุดและจังหวะที่ระบบทำงานอัตโนมัติ</p>
+                    </div>
+                  </div>
+                  <div class="stack-list" id="activity-list"></div>
+                </section>
+              </aside>
+            </section>
+
+            <section class="panel timetable-validation-drawer" id="validation-drawer">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">ผลตรวจตาราง</p>
+                  <h3 class="tt-section-title">สรุปผลการตรวจสอบล่าสุด</h3>
+                  <p id="validation-summary" class="muted-text">ผลตรวจจะรวมความขัดแย้งของครู ห้อง และคาบที่ยังจัดไม่ครบ</p>
+                </div>
+                <button class="text-button" id="toggle-validation-button" type="button">ซ่อนแผงตรวจสอบ</button>
+              </div>
+              <div id="validation-drawer-body">
+                <div class="stack-list" id="validation-list"></div>
+              </div>
+            </section>
+
+            <div class="timetable-export-backdrop hidden" id="export-drawer-backdrop"></div>
+            <aside class="panel timetable-export-drawer hidden" id="export-drawer">
+              <div class="section-head compact">
+                <div>
+                  <p class="eyebrow">ส่งออกและพิมพ์</p>
+                  <h3 class="tt-section-title">ส่งออกและพิมพ์ตารางสอน</h3>
+                  <p id="export-drawer-note" class="muted-text">เลือก current, selected หรือ all ก่อนสั่งส่งออก CSV, PDF หรือพิมพ์</p>
+                </div>
+                <button class="text-button" data-icon="close" id="close-export-drawer-button" type="button">ปิด</button>
+              </div>
+
+              <p id="export-scope-note" class="muted-text timetable-export-summary">กำลังเตรียมชุดส่งออก</p>
+
+              <div class="timetable-export-controls">
+                <select id="export-scope-select"></select>
+                <input id="export-search-input" type="search" placeholder="ค้นหาครูหรือห้องเรียน" />
+                <button class="text-button" id="select-visible-button" type="button">เลือกที่เห็น</button>
+                <button class="text-button" id="clear-export-selection-button" type="button">ล้างที่เลือก</button>
+              </div>
+
+              <div class="export-selection-panel" id="export-selection-panel"></div>
+
+              <div class="timetable-export-actions">
+                <button class="ghost-button" data-icon="download" id="export-csv-button" type="button">ส่งออก CSV</button>
+                <button class="ghost-button" data-icon="download" id="export-pdf-button" type="button">ส่งออก PDF</button>
+                <button class="primary-button" data-icon="print" id="print-button" type="button">พิมพ์</button>
+              </div>
+            </aside>
+          </section>
+        </section>
+
+        <section class="screen hidden" data-screen="settings">
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">ข้อมูลสถานศึกษา</p>
+                <h3 class="tt-section-title">ตั้งค่าการส่งออกและเอกลักษณ์เอกสาร</h3>
+              </div>
+              <button class="primary-button" data-icon="save" id="save-settings-button" type="button">บันทึกการตั้งค่า</button>
+            </div>
+            <form class="settings-form" id="settings-form"></form>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal hidden" id="modal">
+      <div class="modal-card tt-soft-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow" id="modal-caption">ตัวแก้ไข</p>
+            <h3 class="tt-section-title" id="modal-title">รายการใหม่</h3>
+          </div>
+          <button class="text-button" data-icon="close" id="modal-close-button" type="button">ปิด</button>
+        </div>
+        <form id="modal-form" class="modal-form"></form>
+      </div>
+    </div>
+
+    <div class="toast-stack" id="toast-stack"></div>
+
+    <script>
+      (() => {
+        const reportStartupIssue = (rawMessage) => {
+          const message = String(rawMessage || "").trim();
+          if (!message) {
+            return;
+          }
+
+          window.__TEACHTABLE_STARTUP_ERROR__ = message;
+          const bootScreen = document.getElementById("boot-screen");
+          const bootStatus = document.getElementById("boot-status");
+
+          bootScreen?.classList.remove("hidden");
+          if (bootStatus) {
+            bootStatus.textContent = message;
+          }
+        };
+
+        window.__TEACHTABLE_REPORT_STARTUP_ISSUE__ = reportStartupIssue;
+
+        window.addEventListener("error", (event) => {
+          reportStartupIssue(event.error?.message || event.message || "TeachTable failed to start.");
+        });
+
+        window.addEventListener("unhandledrejection", (event) => {
+          reportStartupIssue(event.reason?.message || event.reason || "TeachTable failed to start.");
+        });
+      })();
+    </script>
+    <script type="module" src="./app/main.js"></script>
+  </body>
+</html>

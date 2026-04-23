@@ -76,6 +76,7 @@ let serverProc = null;
 let edgeProc = null;
 let ws = null;
 let serverStartedHere = false;
+const runtimeExceptions = [];
 
 const report = {
   success: false,
@@ -168,6 +169,22 @@ try {
     } catch {
       return;
     }
+    if (message.method === "Runtime.exceptionThrown") {
+      const details = message.params?.exceptionDetails || {};
+      runtimeExceptions.push({
+        text: details.text || "",
+        lineNumber: details.lineNumber,
+        columnNumber: details.columnNumber,
+        url: details.url || details.stackTrace?.callFrames?.[0]?.url || "",
+        stack: (details.stackTrace?.callFrames || []).slice(0, 6).map(frame => ({
+          functionName: frame.functionName,
+          url: frame.url,
+          lineNumber: frame.lineNumber,
+          columnNumber: frame.columnNumber,
+        })),
+      });
+      return;
+    }
     if (!message.id) return;
     const entry = pending.get(message.id);
     if (!entry) return;
@@ -237,12 +254,29 @@ try {
     })()
   `;
 
-  report.beforeLogin = await waitFor(async () => {
-    const state = await evaluate(snapshotExpression);
-    return state?.authVisible && !state?.bootVisible && state?.hasEmailInput && state?.hasPasswordInput && !state?.emailButtonDisabled
-      ? state
-      : null;
-  }, 30000, 500, "visible email login form");
+  try {
+    report.beforeLogin = await waitFor(async () => {
+      const state = await evaluate(snapshotExpression);
+      return state?.authVisible && !state?.bootVisible && state?.hasEmailInput && state?.hasPasswordInput && !state?.emailButtonDisabled
+        ? state
+        : null;
+    }, 30000, 500, "visible email login form");
+  } catch (error) {
+    report.beforeLogin = await evaluate(snapshotExpression).catch(() => null);
+    const debugDomHtml = await evaluate("document.documentElement.outerHTML").catch(() => null);
+    if (typeof debugDomHtml === "string") {
+      await writeFile(domPath, debugDomHtml, "utf8");
+    }
+    const debugShot = await send("Page.captureScreenshot", {
+      format: "png",
+      captureBeyondViewport: true,
+      fromSurface: true,
+    }).catch(() => null);
+    if (debugShot?.data) {
+      await writeFile(screenshotPath, Buffer.from(debugShot.data, "base64"));
+    }
+    throw error;
+  }
 
   await delay(500);
 
@@ -295,6 +329,7 @@ try {
   }
 
   report.afterLogin = finalState;
+  report.runtimeExceptions = runtimeExceptions;
   const domHtml = await evaluate("document.documentElement.outerHTML");
   if (typeof domHtml === "string") {
     await writeFile(domPath, domHtml, "utf8");
@@ -312,6 +347,7 @@ try {
   console.log(JSON.stringify(report, null, 2));
   process.exit(report.success ? 0 : 2);
 } catch (error) {
+  report.runtimeExceptions = runtimeExceptions;
   report.error = error.message;
   report.endedAt = new Date().toISOString();
   try {
