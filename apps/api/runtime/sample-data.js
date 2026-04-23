@@ -1,4 +1,5 @@
 const { randomUUID } = require("node:crypto");
+const { createDefaultPlcPolicy, createDefaultTimeStructure } = require("./schedule-config");
 
 function id(prefix) {
   return `${prefix}-${randomUUID().slice(0, 8)}`;
@@ -6,6 +7,10 @@ function id(prefix) {
 
 function createSampleDatabase() {
   const now = new Date().toISOString();
+  const timeStructure = createDefaultTimeStructure();
+  const plcPolicy = createDefaultPlcPolicy(timeStructure);
+  plcPolicy.enabled = true;
+  plcPolicy.allowedDays = ["WED"];
 
   const teachers = [
     {
@@ -330,6 +335,8 @@ function createSampleDatabase() {
       academicYear: "2569",
       term: "1",
       logoPath: "",
+      timeStructure,
+      plcPolicy,
       signatories: [
         { title: "ผู้บริหารสถานศึกษา", name: "........................................" },
         { title: "ฝ่ายบริหารวิชาการ", name: "........................................" },

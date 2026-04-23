@@ -3,6 +3,7 @@ import { buildEmptyState } from "./app/components/common/empty-state.js";
 import { buildCheckboxGroup, buildHelpText } from "./app/components/common/form-controls.js";
 import { escapeHtml } from "./app/components/common/html.js";
 import { buildReadinessBadge, evaluateCatalogRecordStatus } from "./app/components/catalog/readiness-badge.js";
+import { CANONICAL_DAYS, normalizeScheduleSettings } from "./app/utils/schedule-config.js";
 
 const NAV_ITEMS = [
   { id: "dashboard", label: "ภาพรวม", hint: "สถานะระบบและความคืบหน้าของข้อมูล" },
@@ -113,13 +114,11 @@ const USER_ROLE_LABELS = {
   HOMEROOM_TEACHER: "ครูประจำชั้น",
 };
 
-const DAY_COLUMNS = [
-  { value: "MON", label: "จ.", fullLabel: "วันจันทร์" },
-  { value: "TUE", label: "อ.", fullLabel: "วันอังคาร" },
-  { value: "WED", label: "พ.", fullLabel: "วันพุธ" },
-  { value: "THU", label: "พฤ.", fullLabel: "วันพฤหัสบดี" },
-  { value: "FRI", label: "ศ.", fullLabel: "วันศุกร์" },
-];
+const DAY_COLUMNS = CANONICAL_DAYS.map((day) => ({
+  value: day.value,
+  label: day.shortLabel,
+  fullLabel: day.label,
+}));
 
 const DELIVERY_MODE_LABELS = {
   WHOLE_CLASS: "สอนทั้งห้อง",
@@ -1150,64 +1149,112 @@ function renderExportSelectionPanel(root, options = {}) {
     `;
 }
 
-function renderBoardHead(root) {
+function renderBoardHead(root, boardModel = {}) {
+  const columns = boardModel.columns || [];
+  root.style.setProperty("--board-columns", String(Math.max(columns.length, 1)));
   root.innerHTML = `
     <div class="board-corner">วัน / คาบ</div>
-    ${Array.from({ length: 6 }, (_, index) => `
-      <div class="board-period-head" title="คาบ ${index + 1}">
-        <span>${escapeHtml(`คาบ ${index + 1}`)}</span>
-        <small>${escapeHtml(`ช่วง ${index + 1}`)}</small>
+    ${columns.map((column) => `
+      <div class="board-period-head" title="${escapeHtml(column.label || `คาบ ${column.period}`)}">
+        <span>${escapeHtml(column.label || `คาบ ${column.period}`)}</span>
+        <small>${escapeHtml(column.shortLabel || `ช่วง ${column.period}`)}</small>
       </div>
     `).join("")}
   `;
 }
 
-function renderBoardGrid(root, matrix) {
-  root.innerHTML = matrix
+function buildBoardEntryCard(entry) {
+  const readonly = Boolean(entry.isSynthetic || entry.entryType === "PLC");
+  const teacherSummary = entry.teacherSummary || entry.teacherLabels?.join(", ") || "ยังไม่กำหนดครู";
+  const previewText = entry.previewHint || entry.note || entry.timeLabel || "กดดูทั้งหมดเพื่อเปิดข้อมูลรายวิชา";
+
+  return `
+    <article
+      class="entry-card ${readonly ? "is-readonly-entry" : ""}"
+      ${readonly ? "" : 'draggable="true"'}
+      ${readonly ? "" : `data-entry-id="${escapeHtml(entry.id)}"`}
+      style="--entry-color: ${escapeHtml(entry.colorTone)}; --entry-soft: ${escapeHtml(entry.colorSoft || "rgba(24, 116, 152, 0.1)")}"
+    >
+      ${readonly ? "" : `
+        <button
+          class="entry-delete"
+          type="button"
+          aria-label="นำออกจากตาราง"
+          title="นำออกจากตาราง"
+          data-entry-delete="${escapeHtml(entry.id)}"
+        >${iconMarkup("trash")}</button>
+      `}
+      <div class="entry-card-head">
+        <h4 class="tt-section-title">${escapeHtml(entry.subjectName || "-")}</h4>
+        <span class="pill subtle-pill">${escapeHtml(entry.groupShortLabel || entry.groupName || "-")}</span>
+      </div>
+      <p class="entry-compact-line">${escapeHtml(entry.sectionName || "-")} • ${escapeHtml(entry.deliveryModeLabel || "-")}</p>
+      ${entry.timeLabel ? `<p class="entry-time-line">${escapeHtml(entry.timeLabel)}</p>` : ""}
+      <div class="entry-meta">
+        <span class="pill">${escapeHtml(entry.roomName || "-")}</span>
+        <span class="pill">${escapeHtml(teacherSummary)}</span>
+      </div>
+      <div class="entry-card-foot">
+        <small>${escapeHtml(previewText)}</small>
+        ${readonly ? "" : `<button class="text-button compact-button" type="button" data-entry-preview="${escapeHtml(entry.id)}">ดูทั้งหมด</button>`}
+      </div>
+    </article>
+  `;
+}
+
+function buildBoardCellPlaceholder(cell) {
+  if (cell.slotType === "CLOSED") {
+    return `
+      <div class="slot-placeholder">
+        <strong>ปิดคาบ</strong>
+        <small>${escapeHtml(cell.timeLabel || "ช่วงนี้ไม่เปิดรับการจัดตาราง")}</small>
+      </div>
+    `;
+  }
+
+  if (cell.slotType === "PLC") {
+    return `
+      <div class="slot-placeholder plc">
+        <strong>${escapeHtml(cell.label || "PLC")}</strong>
+        <small>${escapeHtml(cell.timeLabel || "ช่วง PLC หลังคาบสุดท้าย")}</small>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="slot-placeholder">
+      <strong>${escapeHtml(cell.label || `คาบ ${cell.period}`)}</strong>
+      <small>${escapeHtml(cell.timeLabel || "พร้อมลากกลุ่มการสอนลงช่องนี้")}</small>
+    </div>
+  `;
+}
+
+function renderBoardGrid(root, boardModel = {}) {
+  const columns = boardModel.columns || [];
+  const rows = boardModel.rows || [];
+
+  root.style.setProperty("--board-columns", String(Math.max(columns.length, 1)));
+  root.innerHTML = rows
     .map(
-      (dayRow, dayIndex) => `
+      (row) => `
         <div class="board-row">
-          <div class="day-label"><strong>${escapeHtml(DAY_COLUMNS[dayIndex].fullLabel)}</strong><span>${escapeHtml(DAY_COLUMNS[dayIndex].label)}</span></div>
-          ${dayRow
-            .map(
-              (entries, periodIndex) => `
-                <div class="slot-cell" data-day="${DAY_COLUMNS[dayIndex].value}" data-period="${periodIndex + 1}">
-                  ${entries
-                    .map(
-                      (entry) => `
-                        <article
-                          class="entry-card"
-                          draggable="true"
-                          data-entry-id="${escapeHtml(entry.id)}"
-                          style="--entry-color: ${escapeHtml(entry.colorTone)}; --entry-soft: ${escapeHtml(entry.colorSoft || "rgba(24, 116, 152, 0.1)")}"
-                          >
-                          <button
-                            class="entry-delete"
-                            type="button"
-                            aria-label="นำออกจากตาราง"
-                            title="นำออกจากตาราง"
-                            data-entry-delete="${escapeHtml(entry.id)}"
-                          >${iconMarkup("trash")}</button>
-                          <div class="entry-card-head">
-                            <h4 class="tt-section-title">${escapeHtml(entry.subjectName)}</h4>
-                            <span class="pill subtle-pill">${escapeHtml(entry.groupShortLabel || entry.groupName)}</span>
-                          </div>
-                          <p class="entry-compact-line">${escapeHtml(entry.sectionName || "-")} • ${escapeHtml(entry.deliveryModeLabel)}</p>
-                          <div class="entry-meta">
-                            <span class="pill">${escapeHtml(entry.roomName)}</span>
-                            <span class="pill">${escapeHtml(entry.teacherSummary || entry.teacherLabels.join(", "))}</span>
-                          </div>
-                          <div class="entry-card-foot">
-                            <small>${escapeHtml(entry.previewHint || "กดดูทั้งหมดเพื่อเปิดข้อมูลรายวิชา")}</small>
-                            <button class="text-button compact-button" type="button" data-entry-preview="${escapeHtml(entry.id)}">ดูทั้งหมด</button>
-                          </div>
-                        </article>
-                      `,
-                    )
-                    .join("")}
-                </div>
-              `,
-            )
+          <div class="day-label"><strong>${escapeHtml(row.label)}</strong><span>${escapeHtml(row.shortLabel)}</span></div>
+          ${row.cells
+            .map((cell) => `
+              <div
+                class="slot-cell ${cell.slotType === "PLC" ? "is-plc-slot" : ""} ${cell.slotType === "CLOSED" ? "is-closed-slot" : ""} ${cell.schedulable ? "is-schedulable-slot" : "is-unschedulable-slot"}"
+                data-day="${escapeHtml(row.day)}"
+                data-period="${escapeHtml(cell.period)}"
+                data-slot-kind="${escapeHtml(cell.slotType)}"
+                data-slot-label="${escapeHtml(cell.label || "")}"
+                data-slot-time-label="${escapeHtml(cell.timeLabel || "")}"
+                data-schedulable="${cell.schedulable ? "true" : "false"}"
+              >
+                ${cell.entries.length > 0
+                  ? cell.entries.map((entry) => buildBoardEntryCard(entry)).join("")
+                  : buildBoardCellPlaceholder(cell)}
+              </div>
+            `)
             .join("")}
         </div>
       `,
@@ -1397,50 +1444,244 @@ function renderLocks(root, activity = {}) {
   );
 }
 
+function buildSettingsSummaryCard(label, value, note) {
+  return `
+    <article class="settings-summary-card">
+      <span>${escapeHtml(label)}</span>
+      <strong>${escapeHtml(value)}</strong>
+      <small>${escapeHtml(note)}</small>
+    </article>
+  `;
+}
+
 function renderSettingsForm(root, settings = {}) {
   const signatories = [0, 1, 2].map((index) => settings.signatories?.[index] || {});
+  const scheduleSettings = normalizeScheduleSettings(settings);
+  const totalWeeklyPeriods = scheduleSettings.days.reduce((total, day) => total + day.teachingPeriods, 0);
+  const plcDayLabels = scheduleSettings.plcPolicy.allowedDays
+    .map((dayCode) => scheduleSettings.dayConfigs?.[dayCode]?.label || formatDayLabel(dayCode))
+    .join(", ");
+
   root.innerHTML = `
     <article class="settings-guide full">
-      <strong class="tt-section-title">ก่อนส่งออกเอกสารให้ตรวจ 3 ส่วน</strong>
-      <p class="muted-text">ระบุชื่อโรงเรียนและภาคเรียน อัปโหลดโลโก้หรือภาพลายเซ็น แล้วตรวจข้อมูลผู้ลงนามให้ครบถ้วนอีกครั้ง</p>
+      <strong class="tt-section-title">จัดโครงสร้างเวลาให้ตรงกับโรงเรียนจริงก่อนเริ่มลงตาราง</strong>
+      <p class="muted-text">ชุดตั้งค่านี้จะถูกใช้ร่วมกันทั้งการจัดคาบ ตรวจสอบความครบถ้วน มุมมองครู และการส่งออกเอกสาร เพื่อให้ระบบทำงานตรงบริบทการใช้งานจริงมากที่สุด</p>
     </article>
-    <label class="field">
-      <span>ชื่อสถานศึกษา</span>
-      <input name="schoolName" value="${escapeHtml(settings.schoolName || "")}" required />
-      ${buildHelpText("ใช้ชื่อเต็มที่ต้องการให้ปรากฏบนหัวกระดาษและรายงานส่งออก")}
-    </label>
-    <label class="field">
-      <span>ชื่อย่อสถานศึกษา</span>
-      <input name="schoolShortName" value="${escapeHtml(settings.schoolShortName || "")}" />
-      ${buildHelpText("ใช้กับมุมมองที่ต้องการข้อความสั้น เช่น แถบหัวระบบหรือคำอธิบายย่อ")}
-    </label>
-    <label class="field">
-      <span>ปีการศึกษา</span>
-      <input name="academicYear" value="${escapeHtml(settings.academicYear || "")}" required />
-      ${buildHelpText("ตัวอย่าง 2569 หรือ 2026 ใช้ค่าเดียวกันทั้งระบบเพื่อให้รายงานตรงกัน")}
-    </label>
-    <label class="field">
-      <span>ภาคเรียน</span>
-      <select name="term" required>${optionTags(TERM_OPTIONS, settings.term || "", "value", "label")}</select>
-      ${buildHelpText("เลือกภาคเรียนที่กำลังจัดตารางอยู่ในชุดข้อมูลนี้")}
-    </label>
-    <div class="field full">
-      <span>โลโก้โรงเรียน</span>
-      ${buildHelpText("อัปโหลดไฟล์ PNG หรือ JPG เพื่อใช้แสดงในเอกสาร PDF และพื้นที่แสดงผลของโรงเรียน")}
-      <div class="asset-card">
-        <label class="upload-field">
-          <span class="ghost-button">${buildButtonLabel("plus", "อัปโหลดโลโก้")}</span>
-          <input type="file" accept="image/png,image/jpeg,image/jpg" data-hidden-name="logoPath" data-preview-id="logo-preview" />
-        </label>
-        <div class="asset-preview-frame" id="logo-preview">
-          ${buildImagePreview(settings.logoPath || "", "โลโก้โรงเรียน", "ยังไม่ได้อัปโหลดโลโก้")}
+
+    <div class="settings-summary-strip full">
+      ${buildSettingsSummaryCard(
+        "วันสอนที่เปิดใช้",
+        `${scheduleSettings.days.length} วัน`,
+        scheduleSettings.days.map((day) => day.shortLabel).join(" • ") || "ยังไม่ได้กำหนดวันสอน",
+      )}
+      ${buildSettingsSummaryCard(
+        "คาบรวมต่อสัปดาห์",
+        `${totalWeeklyPeriods} คาบ`,
+        `ฐานคำนวณความครบถ้วนของห้องเรียนและตัวจัดตาราง`,
+      )}
+      ${buildSettingsSummaryCard(
+        "PLC รายสัปดาห์",
+        scheduleSettings.plcPolicy.enabled ? `${scheduleSettings.plcPolicy.durationMinutes} นาที/ครั้ง` : "ปิดอยู่",
+        scheduleSettings.plcPolicy.enabled
+          ? `เปิดใน ${plcDayLabels || "วันที่กำหนด"}`
+          : "จะเพิ่มหลังคาบสุดท้ายของวันที่เลือกในมุมมองครู",
+      )}
+    </div>
+
+    <article class="settings-block full">
+      <div class="settings-block-head">
+        <div>
+          <strong class="tt-section-title">ข้อมูลสถานศึกษาและภาคเรียน</strong>
+          <p class="muted-text">ข้อมูลส่วนนี้จะแสดงบนหัวรายงาน PDF และเป็นบริบทหลักของพื้นที่ทำงาน</p>
         </div>
       </div>
-      <input type="hidden" name="logoPath" value="${escapeHtml(settings.logoPath || "")}" />
-    </div>
-    <div class="field full">
-      <span>ผู้ลงนามในเอกสาร PDF</span>
-      ${buildHelpText("กรอกตำแหน่ง ชื่อ และแนบลายเซ็นได้สูงสุด 3 รายการ ระบบจะใช้ชุดนี้ตอนส่งออก PDF")}
+      <div class="settings-block-grid">
+        <label class="field">
+          <span>ชื่อสถานศึกษา</span>
+          <input name="schoolName" value="${escapeHtml(settings.schoolName || "")}" required />
+          ${buildHelpText("ใช้ชื่อเต็มที่ต้องการให้ปรากฏบนหัวกระดาษและรายงานส่งออก")}
+        </label>
+        <label class="field">
+          <span>ชื่อย่อสถานศึกษา</span>
+          <input name="schoolShortName" value="${escapeHtml(settings.schoolShortName || "")}" />
+          ${buildHelpText("ใช้กับมุมมองที่ต้องการข้อความสั้น เช่น แถบหัวระบบหรือคำอธิบายย่อ")}
+        </label>
+        <label class="field">
+          <span>ปีการศึกษา</span>
+          <input name="academicYear" value="${escapeHtml(settings.academicYear || "")}" required />
+          ${buildHelpText("ตัวอย่าง 2569 หรือ 2026 ใช้ค่าเดียวกันทั้งระบบเพื่อให้รายงานตรงกัน")}
+        </label>
+        <label class="field">
+          <span>ภาคเรียน</span>
+          <select name="term" required>${optionTags(TERM_OPTIONS, settings.term || "", "value", "label")}</select>
+          ${buildHelpText("เลือกภาคเรียนที่กำลังจัดตารางอยู่ในชุดข้อมูลนี้")}
+        </label>
+        <div class="field full">
+          <span>โลโก้โรงเรียน</span>
+          ${buildHelpText("อัปโหลดไฟล์ PNG หรือ JPG เพื่อใช้แสดงในเอกสาร PDF และพื้นที่แสดงผลของโรงเรียน")}
+          <div class="asset-card">
+            <label class="upload-field">
+              <span class="ghost-button">${buildButtonLabel("plus", "อัปโหลดโลโก้")}</span>
+              <input type="file" accept="image/png,image/jpeg,image/jpg" data-hidden-name="logoPath" data-preview-id="logo-preview" />
+            </label>
+            <div class="asset-preview-frame" id="logo-preview">
+              ${buildImagePreview(settings.logoPath || "", "โลโก้โรงเรียน", "ยังไม่ได้อัปโหลดโลโก้")}
+            </div>
+          </div>
+          <input type="hidden" name="logoPath" value="${escapeHtml(settings.logoPath || "")}" />
+        </div>
+      </div>
+    </article>
+
+    <article class="settings-block full">
+      <div class="settings-block-head">
+        <div>
+          <strong class="tt-section-title">โครงสร้างเวลาเรียน</strong>
+          <p class="muted-text">กำหนดวันเรียน จำนวนคาบ เวลาเริ่ม และความยาวคาบของแต่ละวันให้ตรงกับตารางจริงของโรงเรียน</p>
+        </div>
+        <span class="pill subtle-pill">โครงสร้างนี้ใช้กับ validator และ auto schedule</span>
+      </div>
+      <div class="settings-tune-grid">
+        <label class="field">
+          <span>เวลาเริ่มต้นมาตรฐาน</span>
+          <input name="defaultStartTime" type="time" value="${escapeHtml(scheduleSettings.defaultStartTime)}" />
+          ${buildHelpText("ใช้เป็นค่าเริ่มต้นของแต่ละวัน และสามารถปรับแยกต่อวันได้")}
+        </label>
+        <label class="field">
+          <span>นาทีต่อคาบมาตรฐาน</span>
+          <input
+            name="defaultPeriodDurationMinutes"
+            type="number"
+            min="30"
+            step="5"
+            value="${escapeHtml(scheduleSettings.defaultPeriodDurationMinutes)}"
+          />
+          ${buildHelpText("ใช้เป็นค่าเริ่มต้นของทุกวันก่อนปรับละเอียดเป็นรายวัน")}
+        </label>
+      </div>
+      <div class="settings-day-grid">
+        ${DAY_COLUMNS.map((day) => {
+          const dayConfig = scheduleSettings.dayConfigs?.[day.value] || day;
+          const enabled = scheduleSettings.activeDays.includes(day.value);
+          return `
+            <section class="settings-day-card ${enabled ? "" : "is-disabled"}">
+              <label class="settings-inline-toggle">
+                <input type="checkbox" name="activeDays" value="${escapeHtml(day.value)}" ${enabled ? "checked" : ""} />
+                <span>
+                  <strong>${escapeHtml(dayConfig.label || day.fullLabel)}</strong>
+                  <small>${escapeHtml(dayConfig.shortLabel || day.label)} • ${enabled ? "เปิดวันสอน" : "ปิดใช้งาน"}</small>
+                </span>
+              </label>
+              <label class="field">
+                <span>จำนวนคาบสอน</span>
+                <input
+                  name="dayTeachingPeriods:${escapeHtml(day.value)}"
+                  type="number"
+                  min="1"
+                  value="${escapeHtml(dayConfig.teachingPeriods || 1)}"
+                />
+                ${buildHelpText("ระบุจำนวนคาบที่เปิดสอนจริงของวันนั้น")}
+              </label>
+              <label class="field">
+                <span>เริ่มคาบแรก</span>
+                <input
+                  name="dayStartTime:${escapeHtml(day.value)}"
+                  type="time"
+                  value="${escapeHtml(dayConfig.startTime || scheduleSettings.defaultStartTime)}"
+                />
+                ${buildHelpText("ระบบจะใช้เวลานี้คำนวณช่วงเวลาและหัวตารางส่งออก")}
+              </label>
+              <label class="field">
+                <span>นาทีต่อคาบ</span>
+                <input
+                  name="dayDuration:${escapeHtml(day.value)}"
+                  type="number"
+                  min="30"
+                  step="5"
+                  value="${escapeHtml(dayConfig.periodDurationMinutes || scheduleSettings.defaultPeriodDurationMinutes)}"
+                />
+                ${buildHelpText("รองรับกรณีบางวันใช้คาบสั้นหรือคาบยาวกว่าปกติ")}
+              </label>
+            </section>
+          `;
+        }).join("")}
+      </div>
+    </article>
+
+    <article class="settings-block full">
+      <div class="settings-block-head">
+        <div>
+          <strong class="tt-section-title">นโยบาย PLC</strong>
+          <p class="muted-text">เมื่อเปิดใช้ ระบบจะแสดงช่วง PLC หลังคาบสุดท้ายของวันที่เลือกในมุมมองครู และกันไม่ให้วางคาบสอนทับช่วงนี้</p>
+        </div>
+        <span class="pill subtle-pill">วางหลังคาบสุดท้ายของวันเท่านั้น</span>
+      </div>
+      <div class="settings-plc-grid">
+        <label class="settings-inline-toggle settings-inline-toggle-card">
+          <input type="checkbox" name="plcEnabled" ${scheduleSettings.plcPolicy.enabled ? "checked" : ""} />
+          <span>
+            <strong>เปิดใช้ PLC ระดับโรงเรียน</strong>
+            <small>เพิ่มช่วง PLC ให้ครูทุกคนตามวันที่กำหนดโดยอัตโนมัติ</small>
+          </span>
+        </label>
+        <label class="settings-inline-toggle settings-inline-toggle-card">
+          <input type="checkbox" name="plcShowInTeacherExports" ${scheduleSettings.plcPolicy.showInTeacherExports ? "checked" : ""} />
+          <span>
+            <strong>แสดงในเอกสารรายครู</strong>
+            <small>ส่งออก PDF/print พร้อมช่วง PLC ของครูแต่ละคน</small>
+          </span>
+        </label>
+        <label class="field">
+          <span>ชื่อกิจกรรม</span>
+          <input name="plcTitle" value="${escapeHtml(scheduleSettings.plcPolicy.title || "PLC")}" />
+          ${buildHelpText("ชื่อที่จะแสดงบนกระดาน ตารางครู และเอกสารส่งออก")}
+        </label>
+        <label class="field">
+          <span>ความยาวต่อครั้ง (นาที)</span>
+          <input
+            name="plcDurationMinutes"
+            type="number"
+            min="30"
+            step="5"
+            value="${escapeHtml(scheduleSettings.plcPolicy.durationMinutes)}"
+          />
+          ${buildHelpText("ใช้คำนวณเวลาเริ่ม-สิ้นสุดของช่วง PLC หลังคาบสุดท้าย")}
+        </label>
+        <label class="field">
+          <span>ชั่วโมงเป้าหมายต่อสัปดาห์</span>
+          <input
+            name="plcRequiredHoursPerWeekDefault"
+            type="number"
+            min="0"
+            step="0.5"
+            value="${escapeHtml(scheduleSettings.plcPolicy.requiredHoursPerWeekDefault)}"
+          />
+          ${buildHelpText("เก็บเป็นค่าอ้างอิงนโยบาย PLC สำหรับการใช้งานต่อยอดในอนาคต")}
+        </label>
+        <div class="field full">
+          <span>วันที่เปิด PLC</span>
+          ${buildHelpText("เลือกวันประชุม PLC ที่ต้องการให้แสดงหลังคาบสุดท้ายของวันนั้น")}
+          ${buildCheckboxGroup(
+            "plcAllowedDays",
+            DAY_COLUMNS.map((day) => ({
+              value: day.value,
+              label: day.fullLabel,
+              description: `หลังคาบสุดท้ายของ${day.fullLabel}`,
+            })),
+            scheduleSettings.plcPolicy.allowedDays,
+            { className: "settings-day-checkboxes" },
+          )}
+        </div>
+      </div>
+    </article>
+
+    <article class="settings-block full">
+      <div class="settings-block-head">
+        <div>
+          <strong class="tt-section-title">ผู้ลงนามในเอกสาร PDF</strong>
+          <p class="muted-text">เตรียมตำแหน่ง ชื่อ และลายเซ็นสำหรับเอกสารส่งออกสูงสุด 3 ชุด</p>
+        </div>
+      </div>
       <div class="signatory-grid">
         ${[0, 1, 2]
           .map(
@@ -1470,7 +1711,7 @@ function renderSettingsForm(root, settings = {}) {
           )
           .join("")}
       </div>
-    </div>
+    </article>
   `;
 }
 

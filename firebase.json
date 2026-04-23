@@ -1,19 +1,52 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyClpCVopmm2uMz-VIo14qBTlygI5qW0F9U",
-  authDomain: "teachtable-chpschool.firebaseapp.com",
-  databaseURL: "https://teachtable-chpschool-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "teachtable-chpschool",
-  storageBucket: "teachtable-chpschool.firebasestorage.app",
-  messagingSenderId: "533934856388",
-  appId: "1:533934856388:web:9731938ea1ed91fb699191"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+{
+  "authDomain": "teachtable-pro.firebaseapp.com",
+  "projectId": "teachtable-pro",
+  "storageBucket": "teachtable-pro.firebasestorage.app",
+  "messagingSenderId": "985169507159",
+  "appId": "1:985169507159:web:32145ebaf1506ca3b70412",
+  "firestore": {
+    "database": "(default)",
+    "location": "asia-southeast1",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "codebase": "default",
+      "disallowLegacyRuntimeConfig": true,
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+     
+      "source": "functions"
+    }
+  ],
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "auth": {
+    "providers": {
+      "anonymous": true,
+      "emailPassword": true,
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "TeachTable Pro",
+        "supportEmail": "inspire360@chpschool.ac.th"
+      }
+    }
+  }
+}

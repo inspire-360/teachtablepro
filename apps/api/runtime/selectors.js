@@ -3,11 +3,15 @@ const {
   DELIVERY_MODE_LABELS,
   EDUCATION_LEVEL_LABELS,
   TEACHING_ROLE_LABELS,
-  WEEKDAYS,
-  PERIODS_PER_DAY,
 } = require("./constants");
 const { validateTimetable, findSuggestedSlots } = require("./conflict-engine");
 const { createEmptyDatabase } = require("./empty-data");
+const {
+  buildBoardLayout,
+  buildSchoolWidePlcEntries,
+  getExpectedWeeklyPeriods,
+  normalizeSettingsShape,
+} = require("./schedule-config");
 
 function getCurrentTimetable(db) {
   return db.timetables[0] || createEmptyDatabase().timetables[0];
@@ -17,6 +21,7 @@ function buildDataset(db, timetable = getCurrentTimetable(db)) {
   return {
     timetableId: timetable.id,
     version: timetable.version,
+    settings: normalizeSettingsShape(db.settings),
     teachers: db.teachers,
     rooms: db.rooms,
     sections: db.sections,
@@ -68,13 +73,13 @@ function decorateEntry(entry, db, maps = buildMaps(db)) {
 
   return {
     ...entry,
-    subjectName: subject?.name || entry.subjectId,
-    subjectCode: subject?.subjectCode || entry.subjectId,
-    roomName: room?.name || entry.roomId,
-    sectionName: section ? sectionLabel(section) : entry.sectionId,
+    subjectName: entry.subjectName || subject?.name || entry.subjectId || "PLC",
+    subjectCode: subject?.subjectCode || entry.subjectCode || entry.subjectId || "PLC",
+    roomName: entry.roomName || room?.name || entry.roomId || "-",
+    sectionName: entry.sectionName || (section ? sectionLabel(section) : entry.sectionId || "-"),
     sectionEducationLevel: section ? EDUCATION_LEVEL_LABELS[section.educationLevel] : "-",
-    deliveryModeLabel: DELIVERY_MODE_LABELS[entry.deliveryMode] || entry.deliveryMode,
-    groupName: group?.displayName || entry.studentGroupKey,
+    deliveryModeLabel: entry.deliveryModeLabel || DELIVERY_MODE_LABELS[entry.deliveryMode] || entry.deliveryMode || "-",
+    groupName: entry.groupName || group?.displayName || entry.studentGroupKey || "-",
     teacherLabels: teachers.map((teacher) => teacher.label),
     teachersDetailed: teachers,
     colorTone: hashColor(entry.subjectId),
@@ -84,6 +89,7 @@ function decorateEntry(entry, db, maps = buildMaps(db)) {
 function buildTeacherLoads(db, dataset = buildDataset(db), maps = buildMaps(db)) {
   const teacherLoadMap = new Map(db.teachers.map((teacher) => [teacher.id, 0]));
   const teachingGroupsMap = new Map(db.teachers.map((teacher) => [teacher.id, new Set()]));
+  const plcLoadMap = new Map(db.teachers.map((teacher) => [teacher.id, 0]));
 
   for (const entry of dataset.entries) {
     for (const teacher of entry.teachers) {
@@ -92,11 +98,18 @@ function buildTeacherLoads(db, dataset = buildDataset(db), maps = buildMaps(db))
     }
   }
 
+  for (const plcEntry of buildSchoolWidePlcEntries(dataset.settings, dataset.teachers)) {
+    for (const teacher of plcEntry.teachers) {
+      plcLoadMap.set(teacher.teacherId, (plcLoadMap.get(teacher.teacherId) || 0) + 1);
+    }
+  }
+
   return db.teachers.map((teacher) => ({
     id: teacher.id,
     name: teacher.fullName,
     current: Number((teacherLoadMap.get(teacher.id) || 0).toFixed(2)),
     max: teacher.maxPeriodsPerWeek,
+    plcPeriods: plcLoadMap.get(teacher.id) || 0,
     subjectNames: teacher.subjectIds
       .map((subjectId) => maps.subjectMap.get(subjectId)?.name)
       .filter(Boolean),
@@ -140,6 +153,7 @@ function buildUnresolvedGroups(db, dataset = buildDataset(db), maps = buildMaps(
 
 function buildSectionStatuses(db, dataset = buildDataset(db), validation = validateTimetable(dataset)) {
   const sectionSlotUsage = new Map();
+  const expectedWeeklyPeriods = getExpectedWeeklyPeriods(dataset.settings);
 
   for (const entry of dataset.entries) {
     const slots = sectionSlotUsage.get(entry.sectionId) || new Set();
@@ -156,8 +170,8 @@ function buildSectionStatuses(db, dataset = buildDataset(db), validation = valid
       educationLevelLabel: EDUCATION_LEVEL_LABELS[section.educationLevel] || section.educationLevel,
       label: sectionLabel(section),
       assignedPeriods,
-      plannedPeriodsPerWeek: section.plannedPeriodsPerWeek,
-      completionRate: Math.round((assignedPeriods / section.plannedPeriodsPerWeek) * 100),
+      plannedPeriodsPerWeek: expectedWeeklyPeriods,
+      completionRate: expectedWeeklyPeriods === 0 ? 0 : Math.round((assignedPeriods / expectedWeeklyPeriods) * 100),
       warningCount: conflicts.filter((item) => item.severity === "warning").length,
       errorCount: conflicts.filter((item) => item.severity === "error").length,
     };
@@ -187,7 +201,13 @@ function getEntriesForView(db, view, entityId, dataset = buildDataset(db)) {
   }
 
   if (view === "teacher") {
-    return dataset.entries.filter((entry) => entry.teachers.some((teacher) => teacher.teacherId === entityId));
+    return [
+      ...dataset.entries.filter((entry) => entry.teachers.some((teacher) => teacher.teacherId === entityId)),
+      ...buildSchoolWidePlcEntries(dataset.settings, dataset.teachers, {
+        teacherId: entityId,
+        timetableId: dataset.timetableId,
+      }),
+    ];
   }
   return dataset.entries.filter((entry) => entry.sectionId === entityId);
 }
@@ -234,16 +254,19 @@ function resolveEntityIdsForView(db, options = {}) {
 
 function buildTimetableMatrix(db, options, dataset = buildDataset(db), maps = buildMaps(db)) {
   const entries = getEntriesForView(db, options.view, options.entityId, dataset);
-  const matrix = Array.from({ length: WEEKDAYS.length }, () =>
-    Array.from({ length: PERIODS_PER_DAY }, () => []),
-  );
+  const layout = buildBoardLayout(dataset.settings, options.view);
+  const matrix = layout.days.map((dayConfig) => dayConfig.cells.map(() => []));
 
   for (const entry of entries) {
-    const dayIndex = WEEKDAYS.indexOf(entry.day);
+    const dayIndex = layout.days.findIndex((dayConfig) => dayConfig.day === entry.day);
     if (dayIndex === -1) {
       continue;
     }
-    matrix[dayIndex][entry.period - 1].push(decorateEntry(entry, db, maps));
+    const periodIndex = Number(entry.period) - 1;
+    if (!matrix[dayIndex]?.[periodIndex]) {
+      continue;
+    }
+    matrix[dayIndex][periodIndex].push(decorateEntry(entry, db, maps));
   }
 
   for (const dayRows of matrix) {
@@ -256,15 +279,22 @@ function buildTimetableMatrix(db, options, dataset = buildDataset(db), maps = bu
 }
 
 function buildPrintableMatrix(db, options, dataset = buildDataset(db), maps = buildMaps(db)) {
+  const layout = buildBoardLayout(dataset.settings, options.view);
   const matrix = buildTimetableMatrix(db, options, dataset, maps);
-  return matrix.map((dayRow) =>
-    dayRow.map((entries) => {
+
+  return layout.days.map((dayConfig, dayIndex) =>
+    dayConfig.cells.map((cell, periodIndex) => {
+      const entries = matrix[dayIndex]?.[periodIndex] || [];
       if (entries.length === 0) {
-        return "-";
+        return cell.slotType === "CLOSED" ? "" : "-";
       }
 
       return entries
         .map((entry) => {
+          if (entry.entryType === "PLC") {
+            return `${entry.subjectName}\n${entry.timeLabel || ""}`.trim();
+          }
+
           const teacherLine = entry.teachersDetailed.map((teacher) => teacher.fullName).join(", ");
           const groupLine = entry.studentGroupKey === "WHOLE_CLASS" ? "" : `\n${entry.groupName}`;
           return `${entry.subjectName}${groupLine}\n${teacherLine}\n${entry.roomName}`;
@@ -314,7 +344,7 @@ function buildBootstrapPayload(db) {
   const validation = validateTimetable(dataset);
 
   return {
-    settings: db.settings,
+    settings: dataset.settings,
     teachers: db.teachers,
     rooms: db.rooms,
     subjects: db.subjects,
@@ -339,6 +369,7 @@ function getGroupSuggestions(db, groupId) {
   }
 
   return findSuggestedSlots({
+    settings: dataset.settings,
     group,
     enrollments: dataset.enrollments,
     entries: dataset.entries,
@@ -384,6 +415,7 @@ function buildExportReports(db, options = {}) {
 
   return entityIds.map((entityId) => {
     const entity = isTeacherView ? maps.teacherMap.get(entityId) : maps.sectionMap.get(entityId);
+    const layout = buildBoardLayout(dataset.settings, view);
     return {
       view,
       entityId,
@@ -396,6 +428,8 @@ function buildExportReports(db, options = {}) {
           : "-",
       section_name: isTeacherView ? entity?.fullName || entityId : entity ? sectionLabel(entity) : entityId,
       matrix: buildPrintableMatrix(db, { view, entityId }, dataset, maps),
+      dayLabels: layout.days.map((day) => day.label),
+      periodLabels: layout.columns.map((column) => column.label),
       entries: getEntriesForView(db, view, entityId, dataset),
     };
   });
@@ -413,13 +447,14 @@ function buildCsvPayload(db, options = {}) {
 }
 
 function buildPdfPayload(db, options = {}) {
+  const settings = normalizeSettingsShape(db.settings);
   return {
-    school_name: db.settings.schoolName,
-    term: db.settings.term,
-    academic_year: db.settings.academicYear,
+    school_name: settings.schoolName,
+    term: settings.term,
+    academic_year: settings.academicYear,
     printed_at: new Date().toLocaleString("th-TH"),
-    logo_path: db.settings.logoPath || "",
-    signatories: db.settings.signatories,
+    logo_path: settings.logoPath || "",
+    signatories: settings.signatories,
     reports: buildExportReports(db, options),
   };
 }

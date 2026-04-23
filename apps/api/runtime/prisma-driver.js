@@ -1,4 +1,5 @@
 const { createEmptyDatabase } = require("./empty-data");
+const { normalizeSettingsShape } = require("./schedule-config");
 
 let prismaClient;
 
@@ -35,8 +36,34 @@ function toIso(value) {
   return value instanceof Date ? value.toISOString() : new Date(value).toISOString();
 }
 
+function packSchoolMetadata(settings = {}) {
+  return {
+    signatories: settings.signatories || [],
+    timeStructure: settings.timeStructure,
+    plcPolicy: settings.plcPolicy,
+  };
+}
+
+function unpackSchoolMetadata(value) {
+  if (Array.isArray(value)) {
+    return {
+      signatories: value,
+      timeStructure: undefined,
+      plcPolicy: undefined,
+    };
+  }
+
+  const payload = value && typeof value === "object" ? value : {};
+  return {
+    signatories: Array.isArray(payload.signatories) ? payload.signatories : [],
+    timeStructure: payload.timeStructure,
+    plcPolicy: payload.plcPolicy,
+  };
+}
+
 async function replacePrismaDatabase(database) {
   const prisma = getPrismaClient();
+  const normalizedSettings = normalizeSettingsShape(database.settings);
 
   await prisma.$transaction(async (tx) => {
     await tx.timetableChangeEvent.deleteMany();
@@ -55,14 +82,14 @@ async function replacePrismaDatabase(database) {
     await tx.schoolSetting.create({
       data: {
         id: "school",
-        schoolName: asText(database.settings.schoolName),
-        schoolShortName: asText(database.settings.schoolShortName),
-        academicYear: asText(database.settings.academicYear),
-        term: asText(database.settings.term),
-        logoPath: asText(database.settings.logoPath),
-        signatories: database.settings.signatories || [],
-        createdAt: toDate(database.settings.createdAt),
-        updatedAt: toDate(database.settings.updatedAt),
+        schoolName: asText(normalizedSettings.schoolName),
+        schoolShortName: asText(normalizedSettings.schoolShortName),
+        academicYear: asText(normalizedSettings.academicYear),
+        term: asText(normalizedSettings.term),
+        logoPath: asText(normalizedSettings.logoPath),
+        signatories: packSchoolMetadata(normalizedSettings),
+        createdAt: toDate(normalizedSettings.createdAt),
+        updatedAt: toDate(normalizedSettings.updatedAt),
       },
     });
 
@@ -298,16 +325,21 @@ async function readPrismaDatabase() {
 
   return {
     settings: setting
-      ? {
-          schoolName: setting.schoolName,
-          schoolShortName: setting.schoolShortName,
-          academicYear: setting.academicYear,
-          term: setting.term,
-          logoPath: setting.logoPath,
-          signatories: setting.signatories || [],
-          createdAt: toIso(setting.createdAt),
-          updatedAt: toIso(setting.updatedAt),
-        }
+      ? (() => {
+          const metadata = unpackSchoolMetadata(setting.signatories);
+          return normalizeSettingsShape({
+            schoolName: setting.schoolName,
+            schoolShortName: setting.schoolShortName,
+            academicYear: setting.academicYear,
+            term: setting.term,
+            logoPath: setting.logoPath,
+            signatories: metadata.signatories,
+            timeStructure: metadata.timeStructure,
+            plcPolicy: metadata.plcPolicy,
+            createdAt: toIso(setting.createdAt),
+            updatedAt: toIso(setting.updatedAt),
+          });
+        })()
       : createEmptyDatabase().settings,
     teachers: teachers.map((item) => ({
       id: item.id,

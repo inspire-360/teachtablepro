@@ -53,13 +53,13 @@ function buildEntryRows(entries = [], maps, options = {}) {
       DAY_LABELS[entry.day] || entry.day,
       entry.period,
       EDUCATION_LEVEL_LABELS[section?.educationLevel] || section?.educationLevel || "-",
-      sectionLabel(section),
-      entry.studentGroupKey,
-      DELIVERY_MODE_LABELS[entry.deliveryMode] || entry.deliveryMode,
-      subject?.subjectCode || "-",
-      subject?.name || "-",
+      entry.sectionName || sectionLabel(section),
+      entry.studentGroupKey || "-",
+      entry.deliveryModeLabel || DELIVERY_MODE_LABELS[entry.deliveryMode] || entry.deliveryMode || "-",
+      subject?.subjectCode || entry.subjectCode || "-",
+      subject?.name || entry.subjectName || "-",
       teacherNames || "-",
-      room?.name || entry.roomId,
+      room?.name || entry.roomName || entry.roomId || "-",
     ];
   });
 }

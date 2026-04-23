@@ -7,9 +7,9 @@ export function renderTimetableBoard(targets, options = {}) {
   } = targets;
 
   const {
-    matrix = [],
+    boardModel = { columns: [], rows: [] },
   } = options;
 
-  renderBoardHead(headRoot);
-  renderBoardGrid(gridRoot, matrix);
+  renderBoardHead(headRoot, boardModel);
+  renderBoardGrid(gridRoot, boardModel);
 }

@@ -39,9 +39,9 @@ import { renderExportsPage } from "./app/pages/exports-page.js";
 import { renderTimetablePage } from "./app/pages/timetable-page.js";
 import { DEFAULT_SCREEN, HEARTBEAT_INTERVAL_MS } from "./app/utils/constants.js";
 import { formatSyncTime, getInitials, humanizeProvider } from "./app/utils/formatters.js";
+import { CANONICAL_DAYS, buildBoardModel, findBoardCell } from "./app/utils/schedule-config.js";
 import {
   CATALOG_OPTIONS,
-  DAY_COLUMNS,
   NAV_ITEMS,
   SCREEN_META,
   SECTION_GRADE_OPTIONS,
@@ -298,11 +298,30 @@ function restoreBoardNote() {
 }
 
 function clearBoardDragClasses() {
-  dom.boardGrid.querySelectorAll(".slot-cell.is-drop-target, .slot-cell.is-drop-occupied, .slot-cell.is-drop-locked, .slot-cell.is-slot-soft-preview")
-    .forEach((slot) => slot.classList.remove("is-drop-target", "is-drop-occupied", "is-drop-locked", "is-slot-soft-preview"));
+  dom.boardGrid.querySelectorAll(".slot-cell.is-drop-target, .slot-cell.is-drop-occupied, .slot-cell.is-drop-locked, .slot-cell.is-drop-disabled, .slot-cell.is-slot-soft-preview")
+    .forEach((slot) => slot.classList.remove("is-drop-target", "is-drop-occupied", "is-drop-locked", "is-drop-disabled", "is-slot-soft-preview"));
   dom.boardGrid.querySelectorAll(".entry-card.is-dragging").forEach((card) => card.classList.remove("is-dragging"));
   dom.groupPool.querySelectorAll(".group-card.is-dragging").forEach((card) => card.classList.remove("is-dragging"));
   dom.suggestionList.querySelectorAll(".stack-item.is-active-preview").forEach((item) => item.classList.remove("is-active-preview"));
+}
+
+function buildCurrentBoardModel(lookup = getLookup()) {
+  if (!state.data) {
+    return {
+      columns: [],
+      rows: [],
+      visibleEntries: [],
+      scheduleSettings: {},
+    };
+  }
+
+  return buildBoardModel({
+    settings: state.data.settings,
+    view: state.view,
+    scopeId: state.scopeId,
+    entries: state.data.timetable.entries,
+    decorateEntry: (entry) => decorateEntry(entry, lookup),
+  });
 }
 
 function describeSlotState(day, period) {
@@ -310,29 +329,31 @@ function describeSlotState(day, period) {
     return "";
   }
 
-  const entries = state.data.timetable.entries.filter((entry) => {
-    if (entry.day !== day || Number(entry.period) !== Number(period)) {
-      return false;
-    }
-
-    return state.view === "teacher"
-      ? entry.teachers.some((teacher) => teacher.teacherId === state.scopeId)
-      : entry.sectionId === state.scopeId;
-  });
+  const boardModel = buildCurrentBoardModel();
+  const cell = findBoardCell(boardModel, day, period);
+  if (!cell) {
+    return "ช่วงเวลานี้อยู่นอกโครงสร้างตารางของขอบเขตที่กำลังเปิดอยู่";
+  }
 
   const activeLocks = (state.data.activity?.locks || []).filter(
     (lock) => lock.day === day && Number(lock.period) === Number(period),
   );
 
-  const dayLabel = DAY_COLUMNS.find((item) => item.value === day)?.fullLabel || day;
-  const entryText = entries.length > 0
-    ? `มีคาบอยู่แล้ว ${entries.length} รายการ`
-    : "ยังไม่มีคาบในช่องนี้";
+  const row = boardModel.rows.find((item) => item.day === day);
+  const dayLabel = row?.label || day;
+  const entryText = cell.slotType === "CLOSED"
+    ? "เป็นช่องปิดตามโครงสร้างเวลา ยังไม่สามารถวางคาบสอนได้"
+    : cell.slotType === "PLC"
+      ? `เป็นช่วง ${cell.label || "PLC"} ของ${dayLabel}`
+      : cell.entries.length > 0
+        ? `มีคาบอยู่แล้ว ${cell.entries.length} รายการ`
+        : "ยังไม่มีคาบในช่องนี้";
   const lockText = activeLocks.length > 0
     ? `และมี lock อยู่ ${activeLocks.length} รายการ`
     : "และยังไม่มี lock ที่ถือค้าง";
+  const timeText = cell.timeLabel ? ` เวลา ${cell.timeLabel}` : "";
 
-  return `${dayLabel} คาบ ${period}: ${entryText} ${lockText}`;
+  return `${dayLabel} คาบ ${period}:${timeText} ${entryText} ${lockText}`.trim();
 }
 
 function previewBoardSlot(day, period, options = {}) {
@@ -340,6 +361,7 @@ function previewBoardSlot(day, period, options = {}) {
     mode = "soft",
     sourceElement = null,
     scroll = false,
+    allowDrop = true,
   } = options;
 
   clearBoardDragClasses();
@@ -350,12 +372,16 @@ function previewBoardSlot(day, period, options = {}) {
   }
 
   if (mode === "drop") {
-    slot.classList.add("is-drop-target");
+    if (allowDrop) {
+      slot.classList.add("is-drop-target");
+    } else {
+      slot.classList.add("is-drop-disabled");
+    }
     const hasEntries = slot.querySelectorAll(".entry-card").length > 0;
     const hasLocks = (state.data?.activity?.locks || []).some(
       (lock) => lock.day === day && Number(lock.period) === Number(period),
     );
-    if (hasEntries) {
+    if (allowDrop && hasEntries) {
       slot.classList.add("is-drop-occupied");
     }
     if (hasLocks) {
@@ -890,25 +916,26 @@ function decorateEntry(entry, lookup = getLookup()) {
   const group = lookup.groupMap.get(entry.instructionalGroupId);
   const section = lookup.sectionMap.get(entry.sectionId);
   const colorTone = getSubjectColor(subject);
-  const teacherNames = entry.teachers
+  const teacherAssignments = Array.isArray(entry.teachers) ? entry.teachers : [];
+  const teacherNames = teacherAssignments
     .map((assignment) => lookup.teacherMap.get(assignment.teacherId)?.fullName || assignment.teacherId)
     .filter(Boolean);
 
   return {
     ...entry,
-    subjectName: subject?.name || entry.subjectId,
-    groupName: group?.displayName || entry.studentGroupKey,
-    groupShortLabel: group?.groupCode || group?.displayName || entry.studentGroupKey,
-    roomName: room?.name || entry.roomId,
-    teacherLabels: entry.teachers.map((assignment) => {
+    subjectName: entry.subjectName || subject?.name || entry.subjectId || "PLC",
+    groupName: entry.groupName || group?.displayName || entry.studentGroupKey || "PLC",
+    groupShortLabel: entry.groupShortLabel || group?.groupCode || group?.displayName || entry.studentGroupKey || "PLC",
+    roomName: entry.roomName || room?.name || entry.roomId || "-",
+    teacherLabels: teacherAssignments.map((assignment) => {
       const teacher = lookup.teacherMap.get(assignment.teacherId);
       return `${teacher?.fullName || assignment.teacherId} (${formatTeachingRole(assignment.teachingRole)})`;
     }),
     teacherNames,
     teacherSummary: summarizeTeacherNames(teacherNames),
-    sectionName: formatSectionLabel(section),
-    deliveryModeLabel: group?.deliveryMode ? formatDeliveryMode(group.deliveryMode) : formatDeliveryMode(entry.deliveryMode),
-    previewHint: `${formatSectionLabel(section)} • ${room?.name || entry.roomId}`,
+    sectionName: entry.sectionName || formatSectionLabel(section),
+    deliveryModeLabel: entry.deliveryModeLabel || (group?.deliveryMode ? formatDeliveryMode(group.deliveryMode) : formatDeliveryMode(entry.deliveryMode)),
+    previewHint: entry.previewHint || entry.note || `${entry.sectionName || formatSectionLabel(section)} • ${entry.roomName || room?.name || entry.roomId || "-"}`,
     colorTone,
     colorSoft: hexToRgba(colorTone, 0.16),
   };
@@ -1318,17 +1345,19 @@ async function copyEnrollmentToNextAcademicYear(enrollmentId) {
 }
 
 function buildTimetableSnapshot(lookup = getLookup()) {
-  const matrix = buildCurrentMatrix(lookup);
-  const visibleEntries = matrix.flat().flat();
+  const boardModel = buildCurrentBoardModel(lookup);
+  const visibleEntries = boardModel.visibleEntries || [];
   const unresolvedGroups = sortUnresolvedGroups(unresolvedForCurrentScope(lookup));
   const selectedGroup = state.selectedGroupId ? lookup.groupMap.get(state.selectedGroupId) : null;
 
   return {
-    matrix,
+    boardModel,
     unresolvedGroups,
     currentScopeLabel: currentScopeLabel(),
     currentViewLabel: currentViewLabel(),
-    occupiedSlotCount: matrix.flat().filter((entries) => entries.length > 0).length,
+    occupiedSlotCount: boardModel.rows
+      .flatMap((row) => row.cells)
+      .filter((cell) => cell.entries.length > 0).length,
     entryCount: visibleEntries.length,
     unresolvedGroupCount: unresolvedGroups.length,
     validationCount: state.data?.validation?.conflicts?.length || 0,
@@ -1374,7 +1403,7 @@ function buildDashboardSnapshot() {
       ...item,
       loadPercent: Math.round(((item.current || 0) / Math.max(item.max || 1, 1)) * 100),
       subtitle: (item.subjectNames || []).join(", ") || "ยังไม่ได้ผูกรายวิชา",
-      footnote: `${item.assignedGroups || 0} กลุ่มการสอน`,
+      footnote: `${item.assignedGroups || 0} กลุ่มการสอน${item.plcPeriods ? ` • PLC ${item.plcPeriods} ช่วง` : ""}`,
     }))
     .sort((left, right) => right.loadPercent - left.loadPercent || right.current - left.current);
 
@@ -1430,25 +1459,6 @@ async function applySettingsAsset(input) {
   hiddenInput.value = dataUrl;
   previewRoot.innerHTML = buildAssetPreviewMarkup(dataUrl, file.name, "ยังไม่ได้อัปโหลดรูปภาพ");
   state.settingsDirty = true;
-}
-
-function buildCurrentMatrix(lookup = getLookup()) {
-  const entries = state.data.timetable.entries
-    .filter((entry) =>
-      state.view === "teacher"
-        ? entry.teachers.some((teacher) => teacher.teacherId === state.scopeId)
-        : entry.sectionId === state.scopeId,
-    )
-    .map((entry) => decorateEntry(entry, lookup));
-
-  const matrix = Array.from({ length: DAY_COLUMNS.length }, () => Array.from({ length: 6 }, () => []));
-  for (const entry of entries) {
-    const dayIndex = DAY_COLUMNS.findIndex((item) => item.value === entry.day);
-    if (dayIndex >= 0) {
-      matrix[dayIndex][entry.period - 1].push(entry);
-    }
-  }
-  return matrix;
 }
 
 function unresolvedForCurrentScope(lookup = getLookup()) {
@@ -1875,14 +1885,107 @@ async function deleteEntry(entryId) {
   }
 }
 
+function readPositiveIntegerField(formData, fieldName, fallback, minimum = 1) {
+  const parsed = Number(formData.get(fieldName));
+  if (!Number.isFinite(parsed)) {
+    return fallback;
+  }
+  return Math.max(minimum, Math.trunc(parsed));
+}
+
+function readFloatField(formData, fieldName, fallback, minimum = 0) {
+  const parsed = Number(formData.get(fieldName));
+  if (!Number.isFinite(parsed)) {
+    return fallback;
+  }
+  return Math.max(minimum, Number(parsed.toFixed(2)));
+}
+
+function readTextField(formData, fieldName, fallback = "") {
+  const value = String(formData.get(fieldName) ?? "").trim();
+  return value || fallback;
+}
+
 function extractSettingsPayload() {
   const formData = new FormData(dom.settingsForm);
+  const currentSettings = state.data?.settings || {};
+  const currentTimeStructure = currentSettings.timeStructure || {};
+  const currentDayConfigs = currentTimeStructure.dayConfigs || {};
+  const currentPlcPolicy = currentSettings.plcPolicy || {};
+  const activeDays = formData.getAll("activeDays")
+    .map((value) => String(value))
+    .filter((value) => CANONICAL_DAYS.some((day) => day.value === value));
+  const defaultStartTime = readTextField(formData, "defaultStartTime", currentTimeStructure.defaultStartTime || "08:30");
+  const defaultPeriodDurationMinutes = readPositiveIntegerField(
+    formData,
+    "defaultPeriodDurationMinutes",
+    currentTimeStructure.defaultPeriodDurationMinutes || 50,
+    30,
+  );
+  const dayConfigs = Object.fromEntries(
+    CANONICAL_DAYS.map((day) => {
+      const currentDayConfig = currentDayConfigs[day.value] || {};
+      return [day.value, {
+        ...currentDayConfig,
+        enabled: activeDays.includes(day.value),
+        label: currentDayConfig.label || day.label,
+        shortLabel: currentDayConfig.shortLabel || day.shortLabel,
+        teachingPeriods: readPositiveIntegerField(
+          formData,
+          `dayTeachingPeriods:${day.value}`,
+          currentDayConfig.teachingPeriods || 6,
+        ),
+        startTime: readTextField(
+          formData,
+          `dayStartTime:${day.value}`,
+          currentDayConfig.startTime || defaultStartTime,
+        ),
+        periodDurationMinutes: readPositiveIntegerField(
+          formData,
+          `dayDuration:${day.value}`,
+          currentDayConfig.periodDurationMinutes || defaultPeriodDurationMinutes,
+          30,
+        ),
+      }];
+    }),
+  );
+  const plcAllowedDays = formData.getAll("plcAllowedDays")
+    .map((value) => String(value))
+    .filter((value) => activeDays.includes(value));
+
   return {
     schoolName: formData.get("schoolName"),
     schoolShortName: formData.get("schoolShortName"),
     academicYear: formData.get("academicYear"),
     term: formData.get("term"),
     logoPath: formData.get("logoPath"),
+    timeStructure: {
+      ...currentTimeStructure,
+      allowDifferentDailySchedule: true,
+      activeDays,
+      defaultStartTime,
+      defaultPeriodDurationMinutes,
+      dayConfigs,
+    },
+    plcPolicy: {
+      ...currentPlcPolicy,
+      enabled: formData.has("plcEnabled"),
+      schoolWide: true,
+      allowedDays: plcAllowedDays,
+      durationMinutes: readPositiveIntegerField(
+        formData,
+        "plcDurationMinutes",
+        currentPlcPolicy.durationMinutes || 60,
+        30,
+      ),
+      requiredHoursPerWeekDefault: readFloatField(
+        formData,
+        "plcRequiredHoursPerWeekDefault",
+        currentPlcPolicy.requiredHoursPerWeekDefault || 1,
+      ),
+      showInTeacherExports: formData.has("plcShowInTeacherExports"),
+      title: readTextField(formData, "plcTitle", currentPlcPolicy.title || "PLC"),
+    },
     signatories: [0, 1, 2].map((index) => ({
       title: formData.get(`signatoryTitle${index}`),
       name: formData.get(`signatoryName${index}`),
@@ -2918,8 +3021,12 @@ function bindEvents() {
       return;
     }
 
-    previewBoardSlot(cell.dataset.day, Number(cell.dataset.period), { mode: "drop" });
-    event.dataTransfer.dropEffect = "move";
+    const schedulable = cell.dataset.schedulable === "true";
+    previewBoardSlot(cell.dataset.day, Number(cell.dataset.period), {
+      mode: "drop",
+      allowDrop: schedulable,
+    });
+    event.dataTransfer.dropEffect = schedulable ? "move" : "none";
   });
 
   dom.boardGrid.addEventListener("dragleave", (event) => {
@@ -2940,6 +3047,12 @@ function bindEvents() {
     event.preventDefault();
     const cell = event.target.closest(".slot-cell");
     if (!cell || !state.dragPayload) {
+      return;
+    }
+
+    if (cell.dataset.schedulable !== "true") {
+      clearBoardDnDState();
+      showToast(dom.toastStack, "ช่องนี้ถูกปิดไว้สำหรับโครงสร้างเวลา/PLC จึงไม่สามารถวางคาบสอนได้", "error");
       return;
     }
 

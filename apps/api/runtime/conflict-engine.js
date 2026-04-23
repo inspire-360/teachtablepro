@@ -1,8 +1,13 @@
+const { DAY_LABELS } = require("./constants");
 const {
-  DAY_LABELS,
-  PERIODS_PER_DAY,
-  WEEKDAYS,
-} = require("./constants");
+  buildSchoolWidePlcEntries,
+  enumerateTeachingSlots,
+  getActiveDayConfigs,
+  getExpectedWeeklyPeriods,
+  getTeachingPeriodsForDay,
+  isTeachingSlot,
+  normalizeSettingsShape,
+} = require("./schedule-config");
 
 function toSlotKey(day, period) {
   return `${day}-${period}`;
@@ -38,9 +43,17 @@ function pushCollisionConflict(code, registry, key, entry, conflicts, message) {
 function pushTeacherCollisionConflict(registry, key, entry, teacherId, conflicts) {
   const existing = registry.get(key);
   if (!existing) {
-    registry.set(key, { entryId: entry.id, teacherId });
+    registry.set(key, {
+      entryId: entry.id,
+      teacherId,
+      sourceLabel: entry.entryType === "PLC" ? "PLC" : "TEACHING",
+    });
     return;
   }
+
+  const message = existing.sourceLabel === "PLC"
+    ? `ครู ${teacherId} ติดกิจกรรม PLC อยู่ในช่วงเวลาเดียวกัน`
+    : `ครู ${teacherId} ถูกจัดสอนซ้อนในช่วงเวลาเดียวกัน`;
 
   conflicts.push({
     code: "TEACHER_DOUBLE_BOOKED",
@@ -48,7 +61,7 @@ function pushTeacherCollisionConflict(registry, key, entry, teacherId, conflicts
     entityIds: [existing.entryId, entry.id, teacherId],
     day: entry.day,
     period: entry.period,
-    message: `ครู ${teacherId} ถูกจัดสอนซ้อนในช่วงเวลาเดียวกัน`,
+    message,
   });
 }
 
@@ -95,6 +108,7 @@ function ensureSection(sectionId, sections) {
 }
 
 function validateTimetable(dataset) {
+  const settings = normalizeSettingsShape(dataset.settings);
   const conflicts = [];
   const teacherSlotMap = new Map();
   const roomSlotMap = new Map();
@@ -105,7 +119,30 @@ function validateTimetable(dataset) {
   const enrollmentSlotUsage = new Map();
   const groupSlotUsage = new Map();
 
+  for (const plcEntry of buildSchoolWidePlcEntries(settings, dataset.teachers, { timetableId: dataset.timetableId })) {
+    const slotKey = toSlotKey(plcEntry.day, plcEntry.period);
+    for (const teacher of plcEntry.teachers) {
+      teacherSlotMap.set(`${teacher.teacherId}:${slotKey}`, {
+        entryId: plcEntry.id,
+        teacherId: teacher.teacherId,
+        sourceLabel: "PLC",
+      });
+    }
+  }
+
   for (const entry of dataset.entries) {
+    if (!isTeachingSlot(settings, entry.day, entry.period)) {
+      conflicts.push({
+        code: "ENTRY_OUTSIDE_TIME_STRUCTURE",
+        severity: "error",
+        entityIds: [entry.id, entry.sectionId],
+        day: entry.day,
+        period: entry.period,
+        message: `คาบ ${entry.period} ใน${DAY_LABELS[entry.day] || entry.day} ไม่อยู่ในโครงสร้างเวลาที่ตั้งไว้`,
+      });
+      continue;
+    }
+
     const slotKey = toSlotKey(entry.day, entry.period);
     const roomKey = `${entry.roomId}:${slotKey}`;
     const sectionKey = `${entry.sectionId}:${entry.day}:${entry.period}`;
@@ -172,7 +209,7 @@ function validateTimetable(dataset) {
         code: "TEACHER_OVERLOAD",
         severity: "error",
         entityIds: [teacher.id],
-        message: `ครู ${teacher.fullName} ถูกจัดสอน ${usedLoad} คาบ เกินจากค่าที่กำหนด ${teacher.maxPeriodsPerWeek} คาบ`,
+        message: `ครู ${teacher.fullName} ถูกจัดสอน ${usedLoad} คาบ เกินกว่าค่าสูงสุด ${teacher.maxPeriodsPerWeek} คาบ`,
       });
     }
   }
@@ -201,33 +238,34 @@ function validateTimetable(dataset) {
     }
   }
 
+  const expectedWeeklyPeriods = getExpectedWeeklyPeriods(settings);
   for (const section of dataset.sections) {
     const weeklyTotal = sectionWeeklySlots.get(section.id)?.size || 0;
-    if (weeklyTotal !== section.plannedPeriodsPerWeek) {
+    if (weeklyTotal !== expectedWeeklyPeriods) {
       conflicts.push({
         code: "SECTION_WEEKLY_TOTAL_INVALID",
         severity: "error",
         entityIds: [section.id],
-        message: `ห้อง ${section.grade}/${section.roomName} ถูกจัด ${weeklyTotal} คาบ จากเป้าหมาย ${section.plannedPeriodsPerWeek} คาบต่อสัปดาห์`,
+        message: `ห้อง ${section.grade}/${section.roomName} ถูกจัด ${weeklyTotal} คาบ จากเป้าหมาย ${expectedWeeklyPeriods} คาบต่อสัปดาห์`,
       });
     }
 
-    for (const day of WEEKDAYS) {
-      const totalPerDay = sectionDailySlots.get(`${section.id}:${day}`)?.size || 0;
-      if (totalPerDay !== PERIODS_PER_DAY) {
+    for (const dayConfig of getActiveDayConfigs(settings)) {
+      const totalPerDay = sectionDailySlots.get(`${section.id}:${dayConfig.dayCode}`)?.size || 0;
+      if (totalPerDay !== dayConfig.teachingPeriods) {
         conflicts.push({
           code: "SECTION_DAILY_TOTAL_INVALID",
           severity: "warning",
           entityIds: [section.id],
-          day,
-          message: `ห้อง ${section.grade}/${section.roomName} มี ${totalPerDay} คาบใน${DAY_LABELS[day] || day} จากที่กำหนด ${PERIODS_PER_DAY} คาบ`,
+          day: dayConfig.dayCode,
+          message: `ห้อง ${section.grade}/${section.roomName} มี ${totalPerDay} คาบใน${dayConfig.label} จากที่กำหนด ${dayConfig.teachingPeriods} คาบ`,
         });
       }
     }
   }
 
-  const requiredPeriods = dataset.sections.reduce((sum, section) => sum + section.plannedPeriodsPerWeek, 0);
   const assignedPeriods = [...sectionWeeklySlots.values()].reduce((sum, slots) => sum + slots.size, 0);
+  const requiredPeriods = dataset.sections.length * expectedWeeklyPeriods;
 
   return {
     conflicts,
@@ -240,56 +278,62 @@ function validateTimetable(dataset) {
 }
 
 function findSuggestedSlots(context) {
+  const settings = normalizeSettingsShape(context.settings);
   const group = context.group;
   const section = ensureSection(findSectionIdForGroup(group, context), context.sections);
   const sectionEntries = context.entries.filter((entry) => entry.sectionId === section.id);
   const groupTeacherIds = new Set(group.teachers.map((teacher) => teacher.teacherId));
-  const teacherEntries = context.entries.filter((entry) =>
-    entry.teachers.some((teacher) => groupTeacherIds.has(teacher.teacherId)),
-  );
+  const teacherEntries = [
+    ...context.entries.filter((entry) =>
+      entry.teachers.some((teacher) => groupTeacherIds.has(teacher.teacherId)),
+    ),
+    ...buildSchoolWidePlcEntries(settings, context.teachers || []).filter((entry) =>
+      entry.teachers.some((teacher) => groupTeacherIds.has(teacher.teacherId)),
+    ),
+  ];
   const sameEnrollmentEntries = context.entries.filter((entry) => entry.enrollmentId === group.enrollmentId);
   const suggestions = [];
 
-  for (const day of WEEKDAYS) {
-    for (let period = 1; period <= PERIODS_PER_DAY; period += 1) {
-      const reasons = [];
-      let score = 100;
-      const slotEntries = sectionEntries.filter((entry) => entry.day === day && entry.period === period);
-      const sectionBlocked = slotEntries.some((entry) =>
-        entriesConflictByStudentCoverage(entry, group.studentGroupKey, group.deliveryMode),
-      );
-      const teacherBlocked = teacherEntries.some((entry) => entry.day === day && entry.period === period);
+  for (const slot of enumerateTeachingSlots(settings)) {
+    const { day, period } = slot;
+    const reasons = [];
+    let score = 100;
+    const slotEntries = sectionEntries.filter((entry) => entry.day === day && entry.period === period);
+    const sectionBlocked = slotEntries.some((entry) =>
+      entriesConflictByStudentCoverage(entry, group.studentGroupKey, group.deliveryMode),
+    );
+    const teacherBlocked = teacherEntries.some((entry) => entry.day === day && entry.period === period);
 
-      if (sectionBlocked || teacherBlocked) {
-        continue;
-      }
-
-      const dailyLoad = distinctSlotCount(sectionEntries.filter((entry) => entry.day === day));
-      const teacherAdjacent = teacherEntries.some((entry) => entry.day === day && Math.abs(entry.period - period) === 1);
-      const sameDaySubjectCount = distinctSlotCount(sameEnrollmentEntries.filter((entry) => entry.day === day));
-
-      if (dailyLoad < PERIODS_PER_DAY) {
-        score += 10;
-        reasons.push("ช่วยเติมวันเรียนให้ครบ 6 คาบ");
-      }
-
-      if (teacherAdjacent) {
-        score -= 15;
-        reasons.push("มีครูในกลุ่มสอนคาบติดกันอยู่แล้ว");
-      }
-
-      if (sameDaySubjectCount >= 2) {
-        score -= 20;
-        reasons.push("รายวิชานี้เริ่มกระจุกในวันเดียวกัน");
-      }
-
-      if (period >= 5) {
-        score -= 5;
-        reasons.push("เป็นช่วงปลายวัน เหมาะเป็นตัวเลือกสำรอง");
-      }
-
-      suggestions.push({ day, period, score, reasons });
+    if (sectionBlocked || teacherBlocked) {
+      continue;
     }
+
+    const dailyExpectedPeriods = getTeachingPeriodsForDay(settings, day);
+    const dailyLoad = distinctSlotCount(sectionEntries.filter((entry) => entry.day === day));
+    const teacherAdjacent = teacherEntries.some((entry) => entry.day === day && Math.abs(entry.period - period) === 1);
+    const sameDaySubjectCount = distinctSlotCount(sameEnrollmentEntries.filter((entry) => entry.day === day));
+
+    if (dailyLoad < dailyExpectedPeriods) {
+      score += 10;
+      reasons.push("ช่วยเติมวันเรียนให้ครบตามโครงสร้างเวลา");
+    }
+
+    if (teacherAdjacent) {
+      score -= 15;
+      reasons.push("มีครูในกลุ่มสอนคาบติดกันอยู่แล้ว");
+    }
+
+    if (sameDaySubjectCount >= 2) {
+      score -= 20;
+      reasons.push("รายวิชานี้เริ่มกระจุกในวันเดียวกัน");
+    }
+
+    if (period >= Math.max(1, dailyExpectedPeriods - 1)) {
+      score -= 5;
+      reasons.push("เป็นช่วงปลายวัน เหมาะเป็นตัวเลือกสำรอง");
+    }
+
+    suggestions.push({ day, period, score, reasons });
   }
 
   return suggestions.sort((left, right) => right.score - left.score).slice(0, 8);

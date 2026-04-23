@@ -1,5 +1,9 @@
+const { createDefaultPlcPolicy, createDefaultTimeStructure } = require("./schedule-config");
+
 function createEmptyDatabase() {
   const now = new Date().toISOString();
+  const timeStructure = createDefaultTimeStructure();
+  const plcPolicy = createDefaultPlcPolicy(timeStructure);
 
   return {
     settings: {
@@ -8,6 +12,8 @@ function createEmptyDatabase() {
       academicYear: "",
       term: "",
       logoPath: "",
+      timeStructure,
+      plcPolicy,
       signatories: [
         { title: "", name: "", signatureImage: "" },
         { title: "", name: "", signatureImage: "" },

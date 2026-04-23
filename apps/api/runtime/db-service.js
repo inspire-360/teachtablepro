@@ -7,6 +7,7 @@ const {
   TEACHING_ROLES,
   USER_ROLES,
 } = require("./constants");
+const { getExpectedWeeklyPeriods, normalizeSettingsShape } = require("./schedule-config");
 const { validateTimetable } = require("./conflict-engine");
 const { buildDataset, buildUnresolvedGroups, getCurrentTimetable } = require("./selectors");
 
@@ -158,7 +159,7 @@ function normalizeSection(db, payload, currentId) {
     term: trimString(payload.term) || db.settings.term,
     grade: Math.max(1, toNumber(payload.grade, 1)),
     roomName: trimString(payload.roomName),
-    plannedPeriodsPerWeek: Math.max(1, toNumber(payload.plannedPeriodsPerWeek, 30)),
+    plannedPeriodsPerWeek: Math.max(1, toNumber(payload.plannedPeriodsPerWeek, getExpectedWeeklyPeriods(db.settings))),
     homeroomTeacherId: payload.homeroomTeacherId || "",
   };
 }
@@ -184,7 +185,7 @@ function normalizeSectionSafe(db, payload, currentId) {
     term: trimString(payload.term) || db.settings.term,
     grade: normalizedGrade,
     roomName: trimString(payload.roomName),
-    plannedPeriodsPerWeek: Math.max(1, toNumber(payload.plannedPeriodsPerWeek, 30)),
+    plannedPeriodsPerWeek: Math.max(1, toNumber(payload.plannedPeriodsPerWeek, getExpectedWeeklyPeriods(db.settings))),
     homeroomTeacherId: payload.homeroomTeacherId || "",
   };
 }
@@ -248,21 +249,26 @@ function normalizeInstructionalGroup(db, payload, currentId) {
 }
 
 function normalizeSettings(db, payload) {
-  const signatories = Array.isArray(payload.signatories) ? payload.signatories : db.settings.signatories;
-  return {
-    ...db.settings,
-    schoolName: trimString(payload.schoolName) || db.settings.schoolName,
-    schoolShortName: trimString(payload.schoolShortName) || db.settings.schoolShortName,
-    academicYear: trimString(payload.academicYear) || db.settings.academicYear,
-    term: trimString(payload.term) || db.settings.term,
+  const currentSettings = normalizeSettingsShape(db.settings);
+  const signatories = Array.isArray(payload.signatories) ? payload.signatories : currentSettings.signatories;
+  const mergedSettings = {
+    ...currentSettings,
+    schoolName: trimString(payload.schoolName) || currentSettings.schoolName,
+    schoolShortName: trimString(payload.schoolShortName) || currentSettings.schoolShortName,
+    academicYear: trimString(payload.academicYear) || currentSettings.academicYear,
+    term: trimString(payload.term) || currentSettings.term,
     logoPath: trimString(payload.logoPath),
     signatories: signatories.map((item) => ({
       title: trimString(item.title),
       name: trimString(item.name),
       signatureImage: trimString(item.signatureImage),
     })),
+    timeStructure: payload.timeStructure || currentSettings.timeStructure,
+    plcPolicy: payload.plcPolicy || currentSettings.plcPolicy,
     updatedAt: new Date().toISOString(),
   };
+
+  return normalizeSettingsShape(mergedSettings);
 }
 
 function listByResource(db, resource) {

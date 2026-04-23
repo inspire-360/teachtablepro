@@ -8,7 +8,7 @@ const { buildTimetableCsv } = require("./csv-export");
 const { createByResource } = require("./db-service");
 const { createEmptyDatabase } = require("./empty-data");
 const { createSampleDatabase } = require("./sample-data");
-const { buildCsvPayload, buildDataset, buildPdfPayload } = require("./selectors");
+const { buildCsvPayload, buildDataset, buildExportReports, buildPdfPayload, getEntriesForView } = require("./selectors");
 
 test("autoSchedule creates timetable entries from seeded data", () => {
   const db = createSampleDatabase();
@@ -17,6 +17,16 @@ test("autoSchedule creates timetable entries from seeded data", () => {
 
   assert.ok(result.entries.length > 0);
   assert.ok(result.completionRate >= 0);
+});
+
+test("buildDataset injects normalized time structure and PLC defaults", () => {
+  const db = createEmptyDatabase();
+  const dataset = buildDataset(db);
+
+  assert.deepEqual(dataset.settings.timeStructure.activeDays, ["MON", "TUE", "WED", "THU", "FRI"]);
+  assert.equal(dataset.settings.timeStructure.dayConfigs.MON.teachingPeriods, 6);
+  assert.equal(dataset.settings.plcPolicy.title, "PLC");
+  assert.equal(dataset.settings.plcPolicy.allowedDays[0], "WED");
 });
 
 test("validateTimetable detects teacher double booking", () => {
@@ -55,6 +65,31 @@ test("validateTimetable detects teacher double booking", () => {
 
   const validation = validateTimetable(dataset);
   assert.ok(validation.conflicts.some((item) => item.code === "TEACHER_DOUBLE_BOOKED"));
+});
+
+test("validateTimetable flags entries outside the configured time structure", () => {
+  const db = createSampleDatabase();
+  db.settings.timeStructure.dayConfigs.MON.teachingPeriods = 4;
+  const dataset = buildDataset(db);
+  dataset.entries = [
+    {
+      id: "entry-outside-slot",
+      timetableId: dataset.timetableId,
+      enrollmentId: db.enrollments[0].id,
+      instructionalGroupId: db.instructionalGroups[0].id,
+      sectionId: db.enrollments[0].sectionId,
+      subjectId: db.enrollments[0].subjectId,
+      deliveryMode: "WHOLE_CLASS",
+      studentGroupKey: "WHOLE_CLASS",
+      roomId: db.rooms[0].id,
+      day: "MON",
+      period: 6,
+      teachers: [{ teacherId: db.teachers[0].id, teachingRole: "LEAD", loadFactor: 1 }],
+    },
+  ];
+
+  const validation = validateTimetable(dataset);
+  assert.ok(validation.conflicts.some((item) => item.code === "ENTRY_OUTSIDE_TIME_STRUCTURE"));
 });
 
 test("collaboration mutation increments version when locks are held", () => {
@@ -153,6 +188,25 @@ test("buildPdfPayload supports multiple selected reports", () => {
 
   assert.equal(payload.reports.length, 2);
   assert.deepEqual(payload.reports.map((report) => report.entityId), teacherIds);
+});
+
+test("teacher reports include PLC entries and dynamic period labels", () => {
+  const db = createSampleDatabase();
+  db.settings.timeStructure.dayConfigs.MON.teachingPeriods = 7;
+  db.settings.plcPolicy.enabled = true;
+  db.settings.plcPolicy.allowedDays = ["MON"];
+
+  const teacherId = db.teachers[0].id;
+  const entries = getEntriesForView(db, "teacher", teacherId);
+  const report = buildExportReports(db, {
+    view: "teacher",
+    scope: "selected",
+    entityIds: [teacherId],
+  })[0];
+
+  assert.ok(entries.some((entry) => entry.entryType === "PLC"));
+  assert.equal(report.periodLabels.length, 8);
+  assert.ok(report.entries.some((entry) => entry.entryType === "PLC"));
 });
 
 test("buildTimetableCsv combines selected reports into one file", () => {

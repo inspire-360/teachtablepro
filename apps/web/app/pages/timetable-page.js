@@ -65,7 +65,7 @@ export function renderTimetablePage(dom, options = {}) {
       gridRoot: dom.boardGrid,
     },
     {
-      matrix: snapshot.matrix,
+      boardModel: snapshot.boardModel,
     },
   );
 

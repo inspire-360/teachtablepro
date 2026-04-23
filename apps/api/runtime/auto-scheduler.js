@@ -1,7 +1,4 @@
-const {
-  PERIODS_PER_DAY,
-  WEEKDAYS,
-} = require("./constants");
+const { enumerateTeachingSlots } = require("./schedule-config");
 const { findSuggestedSlots, validateTimetable } = require("./conflict-engine");
 
 function findEnrollment(enrollmentId, enrollments) {
@@ -65,6 +62,7 @@ function autoSchedule(dataset, options = {}) {
 
     while (remaining > 0) {
       const suggestions = findSuggestedSlots({
+        settings: dataset.settings,
         group,
         enrollments: dataset.enrollments,
         entries,
@@ -115,14 +113,8 @@ function autoSchedule(dataset, options = {}) {
   };
 }
 
-function enumerateAllSlots() {
-  const slots = [];
-  for (const day of WEEKDAYS) {
-    for (let period = 1; period <= PERIODS_PER_DAY; period += 1) {
-      slots.push({ day, period });
-    }
-  }
-  return slots;
+function enumerateAllSlots(settings = {}) {
+  return enumerateTeachingSlots(settings);
 }
 
 module.exports = {
